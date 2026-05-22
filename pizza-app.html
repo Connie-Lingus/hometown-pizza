@@ -58,7 +58,7 @@
     .reset-btn:active { border-color: #444; color: #999; }
  
     /* MAIN */
-    #main-app { display: none; flex-direction: column; height: 100%; }
+    #main-app { display: flex; flex-direction: column; height: 100%; }
  
     /* HEADER */
     .header { background: var(--dark); padding: 0 18px 14px; padding-top: calc(14px + var(--safe-top)); flex-shrink: 0; position: relative; z-index: 10; }
@@ -194,16 +194,6 @@
 <body>
 <div id="app">
  
-  <!-- PASSWORD -->
-  <div id="pw-screen">
-    <div class="pw-pizza-icon">🍕</div>
-    <div class="pw-logo">Hometown<br>Pizza</div>
-    <div class="pw-tagline">Build Your Own</div>
-    <input class="pw-input" type="password" id="pw-in" placeholder="Enter password" autocomplete="current-password">
-    <div class="pw-err" id="pw-err"></div>
-    <button class="pw-btn" id="pw-btn">Start Ordering</button>
-  </div>
- 
   <!-- CONFIRMATION -->
   <div id="conf-screen">
     <div class="conf-check"><i class="ti ti-check" style="font-size:32px;color:#fff"></i></div>
@@ -332,7 +322,6 @@
 </div>
  
 <script>
-  const PW = "pizza2026";
  
   const SIZES = [
     { name:"Large",  inch:"14 inch", price:18.95, pop:true  },
@@ -388,19 +377,6 @@
   let ord = { size:0, crust:0, sauce:0, sauceMod:'normal', gbCrust:false, mozzMod:'normal', cheeseAddons:{}, cheeseMod:{}, tops:{}, topOrder:[] };
  
   /* ── AUTH ── */
-  document.getElementById('pw-btn').addEventListener('click', tryPw);
-  document.getElementById('pw-in').addEventListener('keydown', e => { if (e.key === 'Enter') tryPw(); });
-  function tryPw() {
-    if (document.getElementById('pw-in').value === PW) {
-      document.getElementById('pw-screen').style.display = 'none';
-      document.getElementById('main-app').style.display = 'flex';
-      init();
-    } else {
-      document.getElementById('pw-err').textContent = 'Wrong password — try again.';
-      document.getElementById('pw-in').value = '';
-    }
-  }
- 
   function getFreeIdx() {
     for (const idx of ord.topOrder) {
       const s = ord.tops[idx];
@@ -811,6 +787,7 @@
     init();
     document.getElementById('scroll-body').scrollTop = 0;
   });
+  init();
 </script>
 </body>
 </html>
