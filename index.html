@@ -6,7 +6,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#1A1410">
+  <meta name="theme-color" content="#FDF8F3">
   <title>Hometown Pizza</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
@@ -23,109 +23,104 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     html { scroll-behavior: smooth; }
-    html, body { height: 100%; overscroll-behavior-x: none; background: var(--dark); }
+    html, body { background: var(--cream); }
     body { font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
  
     /* ── HERO ── */
     #hero {
       min-height: 100vh;
       min-height: 100dvh;
-      background: var(--dark);
+      background: var(--cream);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 32px;
+      padding: 60px 28px;
       padding-top: calc(60px + var(--safe-top));
       padding-bottom: calc(60px + var(--safe-bottom));
       text-align: center;
-      position: relative;
     }
  
-    .hero-logo {
-      width: 110px;
-      height: 110px;
-      object-fit: contain;
-      margin-bottom: 28px;
-      animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-10px); }
-    }
- 
-    .hero-name {
-      font-size: 42px;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -1.5px;
-      line-height: 1;
-      margin-bottom: 14px;
-    }
- 
-    .hero-tagline {
-      font-size: 16px;
-      color: #888;
-      letter-spacing: 0.3px;
-      margin-bottom: 48px;
-      font-style: italic;
-      line-height: 1.5;
-    }
-    .hero-tagline span { color: var(--red); font-style: normal; font-weight: 700; }
- 
-    .hero-cta {
-      width: 100%;
-      max-width: 320px;
-      padding: 18px;
-      border-radius: 14px;
-      background: var(--red);
-      color: #fff;
-      font-size: 17px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.15s, transform 0.1s;
-      -webkit-appearance: none;
+    .hero-logo-wrap {
+      width: 240px;
+      height: 90px;
+      margin-bottom: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      text-decoration: none;
-      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
     }
-    .hero-cta:active { background: var(--red-dark); transform: scale(0.98); }
+    .hero-logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    .hero-logo-fallback {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -1px;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
  
-    .hero-scroll {
+    .pizza-boxes {
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+      margin-bottom: 36px;
+      opacity: 0.75;
+    }
+    .pizza-boxes img:nth-child(1) { width:54px;height:54px;object-fit:contain;animation:float 3s ease-in-out infinite; }
+    .pizza-boxes img:nth-child(2) { width:76px;height:76px;object-fit:contain;animation:float 3s ease-in-out 0.5s infinite; }
+    .pizza-boxes img:nth-child(3) { width:54px;height:54px;object-fit:contain;animation:float 3s ease-in-out 1s infinite; }
+ 
+    .tagline-wrap { margin-bottom: 52px; }
+    .tagline-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .tagline-main {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    .tagline-main em { font-style: normal; color: var(--red); }
+    .tagline-sub {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+    }
+ 
+    .scroll-prompt {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      color: #444;
-      font-size: 11px;
-      letter-spacing: 1.5px;
+      color: #C8A878;
+      font-size: 10px;
+      letter-spacing: 2px;
       text-transform: uppercase;
       cursor: pointer;
       transition: color 0.2s;
-      margin-top: 8px;
+      border: none;
+      background: transparent;
+      font-family: inherit;
     }
-    .hero-scroll:hover { color: #666; }
-    .hero-scroll i { animation: bounce 2s ease-in-out infinite; }
-    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+    .scroll-prompt:hover { color: var(--muted); }
+    .scroll-prompt i { font-size: 22px; animation: bounce 2s ease-in-out infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
  
     /* ── MENU SECTION ── */
     #menu {
       background: var(--cream);
-      min-height: 100vh;
-      min-height: 100dvh;
-      padding: 48px 20px;
-      padding-bottom: calc(48px + var(--safe-bottom));
+      padding: 52px 20px 64px;
+      padding-bottom: calc(64px + var(--safe-bottom));
     }
  
-    .menu-header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
+    .menu-header { text-align: center; margin-bottom: 28px; }
     .menu-eyebrow {
       font-size: 11px;
       font-weight: 600;
@@ -135,161 +130,140 @@
       margin-bottom: 8px;
     }
     .menu-title {
-      font-size: 30px;
+      font-size: 28px;
       font-weight: 800;
       color: var(--dark);
-      letter-spacing: -0.8px;
+      letter-spacing: -0.6px;
     }
-    .menu-sub {
-      font-size: 14px;
-      color: var(--muted);
-      margin-top: 6px;
-      line-height: 1.5;
-    }
+    .menu-sub { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
  
-    .menu-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      max-width: 420px;
-      margin: 0 auto;
-    }
+    .menu-grid { display: flex; flex-direction: column; gap: 10px; max-width: 420px; margin: 0 auto; }
  
     .menu-card {
       background: #fff;
-      border-radius: 16px;
+      border-radius: 14px;
       border: 1.5px solid var(--border);
-      padding: 20px;
+      padding: 15px 18px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       cursor: pointer;
       transition: all 0.15s;
       text-decoration: none;
-      position: relative;
-      overflow: hidden;
     }
     .menu-card:active { transform: scale(0.98); }
-    .menu-card.active { border-color: var(--red); background: var(--red-light); }
-    .menu-card.coming-soon { opacity: 0.6; cursor: default; }
+    .menu-card.live { border-color: var(--red); background: var(--red-light); }
+    .menu-card.soon { opacity: 0.55; cursor: default; }
  
-    .menu-card-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
       background: var(--dark);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      overflow: hidden;
     }
-    .menu-card.active .menu-card-icon { background: var(--red); }
-    .menu-card-icon img { width: 40px; height: 40px; object-fit: contain; }
-    .menu-card-icon i { font-size: 26px; color: #fff; }
+    .menu-card.live .card-icon { background: var(--red); }
+    .card-icon i { font-size: 24px; color: #fff; }
+    .card-icon img { width: 34px; height: 34px; object-fit: contain; }
  
-    .menu-card-text { flex: 1; }
-    .menu-card-name {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--dark);
-      letter-spacing: -0.3px;
-    }
-    .menu-card.active .menu-card-name { color: var(--red-dark); }
-    .menu-card-desc {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 3px;
-      line-height: 1.4;
-    }
+    .card-body { flex: 1; }
+    .card-name { font-size: 16px; font-weight: 700; color: var(--dark); letter-spacing: -0.2px; }
+    .menu-card.live .card-name { color: var(--red-dark); }
+    .card-desc { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
  
-    .menu-card-arrow { color: var(--muted); flex-shrink: 0; }
-    .menu-card.active .menu-card-arrow { color: var(--red); }
- 
-    .coming-badge {
+    .card-right { flex-shrink: 0; }
+    .card-arrow { font-size: 18px; color: var(--muted); }
+    .menu-card.live .card-arrow { color: var(--red); }
+    .soon-badge {
       font-size: 10px;
       font-weight: 700;
       background: var(--border);
       color: var(--muted);
       border-radius: 20px;
       padding: 3px 10px;
-      flex-shrink: 0;
       letter-spacing: 0.5px;
     }
  
     /* ── DIVIDER ── */
-    .section-divider {
+    .sec-divider {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin: 32px 0 24px;
+      margin: 32px auto 20px;
       max-width: 420px;
-      margin-left: auto;
-      margin-right: auto;
     }
-    .section-divider-line { flex: 1; height: 1px; background: var(--border); }
-    .section-divider-text { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+    .sec-divider-line { flex: 1; height: 1px; background: var(--border); }
+    .sec-divider-txt { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; }
  
-    /* ── DEALS SECTION ── */
-    .deals-section {
-      max-width: 420px;
-      margin: 0 auto;
-    }
+    /* ── DEALS ── */
+    .deals-wrap { max-width: 420px; margin: 0 auto; }
     .deal-card {
       background: var(--dark);
-      border-radius: 16px;
-      padding: 20px;
+      border-radius: 14px;
+      padding: 18px;
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 14px;
+      gap: 14px;
+      margin-bottom: 10px;
     }
-    .deal-icon { font-size: 36px; flex-shrink: 0; }
-    .deal-text { flex: 1; }
+    .deal-em { font-size: 34px; flex-shrink: 0; }
+    .deal-body { flex: 1; }
     .deal-title { font-size: 15px; font-weight: 700; color: #fff; }
     .deal-desc { font-size: 12px; color: #666; margin-top: 3px; line-height: 1.4; }
-    .deal-badge {
+    .deal-pill {
       background: var(--red);
       color: #fff;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       border-radius: 8px;
       padding: 4px 10px;
       flex-shrink: 0;
+      letter-spacing: 0.5px;
     }
  
     /* ── FOOTER ── */
-    .site-footer {
+    footer {
       background: var(--dark);
-      padding: 32px 20px;
-      padding-bottom: calc(32px + var(--safe-bottom));
+      padding: 36px 24px;
+      padding-bottom: calc(36px + var(--safe-bottom));
       text-align: center;
     }
-    .footer-logo { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-bottom: 6px; }
-    .footer-tag { font-size: 12px; color: #444; font-style: italic; margin-bottom: 20px; }
-    .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 20px; }
-    .footer-link { font-size: 13px; color: #666; text-decoration: none; }
-    .footer-link:hover { color: #999; }
-    .footer-copy { font-size: 11px; color: #333; }
+    .ft-logo { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.4px; margin-bottom: 4px; }
+    .ft-tag { font-size: 12px; color: #444; font-style: italic; margin-bottom: 20px; }
+    .ft-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; }
+    .ft-link { font-size: 13px; color: #555; text-decoration: none; }
+    .ft-link:hover { color: #888; }
+    .ft-copy { font-size: 11px; color: #333; }
   </style>
 </head>
 <body>
  
   <!-- HERO -->
   <section id="hero">
-    <img src="images/Pizza_Box_2-nobg.png" alt="Hometown Pizza" class="hero-logo">
-    <div class="hero-name">Hometown Pizza</div>
-    <div class="hero-tagline">
-      Stop eating <span>gas station pizza.</span>
+    <div class="hero-logo-wrap">
+      <img src="images/HTPizza_LOGO-nobg.png" alt="Hometown Pizza" onerror="this.style.display='none';document.querySelector('.hero-logo-fallback').style.display='block'">
+      <div class="hero-logo-fallback" style="display:none">Hometown Pizza</div>
     </div>
-    <a href="pizza-app.html" class="hero-cta">
-      <i class="ti ti-pizza" style="font-size:22px" aria-hidden="true"></i>
-      Build Your Pizza
-    </a>
-    <div class="hero-scroll" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
+ 
+    <div class="pizza-boxes">
+      <img src="images/Pizza_Box_2-nobg.png" alt="" aria-hidden="true">
+      <img src="images/Pizza_Box_2-nobg.png" alt="" aria-hidden="true">
+      <img src="images/Pizza_Box_2-nobg.png" alt="" aria-hidden="true">
+    </div>
+ 
+    <div class="tagline-wrap">
+      <div class="tagline-eyebrow">Your hometown. Your pizza.</div>
+      <div class="tagline-main">Stop eating<br><em>gas station pizza.</em></div>
+      <div class="tagline-sub">Fresh. Local. Made your way.</div>
+    </div>
+ 
+    <button class="scroll-prompt" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
       <span>See the menu</span>
-      <i class="ti ti-chevron-down" style="font-size:20px" aria-hidden="true"></i>
-    </div>
+      <i class="ti ti-chevron-down" aria-hidden="true"></i>
+    </button>
   </section>
  
   <!-- MENU -->
@@ -297,100 +271,133 @@
     <div class="menu-header">
       <div class="menu-eyebrow">What are you having?</div>
       <div class="menu-title">The Menu</div>
-      <div class="menu-sub">Fresh ingredients. Made to order.<br>Your way, every time.</div>
+      <div class="menu-sub">Made fresh. Every order. Every time.</div>
     </div>
  
     <div class="menu-grid">
  
-      <!-- Build Your Own — LIVE -->
-      <a href="pizza-app.html" class="menu-card active">
-        <div class="menu-card-icon">
-          <img src="images/Pizza_Box_2-nobg.png" alt="Build Your Own Pizza">
+      <!-- Gourmet Pizza -->
+      <div class="menu-card soon">
+        <div class="card-icon"><i class="ti ti-award" aria-hidden="true"></i></div>
+        <div class="card-body">
+          <div class="card-name">Gourmet Pizza</div>
+          <div class="card-desc">Premium ingredients, elevated combinations</div>
         </div>
-        <div class="menu-card-text">
-          <div class="menu-card-name">Build Your Own</div>
-          <div class="menu-card-desc">Pick your size, crust, sauce & toppings</div>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
+      </div>
+ 
+      <!-- Specialty Pizza -->
+      <div class="menu-card soon">
+        <div class="card-icon"><i class="ti ti-star" aria-hidden="true"></i></div>
+        <div class="card-body">
+          <div class="card-name">Specialty Pizza</div>
+          <div class="card-desc">Chef's picks, loaded and ready to go</div>
         </div>
-        <i class="ti ti-chevron-right menu-card-arrow" style="font-size:20px" aria-hidden="true"></i>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
+      </div>
+ 
+      <!-- Build a Pizza — LIVE -->
+      <a href="pizza-app.html" class="menu-card live">
+        <div class="card-icon">
+          <img src="images/Pizza_Box_2-nobg.png" alt="Build a Pizza">
+        </div>
+        <div class="card-body">
+          <div class="card-name">Build a Pizza</div>
+          <div class="card-desc">Your size, crust, sauce & toppings — your way</div>
+        </div>
+        <div class="card-right"><i class="ti ti-chevron-right card-arrow" aria-hidden="true"></i></div>
       </a>
  
-      <!-- Specialty Pizzas — Coming Soon -->
-      <div class="menu-card coming-soon">
-        <div class="menu-card-icon">
-          <i class="ti ti-star" aria-hidden="true"></i>
+      <!-- Appetizers -->
+      <div class="menu-card soon">
+        <div class="card-icon"><i class="ti ti-meat" aria-hidden="true"></i></div>
+        <div class="card-body">
+          <div class="card-name">Appetizers</div>
+          <div class="card-desc">Wings, breadsticks & starters</div>
         </div>
-        <div class="menu-card-text">
-          <div class="menu-card-name">Specialty Pizzas</div>
-          <div class="menu-card-desc">Chef's picks, loaded and ready to go</div>
-        </div>
-        <span class="coming-badge">Coming Soon</span>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
       </div>
  
-      <!-- Sides — Coming Soon -->
-      <div class="menu-card coming-soon">
-        <div class="menu-card-icon">
-          <i class="ti ti-basket" aria-hidden="true"></i>
+      <!-- Sandwiches -->
+      <div class="menu-card soon">
+        <div class="card-icon"><i class="ti ti-sandwich" aria-hidden="true"></i></div>
+        <div class="card-body">
+          <div class="card-name">Sandwiches</div>
+          <div class="card-desc">Hot subs and cold cuts, built fresh</div>
         </div>
-        <div class="menu-card-text">
-          <div class="menu-card-name">Sides</div>
-          <div class="menu-card-desc">Wings, breadsticks, salads & more</div>
-        </div>
-        <span class="coming-badge">Coming Soon</span>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
       </div>
  
-      <!-- Drinks — Coming Soon -->
-      <div class="menu-card coming-soon">
-        <div class="menu-card-icon">
-          <i class="ti ti-bottle" aria-hidden="true"></i>
+      <!-- Salads -->
+      <div class="menu-card soon">
+        <div class="card-icon"><i class="ti ti-plant" aria-hidden="true"></i></div>
+        <div class="card-body">
+          <div class="card-name">Salads</div>
+          <div class="card-desc">Fresh greens, homemade dressings</div>
         </div>
-        <div class="menu-card-text">
-          <div class="menu-card-name">Drinks</div>
-          <div class="menu-card-desc">Cold drinks to go with your pizza</div>
-        </div>
-        <span class="coming-badge">Coming Soon</span>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
       </div>
  
-    </div>
+      <!-- Sides -->
+      <div class="menu-card soon">
+        <div class="card-icon"><i class="ti ti-soup" aria-hidden="true"></i></div>
+        <div class="card-body">
+          <div class="card-name">Sides</div>
+          <div class="card-desc">Homemade ranch, marinara, dipping sauces</div>
+        </div>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
+      </div>
  
-    <!-- Deals divider -->
-    <div class="section-divider">
-      <div class="section-divider-line"></div>
-      <div class="section-divider-text">This month</div>
-      <div class="section-divider-line"></div>
+      <!-- Beverages -->
+      <div class="menu-card soon">
+        <div class="card-icon"><i class="ti ti-bottle" aria-hidden="true"></i></div>
+        <div class="card-body">
+          <div class="card-name">Beverages</div>
+          <div class="card-desc">Cold drinks to go with your pizza</div>
+        </div>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
+      </div>
+ 
     </div>
  
     <!-- Deals -->
-    <div class="deals-section">
+    <div class="sec-divider">
+      <div class="sec-divider-line"></div>
+      <div class="sec-divider-txt">This month</div>
+      <div class="sec-divider-line"></div>
+    </div>
+ 
+    <div class="deals-wrap">
       <div class="deal-card">
-        <div class="deal-icon" aria-hidden="true">🍕</div>
-        <div class="deal-text">
+        <div class="deal-em" aria-hidden="true">🍕</div>
+        <div class="deal-body">
           <div class="deal-title">Tuesday Special</div>
-          <div class="deal-desc">Large pizza with up to 3 toppings — one low price. Every Tuesday.</div>
+          <div class="deal-desc">Large pizza with up to 3 toppings. Every Tuesday.</div>
         </div>
-        <div class="deal-badge">Deal</div>
+        <div class="deal-pill">Deal</div>
       </div>
       <div class="deal-card">
-        <div class="deal-icon" aria-hidden="true">🎉</div>
-        <div class="deal-text">
+        <div class="deal-em" aria-hidden="true">🎉</div>
+        <div class="deal-body">
           <div class="deal-title">Party Pack</div>
-          <div class="deal-desc">Two XL pizzas + drinks. Feed the whole crew.</div>
+          <div class="deal-desc">Two large pizzas + drinks. Feed the whole crew.</div>
         </div>
-        <div class="deal-badge">New</div>
+        <div class="deal-pill">New</div>
       </div>
     </div>
  
   </section>
  
   <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-logo">Hometown Pizza</div>
-    <div class="footer-tag">"Stop eating gas station pizza."</div>
-    <div class="footer-links">
-      <a href="#" class="footer-link">Hours</a>
-      <a href="#" class="footer-link">Location</a>
-      <a href="#" class="footer-link">Contact</a>
+  <footer>
+    <div class="ft-logo">Hometown Pizza</div>
+    <div class="ft-tag">"Stop eating gas station pizza."</div>
+    <div class="ft-links">
+      <a href="#" class="ft-link">Hours</a>
+      <a href="#" class="ft-link">Location</a>
+      <a href="#" class="ft-link">Contact</a>
     </div>
-    <div class="footer-copy">© 2026 Hometown Pizza. All rights reserved.</div>
+    <div class="ft-copy">© 2026 Hometown Pizza. All rights reserved.</div>
   </footer>
  
 </body>
