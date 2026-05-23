@@ -24,248 +24,179 @@
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     html { scroll-behavior: smooth; }
     html, body { background: var(--cream); }
-    body { font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; padding-bottom: 64px; }
+    body { font-family: -apple-system, "SF Pro Display", "Helvetica Neue", system-ui, sans-serif; -webkit-font-smoothing: antialiased; padding-bottom: 64px; }
  
-    /* ── TOP NAV BAR ── */
+    /* TOP NAV BAR */
     .top-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: var(--cream);
-      border-bottom: 1px solid var(--border);
-      padding: 0 16px;
-      padding-top: var(--safe-top);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 0 16px; padding-top: var(--safe-top);
       height: calc(56px + var(--safe-top));
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      padding-bottom: 10px;
+      display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 10px;
+    }
+    .hamburger {
+      width: 40px; height: 40px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 5px;
+      cursor: pointer; border: none; background: transparent;
+      border-radius: 10px; transition: background 0.15s; flex-shrink: 0;
+    }
+    .hamburger:active { background: var(--border); }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--dark); border-radius: 2px; }
+    .order-toggle {
+      display: flex; align-items: center; background: var(--border);
+      border-radius: 20px; padding: 3px; gap: 2px;
+    }
+    .toggle-btn {
+      padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer; font-family: inherit; transition: all 0.2s;
+      background: transparent; color: var(--muted);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .toggle-btn.active { background: var(--dark); color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+    .toggle-btn i { font-size: 14px; }
+    .top-bar-right { width: 40px; height: 40px; flex-shrink: 0; }
+ 
+    /* HERO */
+    #hero {
+      min-height: 100vh; min-height: 100dvh;
+      background: var(--cream);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 80px 28px 80px;
+      padding-top: calc(80px + var(--safe-top));
+      text-align: center; position: relative; overflow: hidden;
     }
  
-    /* Hamburger menu */
-    .hamburger {
-      width: 40px;
-      height: 40px;
+    /* FEATURED PIZZA — centered, no float, promotional */
+    .featured-pizza-wrap {
+      position: relative;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 5px;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      border-radius: 10px;
-      transition: background 0.15s;
-      flex-shrink: 0;
+      margin-bottom: 20px;
+      z-index: 2;
     }
-    .hamburger:active { background: var(--border); }
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--dark);
-      border-radius: 2px;
-      transition: all 0.2s;
-    }
- 
-    /* Pickup / Delivery toggle */
-    .order-toggle {
-      display: flex;
+    .featured-label {
+      display: inline-flex;
       align-items: center;
-      background: var(--border);
+      gap: 6px;
+      background: var(--red);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       border-radius: 20px;
-      padding: 3px;
-      gap: 2px;
+      padding: 5px 14px;
+      margin-bottom: 12px;
     }
-    .toggle-btn {
-      padding: 6px 14px;
-      border-radius: 16px;
+    .featured-pizza-img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 32px rgba(200,49,26,0.25));
+    }
+    .featured-pizza-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+      margin-top: 10px;
+      line-height: 1.2;
+    }
+    .featured-pizza-hook {
       font-size: 13px;
-      font-weight: 600;
+      color: var(--muted);
+      margin-top: 4px;
+      font-style: italic;
+    }
+    .featured-pizza-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 9px 18px;
+      border-radius: 20px;
+      background: var(--dark);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
       border: none;
       cursor: pointer;
       font-family: inherit;
-      transition: all 0.2s;
-      background: transparent;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 5px;
     }
-    .toggle-btn.active {
-      background: var(--dark);
-      color: #fff;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-    }
-    .toggle-btn i { font-size: 14px; }
+    .featured-pizza-cta:active { background: var(--red); transform: scale(0.97); }
  
-    /* Placeholder right side to balance layout */
-    .top-bar-right {
-      width: 40px;
-      height: 40px;
-      flex-shrink: 0;
-    }
- 
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      min-height: 100dvh;
-      background: var(--cream);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 28px 80px;
-      padding-top: calc(80px + var(--safe-top));
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
- 
-    /* Floating pizza image top right */
-    .hero-pizza-float {
-      position: absolute;
-      top: calc(70px + var(--safe-top));
-      right: -10px;
-      width: 180px;
-      height: 180px;
-      object-fit: contain;
-      animation: floatRight 4s ease-in-out infinite;
-      pointer-events: none;
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.12));
-    }
-    @keyframes floatRight {
-      0%,100% { transform: translateY(0) rotate(3deg); }
-      50%      { transform: translateY(-12px) rotate(-1deg); }
-    }
- 
-    /* Logo */
+    /* LOGO — static, no float */
     .hero-logo-wrap {
-      width: 220px;
-      height: 80px;
-      margin-bottom: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: float 3s ease-in-out infinite;
-      position: relative;
-      z-index: 2;
+      width: 220px; height: 80px; margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 2;
     }
     .hero-logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
-    .hero-logo-fallback {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--dark);
-      letter-spacing: -1px;
-    }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    .hero-logo-fallback { font-size: 28px; font-weight: 800; color: var(--dark); letter-spacing: -1px; }
  
-    /* Pizza boxes */
+    /* PIZZA BOXES — keep floating */
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
     .pizza-boxes {
-      display: flex;
-      align-items: flex-end;
-      gap: 14px;
-      margin-bottom: 32px;
-      opacity: 0.75;
-      position: relative;
-      z-index: 2;
+      display: flex; align-items: flex-end; gap: 14px;
+      margin-bottom: 28px; opacity: 0.75; position: relative; z-index: 2;
     }
     .pizza-boxes img:nth-child(1) { width:52px;height:52px;object-fit:contain;animation:float 3s ease-in-out infinite; }
     .pizza-boxes img:nth-child(2) { width:72px;height:72px;object-fit:contain;animation:float 3s ease-in-out 0.5s infinite; }
     .pizza-boxes img:nth-child(3) { width:52px;height:52px;object-fit:contain;animation:float 3s ease-in-out 1s infinite; }
  
-    /* Tagline */
-    .tagline-wrap { margin-bottom: 48px; position: relative; z-index: 2; }
-    .tagline-eyebrow {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-    .tagline-main {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--dark);
-      letter-spacing: -0.8px;
-      line-height: 1.15;
-      margin-bottom: 10px;
-    }
+    /* TAGLINE */
+    .tagline-wrap { margin-bottom: 36px; position: relative; z-index: 2; }
+    .tagline-eyebrow { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+    .tagline-main { font-size: 28px; font-weight: 800; color: var(--dark); letter-spacing: -0.8px; line-height: 1.15; }
     .tagline-main em { font-style: normal; color: var(--red); }
-    .tagline-sub { font-size: 13px; color: var(--muted); }
  
-    /* Scroll prompt */
+    /* SCROLL PROMPT */
     .scroll-prompt {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      color: #C8A878;
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      font-family: inherit;
-      position: relative;
-      z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: #C8A878; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      cursor: pointer; border: none; background: transparent; font-family: inherit;
+      position: relative; z-index: 2;
     }
     .scroll-prompt i { font-size: 22px; animation: bounce 2s ease-in-out infinite; }
     @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
  
-    /* ── MENU SECTION ── */
-    #menu {
-      background: var(--cream);
-      padding: 52px 20px 40px;
-    }
+    /* MENU SECTION */
+    #menu { background: var(--cream); padding: 52px 20px 40px; }
     .menu-header { text-align: center; margin-bottom: 28px; }
     .menu-eyebrow { font-size: 11px; font-weight: 600; color: var(--red); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
     .menu-title { font-size: 28px; font-weight: 800; color: var(--dark); letter-spacing: -0.6px; }
-    .menu-sub { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
- 
     .menu-grid { display: flex; flex-direction: column; gap: 10px; max-width: 420px; margin: 0 auto; }
- 
     .menu-card {
-      background: #fff;
-      border-radius: 14px;
-      border: 1.5px solid var(--border);
-      padding: 15px 18px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      cursor: pointer;
-      transition: all 0.15s;
-      text-decoration: none;
+      background: #fff; border-radius: 14px; border: 1.5px solid var(--border);
+      padding: 15px 18px; display: flex; align-items: center; gap: 14px;
+      cursor: pointer; transition: all 0.15s; text-decoration: none;
     }
     .menu-card:active { transform: scale(0.98); }
     .menu-card.live { border-color: var(--red); background: var(--red-light); }
     .menu-card.soon { opacity: 0.55; cursor: default; }
- 
     .card-icon { width: 48px; height: 48px; border-radius: 10px; background: var(--dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .menu-card.live .card-icon { background: var(--red); }
     .card-icon i { font-size: 24px; color: #fff; }
     .card-icon img { width: 34px; height: 34px; object-fit: contain; }
- 
     .card-body { flex: 1; }
     .card-name { font-size: 16px; font-weight: 700; color: var(--dark); letter-spacing: -0.2px; }
     .menu-card.live .card-name { color: var(--red-dark); }
     .card-desc { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
- 
     .card-right { flex-shrink: 0; }
     .card-arrow { font-size: 18px; color: var(--muted); }
     .menu-card.live .card-arrow { color: var(--red); }
     .soon-badge { font-size: 10px; font-weight: 700; background: var(--border); color: var(--muted); border-radius: 20px; padding: 3px 10px; letter-spacing: 0.5px; }
  
-    /* ── DIVIDER ── */
+    /* DIVIDER */
     .sec-divider { display: flex; align-items: center; gap: 12px; margin: 32px auto 20px; max-width: 420px; }
     .sec-divider-line { flex: 1; height: 1px; background: var(--border); }
     .sec-divider-txt { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; }
  
-    /* ── DEALS ── */
+    /* DEALS */
     .deals-wrap { max-width: 420px; margin: 0 auto; }
     .deal-card { background: var(--dark); border-radius: 14px; padding: 18px; display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
     .deal-em { font-size: 34px; flex-shrink: 0; }
@@ -274,8 +205,8 @@
     .deal-desc { font-size: 12px; color: #666; margin-top: 3px; line-height: 1.4; }
     .deal-pill { background: var(--red); color: #fff; font-size: 10px; font-weight: 700; border-radius: 8px; padding: 4px 10px; flex-shrink: 0; letter-spacing: 0.5px; }
  
-    /* ── FOOTER ── */
-    footer { background: var(--dark); padding: 36px 24px; text-align: center; margin-bottom: 0; }
+    /* FOOTER */
+    footer { background: var(--dark); padding: 36px 24px; text-align: center; }
     .ft-logo { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.4px; margin-bottom: 4px; }
     .ft-tag { font-size: 12px; color: #444; font-style: italic; margin-bottom: 20px; }
     .ft-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; }
@@ -283,91 +214,45 @@
     .ft-link:hover { color: #888; }
     .ft-copy { font-size: 11px; color: #333; }
  
-    /* ── BOTTOM NAV ── */
+    /* BOTTOM NAV */
     .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: var(--cream);
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: stretch;
-      height: calc(56px + var(--safe-bottom));
-      padding-bottom: var(--safe-bottom);
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: var(--cream); border-top: 1px solid var(--border);
+      display: flex; align-items: stretch;
+      height: calc(56px + var(--safe-bottom)); padding-bottom: var(--safe-bottom);
     }
     .nav-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      font-family: inherit;
-      transition: all 0.15s;
-      text-decoration: none;
-      color: var(--muted);
-      padding: 6px 0;
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 3px; cursor: pointer; border: none;
+      background: transparent; font-family: inherit; transition: all 0.15s;
+      text-decoration: none; color: var(--muted); padding: 6px 0;
     }
     .nav-item:active { opacity: 0.7; }
     .nav-item.active { color: var(--red); }
     .nav-item i { font-size: 22px; }
     .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
  
-    /* ── SIDE DRAWER (hamburger menu) ── */
-    .drawer-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 200;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s;
-    }
+    /* DRAWER */
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
     .drawer-overlay.open { opacity: 1; pointer-events: all; }
     .drawer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 280px;
-      background: var(--cream);
-      z-index: 201;
+      position: fixed; top: 0; left: 0; bottom: 0; width: 280px;
+      background: var(--cream); z-index: 201;
       transform: translateX(-100%);
       transition: transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94);
-      padding-top: var(--safe-top);
-      display: flex;
-      flex-direction: column;
+      padding-top: var(--safe-top); display: flex; flex-direction: column;
     }
     .drawer.open { transform: translateX(0); }
-    .drawer-header {
-      padding: 20px 20px 16px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    .drawer-header { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
     .drawer-title { font-size: 18px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
     .drawer-close { width: 36px; height: 36px; border-radius: 8px; border: none; background: var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; }
     .drawer-close i { font-size: 18px; color: var(--dark); }
     .drawer-body { flex: 1; overflow-y: auto; padding: 16px 0; }
     .drawer-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 20px;
-      cursor: pointer;
-      transition: background 0.15s;
-      border: none;
-      background: transparent;
-      width: 100%;
-      font-family: inherit;
-      text-align: left;
-      text-decoration: none;
+      display: flex; align-items: center; gap: 14px; padding: 14px 20px;
+      cursor: pointer; transition: background 0.15s; border: none;
+      background: transparent; width: 100%; font-family: inherit;
+      text-align: left; text-decoration: none;
     }
     .drawer-item:active { background: var(--border); }
     .drawer-item i { font-size: 20px; color: var(--muted); flex-shrink: 0; }
@@ -375,18 +260,7 @@
     .drawer-item-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
     .drawer-divider { height: 1px; background: var(--border); margin: 8px 20px; }
     .drawer-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
-    .drawer-sign-in {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      background: var(--dark);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-    }
+    .drawer-sign-in { width: 100%; padding: 14px; border-radius: 12px; background: var(--dark); color: #fff; font-size: 15px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; }
   </style>
 </head>
 <body>
@@ -415,40 +289,16 @@
       <button class="drawer-close" onclick="closeDrawer()"><i class="ti ti-x"></i></button>
     </div>
     <div class="drawer-body">
-      <a href="#" class="drawer-item">
-        <i class="ti ti-user-circle"></i>
-        <div><div class="drawer-item-text">Profile</div><div class="drawer-item-sub">Name, Email, Preferences</div></div>
-      </a>
-      <a href="#" class="drawer-item">
-        <i class="ti ti-clock-history"></i>
-        <div><div class="drawer-item-text">Order History</div><div class="drawer-item-sub">Past Orders & Reorder</div></div>
-      </a>
-      <a href="#" class="drawer-item">
-        <i class="ti ti-credit-card"></i>
-        <div><div class="drawer-item-text">Payment Methods</div><div class="drawer-item-sub">Cards & Saved Payments</div></div>
-      </a>
-      <a href="#" class="drawer-item">
-        <i class="ti ti-map-pin"></i>
-        <div><div class="drawer-item-text">Saved Addresses</div><div class="drawer-item-sub">Delivery Locations</div></div>
-      </a>
+      <a href="#" class="drawer-item"><i class="ti ti-user-circle"></i><div><div class="drawer-item-text">Profile</div><div class="drawer-item-sub">Name, Email, Preferences</div></div></a>
+      <a href="#" class="drawer-item"><i class="ti ti-clock-history"></i><div><div class="drawer-item-text">Order History</div><div class="drawer-item-sub">Past Orders & Reorder</div></div></a>
+      <a href="#" class="drawer-item"><i class="ti ti-credit-card"></i><div><div class="drawer-item-text">Payment Methods</div><div class="drawer-item-sub">Cards & Saved Payments</div></div></a>
+      <a href="#" class="drawer-item"><i class="ti ti-map-pin"></i><div><div class="drawer-item-text">Saved Addresses</div><div class="drawer-item-sub">Delivery Locations</div></div></a>
       <div class="drawer-divider"></div>
-      <a href="#" class="drawer-item">
-        <i class="ti ti-gift"></i>
-        <div><div class="drawer-item-text">Rewards</div><div class="drawer-item-sub">Points & Offers</div></div>
-      </a>
-      <a href="#" class="drawer-item">
-        <i class="ti ti-users"></i>
-        <div><div class="drawer-item-text">Group Order</div><div class="drawer-item-sub">Order Together, Pay Separately</div></div>
-      </a>
+      <a href="#" class="drawer-item"><i class="ti ti-gift"></i><div><div class="drawer-item-text">Rewards</div><div class="drawer-item-sub">Points & Offers</div></div></a>
+      <a href="#" class="drawer-item"><i class="ti ti-users"></i><div><div class="drawer-item-text">Group Order</div><div class="drawer-item-sub">Order Together, Pay Separately</div></div></a>
       <div class="drawer-divider"></div>
-      <a href="#" class="drawer-item">
-        <i class="ti ti-settings"></i>
-        <div><div class="drawer-item-text">Settings</div><div class="drawer-item-sub">Notifications, Preferences</div></div>
-      </a>
-      <a href="#" class="drawer-item">
-        <i class="ti ti-help-circle"></i>
-        <div><div class="drawer-item-text">Help & Support</div><div class="drawer-item-sub">FAQs, Contact Us</div></div>
-      </a>
+      <a href="#" class="drawer-item"><i class="ti ti-settings"></i><div><div class="drawer-item-text">Settings</div><div class="drawer-item-sub">Notifications, Preferences</div></div></a>
+      <a href="#" class="drawer-item"><i class="ti ti-help-circle"></i><div><div class="drawer-item-text">Help & Support</div><div class="drawer-item-sub">FAQs, Contact Us</div></div></a>
     </div>
     <div class="drawer-footer">
       <button class="drawer-sign-in">Sign In / Create Account</button>
@@ -457,31 +307,45 @@
  
   <!-- HERO -->
   <section id="hero">
-    <!-- Floating pizza image top right -->
-    <img src="images/Med-ChkBcnRnch-nobg.png" alt="Chicken Bacon Ranch Pizza" class="hero-pizza-float">
  
-    <!-- Logo center -->
+    <!-- STATIC LOGO — no float -->
     <div class="hero-logo-wrap">
       <img src="images/HTPizza_LOGO-nobg.png" alt="Hometown Pizza" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <div class="hero-logo-fallback" style="display:none">Hometown Pizza</div>
     </div>
  
-    <!-- Three floating pizza boxes -->
+    <!-- THREE FLOATING PIZZA BOXES -->
     <div class="pizza-boxes">
       <img src="images/Pizza_Box_2-nobg.png" alt="" aria-hidden="true">
       <img src="images/Pizza_Box_2-nobg.png" alt="" aria-hidden="true">
       <img src="images/Pizza_Box_2-nobg.png" alt="" aria-hidden="true">
     </div>
  
-    <!-- Tagline -->
-    <div class="tagline-wrap">
-      <div class="tagline-eyebrow">Your hometown. Your pizza.</div>
-      <div class="tagline-main">Stop eating<br><em>gas station pizza.</em></div>
+    <!-- FEATURED PIZZA — centered, static, promotional -->
+    <div class="featured-pizza-wrap">
+      <div class="featured-label">
+        <i class="ti ti-flame" style="font-size:12px"></i>
+        Pizza of the Month
+      </div>
+      <img src="images/Jalapeno_Popper-nobg.png" alt="Jalapeño Popper Pizza" class="featured-pizza-img"
+           onerror="this.style.display='none'">
+      <div class="featured-pizza-name">Large Jalapeño Popper Pizza</div>
+      <div class="featured-pizza-hook">Cream cheese, jalapeños & crispy bacon — one slice and you're hooked.</div>
+      <a href="pizza-app.html" class="featured-pizza-cta">
+        <i class="ti ti-pizza" style="font-size:15px"></i>
+        Order Now
+      </a>
     </div>
  
-    <!-- Scroll prompt -->
+    <!-- TAGLINE -->
+    <div class="tagline-wrap">
+      <div class="tagline-eyebrow">Your Hometown. Your Pizza.</div>
+      <div class="tagline-main">Stop eating<br><em>gas station pizza!</em></div>
+    </div>
+ 
+    <!-- SCROLL PROMPT -->
     <button class="scroll-prompt" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
-      <span>Scroll to see the menu</span>
+      <span>Scroll to See the Menu</span>
       <i class="ti ti-chevron-down" aria-hidden="true"></i>
     </button>
   </section>
@@ -489,81 +353,24 @@
   <!-- MENU -->
   <section id="menu">
     <div class="menu-header">
-      <div class="menu-eyebrow">What are you having?</div>
+      <div class="menu-eyebrow">What Are You Having?</div>
       <div class="menu-title">The Menu</div>
     </div>
- 
     <div class="menu-grid">
- 
-      <div class="menu-card soon">
-        <div class="card-icon"><i class="ti ti-award" aria-hidden="true"></i></div>
-        <div class="card-body"><div class="card-name">Gourmet Pizza</div><div class="card-desc">Premium Ingredients</div></div>
-        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
-      </div>
- 
-      <div class="menu-card soon">
-        <div class="card-icon"><i class="ti ti-star" aria-hidden="true"></i></div>
-        <div class="card-body"><div class="card-name">Specialty Pizza</div><div class="card-desc">Loaded Combinations</div></div>
-        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
-      </div>
- 
-      <a href="pizza-app.html" class="menu-card live">
-        <div class="card-icon"><img src="images/Pizza_Box_2-nobg.png" alt="Build a Pizza"></div>
-        <div class="card-body"><div class="card-name">Build a Pizza</div><div class="card-desc">Your Favorite Size, Crust, Sauce & Toppings</div></div>
-        <div class="card-right"><i class="ti ti-chevron-right card-arrow" aria-hidden="true"></i></div>
-      </a>
- 
-      <div class="menu-card soon">
-        <div class="card-icon"><i class="ti ti-meat" aria-hidden="true"></i></div>
-        <div class="card-body"><div class="card-name">Appetizers</div><div class="card-desc">Cheesesticks, Wings & Starters</div></div>
-        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
-      </div>
- 
-      <div class="menu-card soon">
-        <div class="card-icon"><i class="ti ti-sandwich" aria-hidden="true"></i></div>
-        <div class="card-body"><div class="card-name">Sandwiches</div><div class="card-desc">Hot & Toasty</div></div>
-        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
-      </div>
- 
-      <div class="menu-card soon">
-        <div class="card-icon"><i class="ti ti-plant" aria-hidden="true"></i></div>
-        <div class="card-body"><div class="card-name">Salads</div><div class="card-desc">Fresh & Loaded with Delicious Dressings</div></div>
-        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
-      </div>
- 
-      <div class="menu-card soon">
-        <div class="card-icon"><i class="ti ti-soup" aria-hidden="true"></i></div>
-        <div class="card-body"><div class="card-name">Sides</div><div class="card-desc">Homemade Ranch, Marinara & Dipping Sauces</div></div>
-        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
-      </div>
- 
-      <div class="menu-card soon">
-        <div class="card-icon"><i class="ti ti-bottle" aria-hidden="true"></i></div>
-        <div class="card-body"><div class="card-name">Beverages</div><div class="card-desc">Fountain Drinks & 2 Liters</div></div>
-        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
-      </div>
- 
+      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-award"></i></div><div class="card-body"><div class="card-name">Gourmet Pizza</div><div class="card-desc">Premium Ingredients</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
+      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-star"></i></div><div class="card-body"><div class="card-name">Specialty Pizza</div><div class="card-desc">Loaded Combinations</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
+      <a href="pizza-app.html" class="menu-card live"><div class="card-icon"><img src="images/Pizza_Box_2-nobg.png" alt="Build a Pizza"></div><div class="card-body"><div class="card-name">Build a Pizza</div><div class="card-desc">Your Favorite Size, Crust, Sauce & Toppings</div></div><div class="card-right"><i class="ti ti-chevron-right card-arrow"></i></div></a>
+      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-meat"></i></div><div class="card-body"><div class="card-name">Appetizers</div><div class="card-desc">Cheesesticks, Wings & Starters</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
+      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-sandwich"></i></div><div class="card-body"><div class="card-name">Sandwiches</div><div class="card-desc">Hot & Toasty</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
+      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-plant"></i></div><div class="card-body"><div class="card-name">Salads</div><div class="card-desc">Fresh & Loaded with Delicious Dressings</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
+      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-soup"></i></div><div class="card-body"><div class="card-name">Sides</div><div class="card-desc">Homemade Ranch, Marinara & Dipping Sauces</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
+      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-bottle"></i></div><div class="card-body"><div class="card-name">Beverages</div><div class="card-desc">Fountain Drinks & 2 Liters</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
     </div>
- 
-    <div class="sec-divider">
-      <div class="sec-divider-line"></div>
-      <div class="sec-divider-txt">This Month</div>
-      <div class="sec-divider-line"></div>
-    </div>
- 
+    <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-txt">This Month</div><div class="sec-divider-line"></div></div>
     <div class="deals-wrap">
-      <div class="deal-card">
-        <div class="deal-em" aria-hidden="true">🍕</div>
-        <div class="deal-body"><div class="deal-title">Pizza of the Month</div><div class="deal-desc">Jalepeno Popper Pizza</div></div>
-        <div class="deal-pill">Deal</div>
-      </div>
-      <div class="deal-card">
-        <div class="deal-em" aria-hidden="true">🎉</div>
-        <div class="deal-body"><div class="deal-title">Cater Your Party</div><div class="deal-desc">Two Large Pizzas & Two 2 Liters.</div></div>
-        <div class="deal-pill">New</div>
-      </div>
+      <div class="deal-card"><div class="deal-em">🍕</div><div class="deal-body"><div class="deal-title">Pizza of the Month</div><div class="deal-desc">Large Jalapeño Popper Pizza</div></div><div class="deal-pill">Deal</div></div>
+      <div class="deal-card"><div class="deal-em">🎉</div><div class="deal-body"><div class="deal-title">Cater Your Party</div><div class="deal-desc">Two Large Pizzas & Two 2 Liters.</div></div><div class="deal-pill">New</div></div>
     </div>
- 
   </section>
  
   <!-- FOOTER -->
@@ -580,38 +387,20 @@
  
   <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
-    <button class="nav-item active" onclick="scrollToTop()">
-      <i class="ti ti-home"></i>
-      <span class="nav-label">Home</span>
-    </button>
-    <button class="nav-item" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
-      <i class="ti ti-menu-2"></i>
-      <span class="nav-label">Menu</span>
-    </button>
-    <button class="nav-item">
-      <i class="ti ti-refresh"></i>
-      <span class="nav-label">Reorder</span>
-    </button>
-    <button class="nav-item">
-      <i class="ti ti-star"></i>
-      <span class="nav-label">Rewards</span>
-    </button>
-    <button class="nav-item">
-      <i class="ti ti-shopping-cart"></i>
-      <span class="nav-label">Cart</span>
-    </button>
+    <button class="nav-item active" onclick="scrollToTop()"><i class="ti ti-home"></i><span class="nav-label">Home</span></button>
+    <button class="nav-item" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></button>
+    <button class="nav-item"><i class="ti ti-refresh"></i><span class="nav-label">Reorder</span></button>
+    <button class="nav-item"><i class="ti ti-star"></i><span class="nav-label">Rewards</span></button>
+    <button class="nav-item"><i class="ti ti-shopping-cart"></i><span class="nav-label">Cart</span></button>
   </nav>
  
   <script>
-    /* ── PICKUP / DELIVERY TOGGLE ── */
     let orderMode = 'pickup';
     function setMode(mode) {
       orderMode = mode;
       document.getElementById('btn-pickup').classList.toggle('active', mode === 'pickup');
       document.getElementById('btn-delivery').classList.toggle('active', mode === 'delivery');
     }
- 
-    /* ── HAMBURGER DRAWER ── */
     function openDrawer() {
       document.getElementById('drawer').classList.add('open');
       document.getElementById('drawer-overlay').classList.add('open');
@@ -622,13 +411,7 @@
       document.getElementById('drawer-overlay').classList.remove('open');
       document.body.style.overflow = '';
     }
- 
-    /* ── SCROLL TO TOP ── */
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
- 
-    /* ── BOTTOM NAV ACTIVE STATE on scroll ── */
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
     window.addEventListener('scroll', () => {
       const menuTop = document.getElementById('menu').getBoundingClientRect().top;
       const navItems = document.querySelectorAll('.nav-item');
@@ -641,6 +424,5 @@
       }
     });
   </script>
- 
 </body>
 </html>
