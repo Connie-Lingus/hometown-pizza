@@ -73,7 +73,7 @@
     .prog-seg.done { background: var(--red); }
  
     /* SCROLL */
-    .scroll-body { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 22px 16px; padding-bottom: calc(100px + var(--safe-bottom)); }
+    .scroll-body { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 22px 16px; padding-bottom: calc(120px + var(--safe-bottom)); }
     .section { margin-bottom: 24px; }
     .section-label { font-size: 10px; font-weight: 600; color: var(--red); letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 5px; }
     .section-title { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.6px; margin-bottom: 14px; }
@@ -189,6 +189,24 @@
     .cta-bar { flex-shrink: 0; padding: 12px 16px; padding-bottom: calc(12px + var(--safe-bottom)); background: var(--cream); border-top: 1px solid var(--border); }
     .cta-btn { width: 100%; padding: 18px; border-radius: 14px; background: var(--red); color: #fff; font-size: 17px; font-weight: 700; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s, transform 0.1s; -webkit-appearance: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .cta-btn:active { background: var(--red-dark); transform: scale(0.99); }
+
+    /* BOTTOM NAV */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  background: var(--cream); border-top: 1px solid var(--border);
+  display: flex; align-items: stretch;
+  height: calc(56px + var(--safe-bottom)); padding-bottom: var(--safe-bottom);
+}
+.nav-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 3px; cursor: pointer; border: none;
+  background: transparent; font-family: inherit; transition: all 0.15s;
+  text-decoration: none; color: var(--muted); padding: 6px 0;
+}
+.nav-item:active { opacity: 0.7; }
+.nav-item.active { color: var(--red); }
+.nav-item i { font-size: 22px; }
+.nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
   </style>
 </head>
 <body>
@@ -789,5 +807,14 @@
   });
   init();
 </script>
+
+  <!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
+  <a href="index.html#menu" class="nav-item active"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
+  <button class="nav-item"><i class="ti ti-refresh"></i><span class="nav-label">Reorder</span></button>
+  <button class="nav-item"><i class="ti ti-star"></i><span class="nav-label">Rewards</span></button>
+  <button class="nav-item"><i class="ti ti-shopping-cart"></i><span class="nav-label">Cart</span></button>
+</nav>
 </body>
 </html>
