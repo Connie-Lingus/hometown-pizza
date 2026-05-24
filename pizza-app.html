@@ -28,19 +28,6 @@
  
     #app { position: fixed; inset: 0; background: var(--cream); display: flex; flex-direction: column; overflow: hidden; }
  
-    /* PASSWORD */
-    #pw-screen { position: absolute; inset: 0; background: var(--dark); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; padding-top: calc(40px + var(--safe-top)); z-index: 200; }
-    .pw-pizza-icon { font-size: 52px; margin-bottom: 20px; animation: pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
-    .pw-logo { font-size: 36px; font-weight: 800; color: #fff; letter-spacing: -1.5px; line-height: 1; text-align: center; margin-bottom: 6px; }
-    .pw-tagline { font-size: 12px; color: #555; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 48px; }
-    .pw-input { width: 100%; padding: 18px 20px; border-radius: 14px; border: 1.5px solid #252525; background: #111; color: #fff; font-size: 17px; text-align: center; outline: none; font-family: inherit; letter-spacing: 3px; transition: border-color 0.2s; margin-bottom: 12px; }
-    .pw-input::placeholder { letter-spacing: 0.5px; color: #444; }
-    .pw-input:focus { border-color: var(--red); }
-    .pw-err { font-size: 13px; color: #F09575; min-height: 18px; text-align: center; margin-bottom: 12px; }
-    .pw-btn { width: 100%; padding: 18px; border-radius: 14px; background: var(--red); color: #fff; font-size: 17px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s, transform 0.1s; -webkit-appearance: none; }
-    .pw-btn:active { background: var(--red-dark); transform: scale(0.98); }
- 
     /* CONFIRMATION */
     #conf-screen { position: absolute; inset: 0; background: var(--dark); display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px 28px; padding-top: calc(40px + var(--safe-top)); padding-bottom: calc(40px + var(--safe-bottom)); z-index: 150; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     .conf-check { width: 72px; height: 72px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; margin-bottom: 22px; animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
@@ -58,7 +45,7 @@
     .reset-btn:active { border-color: #444; color: #999; }
  
     /* MAIN */
-    #main-app { display: flex; flex-direction: column; height: 100%; }
+    #main-app { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
  
     /* HEADER */
     .header { background: var(--dark); padding: 0 18px 14px; padding-top: calc(14px + var(--safe-top)); flex-shrink: 0; position: relative; z-index: 10; }
@@ -111,7 +98,6 @@
     .badge-added { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; background: var(--red-light); color: var(--red-dark); }
     .badge-light { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; background: #FEF9C3; color: #713F12; }
     .badge-xtra  { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; background: #DCFCE7; color: #14532D; }
-    /* sauce item wrapper for swipe */
     .sauce-item { position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 8px; }
     .sauce-actions { position: absolute; top: 0; bottom: 0; right: 0; display: flex; }
  
@@ -189,24 +175,16 @@
     .cta-bar { flex-shrink: 0; padding: 12px 16px; padding-bottom: calc(12px + var(--safe-bottom)); background: var(--cream); border-top: 1px solid var(--border); }
     .cta-btn { width: 100%; padding: 18px; border-radius: 14px; background: var(--red); color: #fff; font-size: 17px; font-weight: 700; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s, transform 0.1s; -webkit-appearance: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .cta-btn:active { background: var(--red-dark); transform: scale(0.99); }
-
+ 
     /* BOTTOM NAV */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-  background: var(--cream); border-top: 1px solid var(--border);
-  display: flex; align-items: stretch;
-  height: calc(56px + var(--safe-bottom)); padding-bottom: var(--safe-bottom);
-}
-.nav-item {
-  flex: 1; display: flex; flex-direction: column; align-items: center;
-  justify-content: center; gap: 3px; cursor: pointer; border: none;
-  background: transparent; font-family: inherit; transition: all 0.15s;
-  text-decoration: none; color: var(--muted); padding: 6px 0;
-}
-.nav-item:active { opacity: 0.7; }
-.nav-item.active { color: var(--red); }
-.nav-item i { font-size: 22px; }
-.nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-top: 1px solid var(--border); display: flex; align-items: stretch; height: calc(56px + var(--safe-bottom)); padding-bottom: var(--safe-bottom); }
+    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; cursor: pointer; border: none; background: transparent; font-family: inherit; transition: all 0.15s; text-decoration: none; color: var(--muted); padding: 6px 0; }
+    .nav-item:active { opacity: 0.7; }
+    .nav-item.active { color: var(--red); }
+    .nav-item i { font-size: 22px; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
+    .nav-box-img { width: 28px; height: 28px; object-fit: contain; opacity: 0.5; }
+    .nav-item.active .nav-box-img { opacity: 1; }
   </style>
 </head>
 <body>
@@ -332,15 +310,23 @@
     <div class="cta-bar">
       <button class="cta-btn" id="cta-btn">
         <i class="ti ti-shopping-cart" style="font-size:20px"></i>
-        Add to Cart — $<span id="cta-price">18.95</span>
+        Add to Your Pizza Box — $<span id="cta-price">18.95</span>
       </button>
     </div>
   </div>
  
-</div>
+  <!-- BOTTOM NAV — inside #app, after #main-app -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
+    <a href="index.html#menu" class="nav-item active"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
+    <button class="nav-item"><i class="ti ti-refresh"></i><span class="nav-label">Reorder</span></button>
+    <button class="nav-item"><i class="ti ti-star"></i><span class="nav-label">Rewards</span></button>
+    <button class="nav-item"><img src="images/Pizza_Box_2-nobg.png" alt="Your Box" class="nav-box-img"><span class="nav-label">Your Box</span></button>
+  </nav>
+ 
+</div><!-- end #app -->
  
 <script>
- 
   const SIZES = [
     { name:"Large",  inch:"14 inch", price:18.95, pop:true  },
     { name:"Medium", inch:"12 inch", price:14.95, pop:false },
@@ -353,11 +339,11 @@
   ];
  
   const SAUCES = [
-    { name:"Marinara",       desc:"Classic tomato",  price:0,    free:true,  img:"images/Marinara_Basil_2-nobg.png" },
-    { name:"Spicy Marinara", desc:"Kick up every bite",  price:0,    free:true,  img:"images/Spicy_Marinara-nobg.png"   },
-    { name:"Alfredo",        desc:"Rich & creamy",  price:2.50, free:false, img:"images/Alfredo-nobg.png"          },
+    { name:"Marinara",       desc:"Classic tomato",        price:0,    free:true,  img:"images/Marinara_Basil_2-nobg.png" },
+    { name:"Spicy Marinara", desc:"Kick up every bite",    price:0,    free:true,  img:"images/Spicy_Marinara-nobg.png"   },
+    { name:"Alfredo",        desc:"Rich & creamy",         price:2.50, free:false, img:"images/Alfredo-nobg.png"          },
     { name:"BBQ",            desc:"Tangy & bold",          price:2.50, free:false, img:"images/BBQ-nobg.png"              },
-    { name:"Buffalo",        desc:"Spicy, tangy, bold heat",     price:2.50, free:false, img:"images/Buffalo-nobg.png"          }
+    { name:"Buffalo",        desc:"Spicy, tangy, bold heat", price:2.50, free:false, img:"images/Buffalo-nobg.png"        }
   ];
  
   const CHEESE_ADDONS = [
@@ -367,26 +353,25 @@
  
   const TOP_GROUPS = [
     { label:"Meats", items:[
-      { n:"Pepperoni",       p:2.50, img:"images/Pepperoni-nobg.png"       },
-      { n:"Beef",            p:2.50, img:"images/Beef-nobg.png"            },
-      { n:"Pork Sausage",    p:2.50, img:"images/Pork_Sausage_2-nobg.png"  },
-      { n:"Italian Sausage", p:2.50, img:"images/Italian_Sausage-nobg.png" },
-      { n:"Ham",             p:2.50, img:"images/Ham-nobg.png"             },
-      { n:"Bacon",           p:2.75, img:"images/Bacon-nobg.png"           },
-      { n:"Chicken",         p:2.75, img:"images/Chicken-nobg.png"         }
+      { n:"Pepperoni",       p:2.50, img:"images/Pepperoni-nobg.png"        },
+      { n:"Beef",            p:2.50, img:"images/Beef-nobg.png"             },
+      { n:"Pork Sausage",    p:2.50, img:"images/Pork_Sausage_2-nobg.png"   },
+      { n:"Italian Sausage", p:2.50, img:"images/Italian_Sausage-nobg.png"  },
+      { n:"Ham",             p:2.50, img:"images/Ham-nobg.png"              },
+      { n:"Bacon",           p:2.75, img:"images/Bacon-nobg.png"            },
+      { n:"Chicken",         p:2.75, img:"images/Chicken-nobg.png"          }
     ]},
     { label:"Vegetables", items:[
-      { n:"Onions",        p:1.50, img:"images/Onion-nobg.png"              },
-      { n:"Green Peppers", p:1.75, img:"images/Green_Pepper-nobg.png"       },
-      { n:"Mushrooms",     p:1.75, img:"images/Mushroom-nobg.png"           },
-      { n:"Black Olives",  p:1.75, img:"images/Black_Olive-nobg.png"        },
-      { n:"Tomatoes",      p:1.75, img:"images/Tomato-nobg.png"             },
-      { n:"Jalapeños",     p:1.75, img:"images/Jalepeno-nobg.png"           },
-      { n:"Green Olives",  p:1.75, img:"images/Green_Olive-nobg.png"        },
-      { n:"Spinach",       p:1.75, img:"images/Spinach-nobg.png"            },
-      { n:"Peperoncini",   p:1.75, img:"images/Peperoncini_Peppers-nobg.png"},
-      { n:"Pineapple",     p:1.75, img:"images/Pineapple-nobg.png"          }
-      
+      { n:"Onions",        p:1.50, img:"images/Onion-nobg.png"               },
+      { n:"Green Peppers", p:1.75, img:"images/Green_Pepper-nobg.png"        },
+      { n:"Mushrooms",     p:1.75, img:"images/Mushroom-nobg.png"            },
+      { n:"Black Olives",  p:1.75, img:"images/Black_Olive-nobg.png"         },
+      { n:"Tomatoes",      p:1.75, img:"images/Tomato-nobg.png"              },
+      { n:"Jalapeños",     p:1.75, img:"images/Jalepeno-nobg.png"            },
+      { n:"Green Olives",  p:1.75, img:"images/Green_Olive-nobg.png"         },
+      { n:"Spinach",       p:1.75, img:"images/Spinach-nobg.png"             },
+      { n:"Peperoncini",   p:1.75, img:"images/Peperoncini_Peppers-nobg.png" },
+      { n:"Pineapple",     p:1.75, img:"images/Pineapple-nobg.png"           }
     ]}
   ];
  
@@ -394,7 +379,6 @@
   TOP_GROUPS.forEach(g => g.items.forEach(t => { t._i = allTops.length; allTops.push(t); }));
   let ord = { size:0, crust:0, sauce:0, sauceMod:'normal', gbCrust:false, mozzMod:'normal', cheeseAddons:{}, cheeseMod:{}, tops:{}, topOrder:[] };
  
-  /* ── AUTH ── */
   function getFreeIdx() {
     for (const idx of ord.topOrder) {
       const s = ord.tops[idx];
@@ -431,11 +415,8 @@
     const c = document.getElementById('sauces'); c.innerHTML = '';
     SAUCES.forEach((s, i) => {
       const isSel = i === ord.sauce;
- 
       const wrap = document.createElement('div');
       wrap.className = 'sauce-item';
- 
-      /* swipe actions — only meaningful on selected sauce */
       const acts = document.createElement('div');
       acts.className = 'sauce-actions';
       acts.innerHTML = `
@@ -453,28 +434,22 @@
           if (isSel) { ord.sauceMod = btn.dataset.sm; renderSauces(); }
         });
       });
- 
       const face = document.createElement('div');
       let cls = 'sauce-row';
       if (isSel) cls += s.free ? ' sel-free' : ' sel-paid';
       face.className = cls;
       face.style.cssText = 'position:relative;z-index:2;will-change:transform;touch-action:pan-y;user-select:none;margin-bottom:0;border-radius:12px;';
- 
-      /* badge */
       let badge = '';
       if (isSel) {
-        if (ord.sauceMod === 'light')  badge = '<span class="badge-light">Light</span>';
-        else if (ord.sauceMod === 'extra') badge = '<span class="badge-xtra">Extra +$1.00</span>';
-        else if (s.free)  badge = '<span class="badge-incl">Included</span>';
-        else badge = '<span class="badge-added">Added</span>';
+        if (ord.sauceMod === 'light')       badge = '<span class="badge-light">Light</span>';
+        else if (ord.sauceMod === 'extra')  badge = '<span class="badge-xtra">Extra +$1.00</span>';
+        else if (s.free)                    badge = '<span class="badge-incl">Included</span>';
+        else                                badge = '<span class="badge-added">Added</span>';
       } else if (!s.free) {
         badge = `<span style="font-size:13px;font-weight:700;color:var(--muted)">+$${s.price.toFixed(2)}</span>`;
       }
- 
       const imgHtml = s.img ? `<img src="${s.img}" alt="${s.name}" class="sauce-img">` : '';
       face.innerHTML = `${imgHtml}<div class="sauce-info"><div class="sauce-name">${s.name}</div><div class="sauce-desc">${s.desc}</div></div><div>${badge}</div>`;
- 
-      /* tap to select; if already selected tap resets modifier */
       face.addEventListener('click', () => {
         if (!didSwipeSauce) {
           if (isSel) { ord.sauceMod = 'normal'; }
@@ -482,9 +457,7 @@
           renderSauces(); updateAll();
         }
       });
- 
       if (isSel) attachSauceSwipe(face);
- 
       wrap.appendChild(acts);
       wrap.appendChild(face);
       c.appendChild(wrap);
@@ -522,22 +495,14 @@
     const face = document.getElementById('mozz-face');
     const badgeWrap = document.getElementById('mozz-badge-wrap');
     if (!face) return;
- 
     function updateMozzBadge() {
       if (ord.mozzMod === 'light')       badgeWrap.innerHTML = '<span class="badge-light">Light</span>';
       else if (ord.mozzMod === 'extra')  badgeWrap.innerHTML = '<span class="badge-xtra">Extra +$1.00</span>';
       else                               badgeWrap.innerHTML = '<div class="mozz-badge">Included</div>';
       updateAll();
     }
- 
-    document.getElementById('mozz-light').addEventListener('click', e => {
-      e.stopPropagation(); ord.mozzMod = 'light'; updateMozzBadge();
-    });
-    document.getElementById('mozz-extra').addEventListener('click', e => {
-      e.stopPropagation(); ord.mozzMod = 'extra'; updateMozzBadge();
-    });
- 
-    /* swipe */
+    document.getElementById('mozz-light').addEventListener('click', e => { e.stopPropagation(); ord.mozzMod = 'light'; updateMozzBadge(); });
+    document.getElementById('mozz-extra').addEventListener('click', e => { e.stopPropagation(); ord.mozzMod = 'extra'; updateMozzBadge(); });
     const SNAP = 144;
     let x0=0,y0=0,dragging=false,open=false,lastDx=0;
     function snap(o){face.style.transition='transform 0.26s cubic-bezier(0.25,0.46,0.45,0.94)';face.style.transform=o?`translateX(-${SNAP}px)`:'translateX(0)';open=o;setTimeout(()=>{face.style.transition='';},280);}
@@ -560,10 +525,8 @@
     CHEESE_ADDONS.forEach((ch, i) => {
       const sel = !!ord.cheeseAddons[i];
       const mod = ord.cheeseMod[i] || 'normal';
- 
       const wrap = document.createElement('div');
       wrap.className = 'cheese-item';
- 
       const acts = document.createElement('div');
       acts.className = 'cheese-actions';
       acts.innerHTML = `
@@ -581,21 +544,17 @@
           if (sel) { ord.cheeseMod[i] = btn.dataset.cm; renderCheese(); updateAll(); }
         });
       });
- 
-      /* badge */
       let badge = '';
       if (sel) {
         if (mod === 'light')       badge = '<span class="badge-light">Light</span>';
         else if (mod === 'extra')  badge = '<span class="badge-xtra">Extra</span>';
         else                       badge = '<span class="badge-added">Added</span>';
       }
- 
       const face = document.createElement('div');
       face.className = 'cheese-row' + (sel ? ' sel' : '');
       face.style.cssText = 'position:relative;z-index:2;will-change:transform;touch-action:pan-y;user-select:none;margin-bottom:0;border-radius:12px;';
       const imgHtml = ch.img ? `<img src="${ch.img}" alt="${ch.name}" style="width:42px;height:42px;object-fit:contain;flex-shrink:0">` : '';
       face.innerHTML = `${imgHtml}<div><div class="ch-name">${ch.name}</div><div class="ch-sub">${ch.desc}</div></div><div class="ch-right"><span class="ch-price">+$${ch.price.toFixed(2)}</span>${badge}</div>`;
- 
       let didSwipeCheese = false;
       face.addEventListener('click', () => {
         if (didSwipeCheese) return;
@@ -604,7 +563,6 @@
         renderCheese(); updateAll();
       });
       attachCheeseSwipe(face, i, sel);
- 
       wrap.appendChild(acts);
       wrap.appendChild(face);
       c.appendChild(wrap);
@@ -613,7 +571,7 @@
  
   function attachCheeseSwipe(face, idx, sel) {
     const SNAP = 144;
-    let x0=0, y0=0, dragging=false, open=false, lastDx=0, didSwipeCheese=false;
+    let x0=0, y0=0, dragging=false, open=false, lastDx=0;
     function snap(o) { face.style.transition='transform 0.26s cubic-bezier(0.25,0.46,0.45,0.94)'; face.style.transform=o?`translateX(-${SNAP}px)`:'translateX(0)'; open=o; setTimeout(()=>{face.style.transition='';},280); }
     face.addEventListener('pointerdown', e=>{x0=e.clientX;y0=e.clientY;dragging=false;lastDx=0;face.setPointerCapture(e.pointerId);face.style.transition='none';});
     face.addEventListener('pointermove', e=>{
@@ -650,7 +608,7 @@
           btn.addEventListener('click', e => { e.stopPropagation(); setTop(parseInt(btn.dataset.idx), btn.dataset.st); });
         });
         let badge = '';
-        if (isFree)                badge = '<span class="state-badge b-free">Included</span>';
+        if (isFree)                 badge = '<span class="state-badge b-free">Included</span>';
         else if (state === 'added') badge = '<span class="state-badge b-added">Added</span>';
         else if (state === 'extra') badge = '<span class="state-badge b-extra">Extra</span>';
         else if (state === 'easy')  badge = '<span class="state-badge b-light">Light</span>';
@@ -688,17 +646,17 @@
   }
  
   function attachSwipe(face, onStart, onEnd) {
-    const SNAP = 144; let x0 = 0, y0 = 0, dragging = false, open = false, lastDx = 0;
-    function snap(o) { face.style.transition = 'transform 0.26s cubic-bezier(0.25,0.46,0.45,0.94)'; face.style.transform = o ? `translateX(-${SNAP}px)` : 'translateX(0)'; open = o; setTimeout(() => { face.style.transition = ''; }, 280); }
-    face.addEventListener('pointerdown', e => { x0 = e.clientX; y0 = e.clientY; dragging = false; lastDx = 0; face.setPointerCapture(e.pointerId); face.style.transition = 'none'; });
-    face.addEventListener('pointermove', e => {
-      const dx = e.clientX - x0, dy = e.clientY - y0;
-      if (!dragging) { if (Math.abs(dx) < 5 && Math.abs(dy) < 5) return; if (Math.abs(dy) > Math.abs(dx)) return; dragging = true; onStart(); }
-      e.preventDefault(); lastDx = dx;
-      face.style.transform = `translateX(${Math.max(-SNAP, Math.min(0, (open ? -SNAP : 0) + dx))}px)`;
-    }, { passive: false });
-    face.addEventListener('pointerup', () => { if (!dragging) { if (open) snap(false); return; } onEnd(); (!open && lastDx < -40) ? snap(true) : (open && lastDx > 40) ? snap(false) : snap(open); });
-    face.addEventListener('pointercancel', () => snap(open));
+    const SNAP = 144; let x0=0, y0=0, dragging=false, open=false, lastDx=0;
+    function snap(o) { face.style.transition='transform 0.26s cubic-bezier(0.25,0.46,0.45,0.94)'; face.style.transform=o?`translateX(-${SNAP}px)`:'translateX(0)'; open=o; setTimeout(()=>{face.style.transition='';},280); }
+    face.addEventListener('pointerdown', e=>{x0=e.clientX;y0=e.clientY;dragging=false;lastDx=0;face.setPointerCapture(e.pointerId);face.style.transition='none';});
+    face.addEventListener('pointermove', e=>{
+      const dx=e.clientX-x0,dy=e.clientY-y0;
+      if(!dragging){if(Math.abs(dx)<5&&Math.abs(dy)<5)return;if(Math.abs(dy)>Math.abs(dx))return;dragging=true;onStart();}
+      e.preventDefault();lastDx=dx;
+      face.style.transform=`translateX(${Math.max(-SNAP,Math.min(0,(open?-SNAP:0)+dx))}px)`;
+    },{passive:false});
+    face.addEventListener('pointerup',()=>{if(!dragging){if(open)snap(false);return;}onEnd();(!open&&lastDx<-40)?snap(true):(open&&lastDx>40)?snap(false):snap(open);});
+    face.addEventListener('pointercancel',()=>snap(open));
   }
  
   function setTop(i, state) {
@@ -805,16 +763,8 @@
     init();
     document.getElementById('scroll-body').scrollTop = 0;
   });
+ 
   init();
 </script>
-
-  <!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
-  <a href="index.html#menu" class="nav-item active"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
-  <button class="nav-item"><i class="ti ti-refresh"></i><span class="nav-label">Reorder</span></button>
-  <button class="nav-item"><i class="ti ti-star"></i><span class="nav-label">Rewards</span></button>
-  <button class="nav-item"><i class="ti ti-shopping-cart"></i><span class="nav-label">Cart</span></button>
-</nav>
 </body>
 </html>
