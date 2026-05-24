@@ -66,7 +66,19 @@
       text-align: center; position: relative; overflow: hidden;
     }
 
-    /* LOGO — static */
+    /* FAT CHEF */
+    .fat-chef {
+      position: absolute;
+      bottom: 0;
+      right: -20px;
+      width: 220px;
+      height: auto;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* LOGO */
     .hero-logo-wrap {
       width: 220px; height: 80px; margin-bottom: 28px;
       display: flex; align-items: center; justify-content: center;
@@ -88,7 +100,7 @@
       border-radius: 20px; padding: 5px 14px; margin-bottom: 12px;
     }
     .featured-pizza-img {
-      width: 210px; height: 210px; object-fit: contain;
+      width: 190px; height: 190px; object-fit: contain;
       filter: drop-shadow(0 12px 32px rgba(200,49,26,0.22));
     }
     .featured-pizza-name {
@@ -97,7 +109,7 @@
     }
     .featured-pizza-hook {
       font-size: 13px; color: var(--muted); margin-top: 6px;
-      font-style: italic; line-height: 1.5; max-width: 280px;
+      font-style: italic; line-height: 1.5; max-width: 260px;
     }
     .featured-pizza-cta {
       display: inline-flex; align-items: center; gap: 6px;
@@ -109,13 +121,45 @@
     }
     .featured-pizza-cta:active { background: var(--red); transform: scale(0.97); }
 
-    /* TAGLINE */
-    .tagline-wrap { margin-bottom: 36px; position: relative; z-index: 2; }
-    .tagline-main {
-      font-size: 28px; font-weight: 800; color: var(--dark);
-      letter-spacing: -0.8px; line-height: 1.15;
+    /* QUOTE BLOCK */
+    .quote-wrap {
+      position: relative; z-index: 2;
+      margin-bottom: 36px;
+      max-width: 280px;
+      text-align: center;
     }
-    .tagline-main em { font-style: normal; color: var(--red); }
+    .quote-mark {
+      font-size: 48px;
+      line-height: 0.6;
+      color: var(--red);
+      font-family: Georgia, serif;
+      display: block;
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+    .quote-text {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.8px;
+      line-height: 1.2;
+    }
+    .quote-text em { font-style: normal; color: var(--red); }
+    .quote-attribution {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .quote-line { flex: 1; height: 1px; background: var(--border); max-width: 40px; }
+    .quote-author {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
 
     /* SCROLL PROMPT */
     .scroll-prompt {
@@ -273,6 +317,9 @@
   <!-- HERO -->
   <section id="hero">
 
+    <!-- FAT CHEF — bottom right, blend mode removes grey bg -->
+    <img src="images/fat_chef_2.png" alt="Fat Chef" class="fat-chef">
+
     <!-- STATIC LOGO -->
     <div class="hero-logo-wrap">
       <img src="images/HTPizza_LOGO-nobg.png" alt="Hometown Pizza"
@@ -280,7 +327,7 @@
       <div class="hero-logo-fallback" style="display:none">Hometown Pizza</div>
     </div>
 
-    <!-- FEATURED PIZZA — centered, static, promotional -->
+    <!-- FEATURED PIZZA -->
     <div class="featured-pizza-wrap">
       <div class="featured-label">
         <i class="ti ti-flame" style="font-size:12px"></i>
@@ -289,16 +336,22 @@
       <img src="images/Jalapeno_Popper-nobg.png" alt="Jalapeño Popper Pizza"
            class="featured-pizza-img" onerror="this.style.display='none'">
       <div class="featured-pizza-name">Jalapeño Popper Pizza</div>
-      <div class="featured-pizza-hook">Cream Cheese, Jalapeños & Crispy Bacon Drizzled with Homemade Ranch — Kill Me Now!</div>
+      <div class="featured-pizza-hook">Cream Cheese, Jalapeños & Crispy Bacon Drizzled with Homemade Ranch</div>
       <a href="pizza-app.html" class="featured-pizza-cta">
         <i class="ti ti-pizza" style="font-size:15px"></i>
         Add to Your Box Now
       </a>
     </div>
 
-    <!-- TAGLINE -->
-    <div class="tagline-wrap">
-      <div class="tagline-main">Stop eating<br><em>gas station pizza!</em></div>
+    <!-- QUOTE -->
+    <div class="quote-wrap">
+      <span class="quote-mark">"</span>
+      <div class="quote-text">Stop eating<br><em>gas station pizza!</em></div>
+      <div class="quote-attribution">
+        <div class="quote-line"></div>
+        <div class="quote-author">Fat Chef, Head Pizza Guy</div>
+        <div class="quote-line"></div>
+      </div>
     </div>
 
     <!-- SCROLL PROMPT -->
@@ -306,6 +359,7 @@
       <span>Scroll to See the Menu</span>
       <i class="ti ti-chevron-down" aria-hidden="true"></i>
     </button>
+
   </section>
 
   <!-- MENU -->
@@ -334,7 +388,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="ft-logo">Hometown Pizza</div>
-    <div class="ft-tag">"Stop eating gas station pizza!"</div>
+    <div class="ft-tag">"Stop eating gas station pizza!" — Fat Chef</div>
     <div class="ft-links">
       <a href="#" class="ft-link">Hours</a>
       <a href="#" class="ft-link">Location</a>
@@ -397,5 +451,6 @@
       }
     });
   </script>
+
 </body>
 </html>
