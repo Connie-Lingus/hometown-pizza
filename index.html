@@ -61,21 +61,17 @@
       min-height: 100vh; min-height: 100dvh;
       background: var(--cream);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 80px 28px 80px;
+      padding: 80px 24px 60px;
       padding-top: calc(80px + var(--safe-top));
-      text-align: center; position: relative; overflow: hidden;
+      text-align: center;
     }
 
     /* FAT CHEF */
     .fat-chef {
-      position: absolute;
-      bottom: 0;
-      right: -20px;
       width: 220px;
       height: auto;
-      mix-blend-mode: multiply;
-      pointer-events: none;
-      z-index: 1;
+      display: block;
+      margin: 0 auto 4px;
     }
 
     /* LOGO */
@@ -317,15 +313,15 @@
   <!-- HERO -->
   <section id="hero">
 
-    <!-- FAT CHEF — bottom right, blend mode removes grey bg -->
-    <img src="images/fat_chef_2.png" alt="Fat Chef" class="fat-chef">
-
     <!-- STATIC LOGO -->
     <div class="hero-logo-wrap">
       <img src="images/HTPizza_LOGO-nobg.png" alt="Hometown Pizza"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <div class="hero-logo-fallback" style="display:none">Hometown Pizza</div>
     </div>
+
+    <!-- FAT CHEF — in flow, centered, blend removes grey bg -->
+    <img src="images/fat_chef_2-2-nobg.png" alt="Fat Chef" class="fat-chef">
 
     <!-- FEATURED PIZZA -->
     <div class="featured-pizza-wrap">
@@ -346,10 +342,10 @@
     <!-- QUOTE -->
     <div class="quote-wrap">
       <span class="quote-mark">"</span>
-      <div class="quote-text">Stop eating<br><em>gas station pizza!</em></div>
+      <div class="quote-text">Stop eating<br><em>gas station pizza.</em></div>
       <div class="quote-attribution">
         <div class="quote-line"></div>
-        <div class="quote-author">Fat Chef, Head Pizza Guy</div>
+        <div class="quote-author">Fat Chef</div>
         <div class="quote-line"></div>
       </div>
     </div>
@@ -388,7 +384,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="ft-logo">Hometown Pizza</div>
-    <div class="ft-tag">"Stop eating gas station pizza!" — Fat Chef</div>
+    <div class="ft-tag">"Stop eating gas station pizza." — Fat Chef</div>
     <div class="ft-links">
       <a href="#" class="ft-link">Hours</a>
       <a href="#" class="ft-link">Location</a>
