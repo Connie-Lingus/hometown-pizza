@@ -142,8 +142,11 @@
     }
     .menu-card:active { transform: scale(0.98); }
     .menu-card.live { border-color: var(--red); background: var(--red-light); }
-    .menu-card.soon { opacity: 0.55; cursor: default; }
+    .menu-card.soon { opacity: 1; cursor: default; }
     .menu-card.soon .card-icon:has(img) { background: transparent; }
+    .menu-card.soon .card-icon:not(:has(img)) { opacity: 0.45; }
+    .menu-card.soon .card-body { opacity: 0.45; }
+    .menu-card.soon .card-right { opacity: 0.45; }
     .card-icon { width: 48px; height: 48px; border-radius: 10px; background: var(--dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .menu-card.live .card-icon { background: var(--red); }
     .card-icon i { font-size: 24px; color: #fff; }
