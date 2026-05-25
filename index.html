@@ -69,28 +69,11 @@
     }
 
     /* FAT CHEF */
-    .fat-chef {
-      width: 140px;
-      height: auto;
-      flex-shrink: 0;
-      align-self: flex-end;
-    }
+    .fat-chef { width: 140px; height: auto; flex-shrink: 0; align-self: flex-end; }
 
-    /* QUOTE INNER — chef beside quote */
-    .quote-inner {
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 12px;
-      width: 100%;
-    }
-    .quote-content {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      text-align: left;
-    }
-
+    /* QUOTE INNER */
+    .quote-inner { display: flex; align-items: flex-end; justify-content: center; gap: 12px; width: 100%; }
+    .quote-content { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
 
     /* LOGO */
     .hero-logo-wrap {
@@ -117,14 +100,8 @@
       width: 190px; height: 190px; object-fit: contain;
       filter: drop-shadow(0 12px 32px rgba(200,49,26,0.22));
     }
-    .featured-pizza-name {
-      font-size: 20px; font-weight: 800; color: var(--dark);
-      letter-spacing: -0.5px; margin-top: 12px; line-height: 1.2;
-    }
-    .featured-pizza-hook {
-      font-size: 13px; color: var(--muted); margin-top: 6px;
-      font-style: italic; line-height: 1.5; max-width: 260px;
-    }
+    .featured-pizza-name { font-size: 20px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; margin-top: 12px; line-height: 1.2; }
+    .featured-pizza-hook { font-size: 13px; color: var(--muted); margin-top: 6px; font-style: italic; line-height: 1.5; max-width: 260px; }
     .featured-pizza-cta {
       display: inline-flex; align-items: center; gap: 6px;
       margin-top: 14px; padding: 10px 22px; border-radius: 20px;
@@ -136,34 +113,11 @@
     .featured-pizza-cta:active { background: var(--red); transform: scale(0.97); }
 
     /* QUOTE BLOCK */
-    .quote-wrap {
-      position: relative; z-index: 2;
-      margin-bottom: 36px;
-      width: 100%;
-      max-width: 340px;
-    }
-    .quote-text {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--dark);
-      letter-spacing: -0.8px;
-      line-height: 1.2;
-    }
+    .quote-wrap { position: relative; z-index: 2; margin-bottom: 36px; width: 100%; max-width: 340px; }
+    .quote-text { font-size: 26px; font-weight: 800; color: var(--dark); letter-spacing: -0.8px; line-height: 1.2; }
     .quote-text em { font-style: normal; color: var(--red); }
-    .quote-attribution {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .quote-line { flex: 1; height: 1px; background: var(--border); max-width: 36px; }
-    .quote-author {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--muted);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
+    .quote-attribution { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+    .quote-author { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
 
     /* SCROLL PROMPT */
     .scroll-prompt {
@@ -189,10 +143,10 @@
     .menu-card:active { transform: scale(0.98); }
     .menu-card.live { border-color: var(--red); background: var(--red-light); }
     .menu-card.soon { opacity: 0.55; cursor: default; }
-    .card-icon { width: 48px; height: 48px; border-radius: 10px; background: var(--dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .card-icon { width: 48px; height: 48px; border-radius: 10px; background: var(--dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
     .menu-card.live .card-icon { background: var(--red); }
     .card-icon i { font-size: 24px; color: #fff; }
-    .card-icon img { width: 34px; height: 34px; object-fit: contain; }
+    .card-icon img { width: 44px; height: 44px; object-fit: cover; }
     .card-body { flex: 1; }
     .card-name { font-size: 16px; font-weight: 700; color: var(--dark); letter-spacing: -0.2px; }
     .menu-card.live .card-name { color: var(--red-dark); }
@@ -318,14 +272,12 @@
   <!-- HERO -->
   <section id="hero">
 
-    <!-- STATIC LOGO -->
     <div class="hero-logo-wrap">
       <img src="images/HTPizza_LOGO-nobg.png" alt="Hometown Pizza"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <div class="hero-logo-fallback" style="display:none">Hometown Pizza</div>
     </div>
 
-    <!-- FEATURED PIZZA -->
     <div class="featured-pizza-wrap">
       <div class="featured-label">
         <i class="ti ti-flame" style="font-size:12px"></i>
@@ -341,7 +293,6 @@
       </a>
     </div>
 
-    <!-- QUOTE + FAT CHEF side by side — chef on left, quote on right -->
     <div class="quote-wrap">
       <div class="quote-inner">
         <img src="images/fat_chef_2-2-nobg.png" alt="Fat Chef" class="fat-chef">
@@ -354,7 +305,6 @@
       </div>
     </div>
 
-    <!-- SCROLL PROMPT -->
     <button class="scroll-prompt" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
       <span>Scroll to See the Menu</span>
       <i class="ti ti-chevron-down" aria-hidden="true"></i>
@@ -369,14 +319,55 @@
       <div class="menu-title">The Menu</div>
     </div>
     <div class="menu-grid">
-      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-award"></i></div><div class="card-body"><div class="card-name">Gourmet Pizza</div><div class="card-desc">Premium Ingredients</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
-      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-star"></i></div><div class="card-body"><div class="card-name">Specialty Pizza</div><div class="card-desc">Loaded Combinations</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
-      <a href="pizza-app.html" class="menu-card live"><div class="card-icon"><img src="images/Pizza_Box_2-nobg.png" alt="Build a Pizza"></div><div class="card-body"><div class="card-name">Build a Pizza</div><div class="card-desc">Your Favorite Size, Crust, Sauce & Toppings</div></div><div class="card-right"><i class="ti ti-chevron-right card-arrow"></i></div></a>
-      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-meat"></i></div><div class="card-body"><div class="card-name">Appetizers</div><div class="card-desc">Cheesesticks, Wings & Starters</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
-      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-sandwich"></i></div><div class="card-body"><div class="card-name">Sandwiches</div><div class="card-desc">Hot & Toasty</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
-      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-plant"></i></div><div class="card-body"><div class="card-name">Salads</div><div class="card-desc">Fresh & Loaded with Delicious Dressings</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
-      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-soup"></i></div><div class="card-body"><div class="card-name">Sides</div><div class="card-desc">Homemade Ranch, Marinara & Dipping Sauces</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
-      <div class="menu-card soon"><div class="card-icon"><i class="ti ti-bottle"></i></div><div class="card-body"><div class="card-name">Beverages</div><div class="card-desc">Fountain Drinks & 2 Liters</div></div><div class="card-right"><span class="soon-badge">Coming Soon</span></div></div>
+
+      <div class="menu-card soon">
+        <div class="card-icon"><img src="images/Alfredo_Pizza-nobg.png" alt="Gourmet Pizza"></div>
+        <div class="card-body"><div class="card-name">Gourmet Pizza</div><div class="card-desc">Premium Ingredients</div></div>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
+      </div>
+
+      <div class="menu-card soon">
+        <div class="card-icon"><img src="images/The_Works-nobg.png" alt="Specialty Pizza"></div>
+        <div class="card-body"><div class="card-name">Specialty Pizza</div><div class="card-desc">Loaded Combinations</div></div>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
+      </div>
+
+      <a href="pizza-app.html" class="menu-card live">
+        <div class="card-icon"><img src="images/Pizza_Box_2-nobg.png" alt="Build a Pizza"></div>
+        <div class="card-body"><div class="card-name">Build a Pizza</div><div class="card-desc">Your Favorite Size, Crust, Sauce & Toppings</div></div>
+        <div class="card-right"><i class="ti ti-chevron-right card-arrow"></i></div>
+      </a>
+
+      <div class="menu-card soon">
+        <div class="card-icon"><i class="ti ti-meat"></i></div>
+        <div class="card-body"><div class="card-name">Appetizers</div><div class="card-desc">Cheesesticks, Wings & Starters</div></div>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
+      </div>
+
+      <div class="menu-card soon">
+        <div class="card-icon"><img src="images/Meatball_Sandwhich-nobg.png" alt="Sandwiches"></div>
+        <div class="card-body"><div class="card-name">Sandwiches</div><div class="card-desc">Hot & Toasty</div></div>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
+      </div>
+
+      <div class="menu-card soon">
+        <div class="card-icon"><i class="ti ti-plant"></i></div>
+        <div class="card-body"><div class="card-name">Salads</div><div class="card-desc">Fresh & Loaded with Delicious Dressings</div></div>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
+      </div>
+
+      <div class="menu-card soon">
+        <div class="card-icon"><i class="ti ti-soup"></i></div>
+        <div class="card-body"><div class="card-name">Sides</div><div class="card-desc">Homemade Ranch, Marinara & Dipping Sauces</div></div>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
+      </div>
+
+      <div class="menu-card soon">
+        <div class="card-icon"><i class="ti ti-bottle"></i></div>
+        <div class="card-body"><div class="card-name">Beverages</div><div class="card-desc">Fountain Drinks & 2 Liters</div></div>
+        <div class="card-right"><span class="soon-badge">Coming Soon</span></div>
+      </div>
+
     </div>
     <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-txt">This Month</div><div class="sec-divider-line"></div></div>
     <div class="deals-wrap">
@@ -400,20 +391,16 @@
   <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
     <button class="nav-item active" onclick="scrollToTop()">
-      <i class="ti ti-home"></i>
-      <span class="nav-label">Home</span>
+      <i class="ti ti-home"></i><span class="nav-label">Home</span>
     </button>
     <button class="nav-item" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
-      <i class="ti ti-menu-2"></i>
-      <span class="nav-label">Menu</span>
+      <i class="ti ti-menu-2"></i><span class="nav-label">Menu</span>
     </button>
     <button class="nav-item">
-      <i class="ti ti-refresh"></i>
-      <span class="nav-label">Reorder</span>
+      <i class="ti ti-refresh"></i><span class="nav-label">Reorder</span>
     </button>
     <button class="nav-item">
-      <i class="ti ti-star"></i>
-      <span class="nav-label">Rewards</span>
+      <i class="ti ti-star"></i><span class="nav-label">Rewards</span>
     </button>
   </nav>
 
