@@ -42,13 +42,25 @@
     }
     .back-btn i { font-size: 20px; }
     .header-title { font-size: 17px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
-    .header-spacer { width: 60px; }
+
+    /* GROUP ORDER BUTTON */
+    .group-btn {
+      display: flex; align-items: center; gap: 5px;
+      color: var(--muted); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.5px; text-decoration: none;
+      border: 1.5px solid var(--border); border-radius: 20px;
+      padding: 5px 10px; background: transparent;
+      cursor: pointer; font-family: inherit;
+      transition: all 0.15s;
+    }
+    .group-btn:active { border-color: var(--dark); color: var(--dark); }
+    .group-btn i { font-size: 15px; }
 
     /* BODY */
     .page-body {
       flex: 1;
       padding-top: calc(56px + var(--safe-top));
-      padding-bottom: calc(80px + var(--safe-bottom));
+      padding-bottom: calc(40px + var(--safe-bottom));
       display: flex; flex-direction: column;
       overflow-y: auto;
     }
@@ -63,7 +75,11 @@
     .sad-chef { width: 220px; height: auto; margin-bottom: 24px; }
     .empty-title {
       font-size: 24px; font-weight: 800; color: var(--dark);
-      letter-spacing: -0.6px; margin-bottom: 28px; line-height: 1.2;
+      letter-spacing: -0.6px; margin-bottom: 8px; line-height: 1.2;
+    }
+    .empty-title.sub {
+      font-size: 18px; font-weight: 600; color: var(--muted);
+      margin-bottom: 28px;
     }
     .start-order-btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -103,24 +119,6 @@
       transition: background 0.15s, transform 0.1s;
     }
     .checkout-btn:active { background: var(--red-dark); transform: scale(0.99); }
-
-    /* BOTTOM NAV */
-    .bottom-nav {
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-      background: var(--cream); border-top: 1px solid var(--border);
-      display: flex; align-items: stretch;
-      height: calc(60px + var(--safe-bottom)); padding-bottom: var(--safe-bottom);
-    }
-    .nav-item {
-      flex: 1; display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 2px; cursor: pointer; border: none;
-      background: transparent; font-family: inherit; transition: all 0.15s;
-      text-decoration: none; color: var(--muted); padding: 6px 0;
-    }
-    .nav-item:active { opacity: 0.7; }
-    .nav-item.active { color: var(--red); }
-    .nav-item i { font-size: 22px; }
-    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
   </style>
 </head>
 <body>
@@ -131,7 +129,9 @@
       <i class="ti ti-arrow-left"></i> Back
     </a>
     <div class="header-title">My Pizza Box</div>
-    <div class="header-spacer"></div>
+    <button class="group-btn" title="Group Order — Coming Soon">
+      <i class="ti ti-users"></i> Group Order
+    </button>
   </div>
 
   <!-- PAGE BODY -->
@@ -141,7 +141,7 @@
     <div class="empty-state" id="empty-state">
       <img src="images/fat_chef_empty_box-nobg.png" alt="Sad Fat Chef" class="sad-chef">
       <div class="empty-title">YOUR PIZZA BOX IS EMPTY.</div>
-      <div class="empty-title">That is so sad.</div>
+      <div class="empty-title sub">That is so sad.</div>
       <a href="index.html#menu" class="start-order-btn">
         <i class="ti ti-pizza" style="font-size:20px"></i>
         Order Now
@@ -160,26 +160,6 @@
       Proceed to Checkout — $<span id="box-total">0.00</span>
     </button>
   </div>
-
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
-    <a href="index.html" class="nav-item">
-      <i class="ti ti-home"></i>
-      <span class="nav-label">Home</span>
-    </a>
-    <a href="index.html#menu" class="nav-item active">
-      <i class="ti ti-menu-2"></i>
-      <span class="nav-label">Menu</span>
-    </a>
-    <button class="nav-item">
-      <i class="ti ti-refresh"></i>
-      <span class="nav-label">Reorder</span>
-    </button>
-    <button class="nav-item">
-      <i class="ti ti-star"></i>
-      <span class="nav-label">Rewards</span>
-    </button>
-  </nav>
 
 </body>
 </html>
