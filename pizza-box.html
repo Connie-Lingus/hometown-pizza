@@ -41,10 +41,7 @@
       cursor: pointer; font-family: inherit;
     }
     .back-btn i { font-size: 20px; }
-    .header-title {
-      font-size: 17px; font-weight: 800; color: var(--dark);
-      letter-spacing: -0.4px;
-    }
+    .header-title { font-size: 17px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
     .header-spacer { width: 60px; }
 
     /* BODY */
@@ -63,21 +60,11 @@
       align-items: center; justify-content: center;
       padding: 40px 32px; text-align: center;
     }
-    .sad-chef {
-      width: 220px; height: auto;
-      margin-bottom: 24px;
-    }
+    .sad-chef { width: 220px; height: auto; margin-bottom: 24px; }
     .empty-title {
       font-size: 24px; font-weight: 800; color: var(--dark);
-      letter-spacing: -0.6px; margin-bottom: 10px;
-      line-height: 1.2;
+      letter-spacing: -0.6px; margin-bottom: 28px; line-height: 1.2;
     }
-    .empty-sub {
-      font-size: 14px; color: var(--muted);
-      line-height: 1.6; margin-bottom: 32px;
-      max-width: 260px;
-    }
-    .empty-sub em { font-style: normal; color: var(--red); font-weight: 600; }
     .start-order-btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 16px 28px; border-radius: 14px;
@@ -87,18 +74,8 @@
       font-family: inherit; transition: background 0.15s, transform 0.1s;
     }
     .start-order-btn:active { background: var(--red-dark); transform: scale(0.98); }
-    .browse-menu-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      margin-top: 14px; padding: 12px 24px; border-radius: 14px;
-      background: transparent; color: var(--dark);
-      font-size: 14px; font-weight: 600;
-      text-decoration: none; border: 1.5px solid var(--border);
-      cursor: pointer; font-family: inherit;
-      transition: border-color 0.15s;
-    }
-    .browse-menu-btn:active { border-color: var(--dark); }
 
-    /* ITEMS STATE (hidden for now, ready for when items exist) */
+    /* ITEMS STATE */
     .box-items { display: none; flex-direction: column; gap: 12px; padding: 20px 16px; }
     .box-item {
       background: #fff; border-radius: 14px; border: 1.5px solid var(--border);
@@ -110,7 +87,7 @@
     .box-item-desc { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
     .box-item-price { font-size: 16px; font-weight: 800; color: var(--dark); flex-shrink: 0; }
 
-    /* BOTTOM CTA */
+    /* CHECKOUT BAR */
     .checkout-bar {
       display: none;
       position: fixed; bottom: 0; left: 0; right: 0;
@@ -164,7 +141,7 @@
     <div class="empty-state" id="empty-state">
       <img src="images/fat_chef_sad-nobg.png" alt="Sad Fat Chef" class="sad-chef">
       <div class="empty-title">Your box is empty. Jeez, that's sad.</div>
-      <a href="pizza-app.html" class="start-order-btn">
+      <a href="index.html#menu" class="start-order-btn">
         <i class="ti ti-pizza" style="font-size:20px"></i>
         Order Now
       </a>
@@ -189,7 +166,7 @@
       <i class="ti ti-home"></i>
       <span class="nav-label">Home</span>
     </a>
-    <a href="index.html#menu" class="nav-item">
+    <a href="index.html#menu" class="nav-item active">
       <i class="ti ti-menu-2"></i>
       <span class="nav-label">Menu</span>
     </a>
@@ -201,10 +178,6 @@
       <i class="ti ti-star"></i>
       <span class="nav-label">Rewards</span>
     </button>
-    <a href="pizza-box.html" class="nav-item active">
-      <i class="ti ti-box"></i>
-      <span class="nav-label">My Box</span>
-    </a>
   </nav>
 
 </body>
