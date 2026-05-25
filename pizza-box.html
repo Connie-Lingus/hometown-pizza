@@ -1,1 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#FDF8F3">
+  <title>My Pizza Box — Hometown Pizza</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root {
+      --red: #C8311A;
+      --red-light: #FAECE7;
+      --red-dark: #7A1D0E;
+      --cream: #FDF8F3;
+      --dark: #1A1410;
+      --border: #E8DDD6;
+      --muted: #9A8E88;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; background: var(--cream); }
+    body { font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; }
 
+    /* HEADER */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 0 16px; padding-top: var(--safe-top);
+      height: calc(56px + var(--safe-top));
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding-bottom: 10px;
+    }
+    .back-btn {
+      display: flex; align-items: center; gap: 6px;
+      color: var(--dark); font-size: 15px; font-weight: 600;
+      text-decoration: none; border: none; background: transparent;
+      cursor: pointer; font-family: inherit;
+    }
+    .back-btn i { font-size: 20px; }
+    .header-title {
+      font-size: 17px; font-weight: 800; color: var(--dark);
+      letter-spacing: -0.4px;
+    }
+    .header-spacer { width: 60px; }
+
+    /* BODY */
+    .page-body {
+      flex: 1;
+      padding-top: calc(56px + var(--safe-top));
+      padding-bottom: calc(80px + var(--safe-bottom));
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      flex: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px 32px; text-align: center;
+    }
+    .sad-chef {
+      width: 220px; height: auto;
+      margin-bottom: 24px;
+    }
+    .empty-title {
+      font-size: 24px; font-weight: 800; color: var(--dark);
+      letter-spacing: -0.6px; margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .empty-sub {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.6; margin-bottom: 32px;
+      max-width: 260px;
+    }
+    .empty-sub em { font-style: normal; color: var(--red); font-weight: 600; }
+    .start-order-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 16px 28px; border-radius: 14px;
+      background: var(--red); color: #fff;
+      font-size: 16px; font-weight: 700;
+      text-decoration: none; border: none; cursor: pointer;
+      font-family: inherit; transition: background 0.15s, transform 0.1s;
+    }
+    .start-order-btn:active { background: var(--red-dark); transform: scale(0.98); }
+    .browse-menu-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 14px; padding: 12px 24px; border-radius: 14px;
+      background: transparent; color: var(--dark);
+      font-size: 14px; font-weight: 600;
+      text-decoration: none; border: 1.5px solid var(--border);
+      cursor: pointer; font-family: inherit;
+      transition: border-color 0.15s;
+    }
+    .browse-menu-btn:active { border-color: var(--dark); }
+
+    /* ITEMS STATE (hidden for now, ready for when items exist) */
+    .box-items { display: none; flex-direction: column; gap: 12px; padding: 20px 16px; }
+    .box-item {
+      background: #fff; border-radius: 14px; border: 1.5px solid var(--border);
+      padding: 16px; display: flex; align-items: center; gap: 12px;
+    }
+    .box-item-img { width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; }
+    .box-item-body { flex: 1; }
+    .box-item-name { font-size: 15px; font-weight: 700; color: var(--dark); }
+    .box-item-desc { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+    .box-item-price { font-size: 16px; font-weight: 800; color: var(--dark); flex-shrink: 0; }
+
+    /* BOTTOM CTA */
+    .checkout-bar {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      padding: 12px 16px; padding-bottom: calc(12px + var(--safe-bottom));
+      background: var(--cream); border-top: 1px solid var(--border);
+    }
+    .checkout-btn {
+      width: 100%; padding: 18px; border-radius: 14px;
+      background: var(--red); color: #fff;
+      font-size: 17px; font-weight: 700; border: none;
+      cursor: pointer; font-family: inherit;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .checkout-btn:active { background: var(--red-dark); transform: scale(0.99); }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: var(--cream); border-top: 1px solid var(--border);
+      display: flex; align-items: stretch;
+      height: calc(60px + var(--safe-bottom)); padding-bottom: var(--safe-bottom);
+    }
+    .nav-item {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 2px; cursor: pointer; border: none;
+      background: transparent; font-family: inherit; transition: all 0.15s;
+      text-decoration: none; color: var(--muted); padding: 6px 0;
+    }
+    .nav-item:active { opacity: 0.7; }
+    .nav-item.active { color: var(--red); }
+    .nav-item i { font-size: 22px; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <a href="index.html" class="back-btn">
+      <i class="ti ti-arrow-left"></i> Back
+    </a>
+    <div class="header-title">My Pizza Box</div>
+    <div class="header-spacer"></div>
+  </div>
+
+  <!-- PAGE BODY -->
+  <div class="page-body">
+
+    <!-- EMPTY STATE -->
+    <div class="empty-state" id="empty-state">
+      <img src="images/fat_chef_sad-nobg.png" alt="Sad Fat Chef" class="sad-chef">
+      <div class="empty-title">Your box is empty.</div>
+      <a href="pizza-app.html" class="start-order-btn">
+        <i class="ti ti-pizza" style="font-size:20px"></i>
+        Order Now
+      </a>
+    </div>
+
+    <!-- ITEMS (hidden until orders exist) -->
+    <div class="box-items" id="box-items"></div>
+
+  </div>
+
+  <!-- CHECKOUT BAR (hidden until items exist) -->
+  <div class="checkout-bar" id="checkout-bar">
+    <button class="checkout-btn">
+      <i class="ti ti-lock" style="font-size:20px"></i>
+      Proceed to Checkout — $<span id="box-total">0.00</span>
+    </button>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <i class="ti ti-home"></i>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="index.html#menu" class="nav-item">
+      <i class="ti ti-menu-2"></i>
+      <span class="nav-label">Menu</span>
+    </a>
+    <button class="nav-item">
+      <i class="ti ti-refresh"></i>
+      <span class="nav-label">Reorder</span>
+    </button>
+    <button class="nav-item">
+      <i class="ti ti-star"></i>
+      <span class="nav-label">Rewards</span>
+    </button>
+    <a href="pizza-box.html" class="nav-item active">
+      <i class="ti ti-box"></i>
+      <span class="nav-label">My Box</span>
+    </a>
+  </nav>
+
+</body>
+</html>
