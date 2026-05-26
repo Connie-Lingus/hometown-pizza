@@ -79,53 +79,42 @@
     .pop-badge { font-size: 10px; font-weight: 600; background: var(--red); color: #fff; border-radius: 6px; padding: 2px 7px; margin-top: 3px; align-self: flex-start; }
 
     /* SAUCE */
-    .sauce-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 14px; }
+    .sauce-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
     .sauce-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; transition: all 0.15s; min-height: 64px; }
     .sauce-row:active { transform: scale(0.98); }
-    .sauce-row.sel-free { border-color: #16A34A; background: #F0FDF4; }
-    .sauce-row.sel-free .sauce-name { color: #14532D; }
-    .sauce-row.sel-free .sauce-desc { color: #16A34A; }
-    .sauce-row.sel-paid { border-color: var(--red); background: var(--red-light); }
-    .sauce-row.sel-paid .sauce-name { color: var(--red-dark); }
+    .sauce-row.sel { border-color: var(--red); background: var(--red-light); }
+    .sauce-row.sel .sauce-name { color: var(--red-dark); }
     .sauce-img { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; }
     .sauce-info { flex: 1; }
     .sauce-name { font-size: 15px; font-weight: 600; color: var(--text); }
     .sauce-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .sauce-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-    .sauce-price-tag { font-size: 13px; font-weight: 700; color: var(--muted); }
-    .sauce-row.sel-paid .sauce-price-tag { color: var(--red); }
-    .badge-incl  { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; background: #86EFAC; color: #14532D; }
-    .badge-added { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; background: var(--red-light); color: var(--red-dark); }
-    .badge-light { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; background: #FEF9C3; color: #713F12; }
-    .badge-xtra  { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; background: #DCFCE7; color: #14532D; }
-    .sauce-item { position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 8px; }
-    .sauce-actions { position: absolute; top: 0; bottom: 0; left: 0; display: flex; }
+    .badge-pill { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; background: var(--cream); color: var(--dark); border: 1.5px solid var(--border); }
+    .badge-pill.sel { background: var(--dark); color: #fff; border-color: var(--dark); }
+    .badge-pill.red { background: var(--red-light); color: var(--red-dark); border-color: var(--red); }
 
     /* GARLIC BUTTER */
     .gb-card { border: 1.5px solid var(--border); border-radius: 12px; background: #fff; transition: all 0.15s; cursor: pointer; }
     .gb-card:active { transform: scale(0.98); }
-    .gb-card.sel { border-color: #C97D0A; background: #FFFBEB; }
+    .gb-card.sel { border-color: var(--dark); background: var(--cream); }
     .gb-inner { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
     .gb-text { flex: 1; }
     .gb-name { font-size: 15px; font-weight: 700; color: var(--text); }
-    .gb-card.sel .gb-name { color: #78350F; }
+    .gb-card.sel .gb-name { color: var(--dark); }
     .gb-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
-    .gb-card.sel .gb-desc { color: #92400E; }
     .gb-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; margin-left: 8px; flex-shrink: 0; }
     .gb-price { font-size: 14px; font-weight: 700; color: var(--muted); }
-    .gb-card.sel .gb-price { color: #C97D0A; }
+    .gb-card.sel .gb-price { color: var(--dark); }
     .gb-chk { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; background: #fff; transition: all 0.15s; }
-    .gb-card.sel .gb-chk { background: #C97D0A; border-color: #C97D0A; }
+    .gb-card.sel .gb-chk { background: var(--dark); border-color: var(--dark); }
 
     /* CHEESE */
-    .mozz-row { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px; background: #F0FDF4; border: 1.5px solid #86EFAC; margin-bottom: 0; }
-    .mozz-name { font-size: 15px; font-weight: 700; color: #14532D; }
-    .mozz-sub { font-size: 12px; color: #16A34A; margin-top: 1px; }
-    .mozz-badge { font-size: 10px; font-weight: 600; background: #86EFAC; color: #14532D; border-radius: 6px; padding: 3px 9px; margin-left: auto; white-space: nowrap; }
+    .mozz-row { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px; background: var(--cream); border: 1.5px solid var(--border); margin-bottom: 8px; cursor: pointer; transition: all 0.15s; }
+    .mozz-row:active { transform: scale(0.98); }
+    .mozz-row.sel { border-color: var(--dark); }
+    .mozz-name { font-size: 15px; font-weight: 700; color: var(--text); }
+    .mozz-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
     .cheese-add-lbl { font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin: 10px 0 8px; }
-    .cheese-item { position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 8px; min-height: 62px; }
-    .cheese-actions { position: absolute; top: 0; bottom: 0; left: 0; display: flex; z-index: 1; }
-    .cheese-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; transition: all 0.15s; min-height: 60px; }
+    .cheese-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; transition: all 0.15s; min-height: 60px; margin-bottom: 8px; }
     .cheese-row:active { transform: scale(0.98); }
     .cheese-row.sel { border-color: var(--red); background: var(--red-light); }
     .ch-name { font-size: 15px; font-weight: 600; color: var(--text); }
@@ -136,37 +125,32 @@
     .cheese-row.sel .ch-price { color: var(--red); }
 
     /* TOPPINGS */
-    .hint { font-size: 12px; color: var(--muted); margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
+    .hint { font-size: 12px; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
     .free-note { font-size: 12px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
     .grp-lbl { font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; margin: 14px 0 7px; }
-    .top-item { position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 8px; }
-    .top-actions { position: absolute; top: 0; bottom: 0; left: 0; display: flex; }
-    .sw-btn { width: 72px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; border: none; cursor: pointer; font-family: inherit; transition: filter 0.1s; }
-    .sw-btn:active { filter: brightness(0.85); }
-    .sw-lbl { font-size: 10px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; }
-    .sw-light { background: #FEF9C3; } .sw-light .sw-lbl { color: #713F12; }
-    .sw-extra { background: #DCFCE7; } .sw-extra .sw-lbl { color: #14532D; }
-    .top-face { position: relative; z-index: 2; background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; min-height: 62px; will-change: transform; cursor: pointer; user-select: none; touch-action: pan-y; transition: border-color 0.15s, background 0.15s; }
-    .top-face.selected { border-color: var(--red); background: var(--red-light); }
-    .top-face.selected .top-n { color: var(--red-dark); }
-    .top-face.is-free { border-color: #16A34A; background: #F0FDF4; }
-    .top-face.is-free .top-n { color: #14532D; }
+    .top-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 12px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; transition: all 0.15s; min-height: 62px; margin-bottom: 8px; }
+    .top-row:active { transform: scale(0.98); }
+    .top-row.sel { border-color: var(--red); background: var(--red-light); }
+    .top-row.sel .top-n { color: var(--red-dark); }
+    .top-row.is-free { border-color: var(--dark); background: var(--cream); }
+    .top-row.is-free .top-n { color: var(--dark); }
     .top-img { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
     .top-img-placeholder { width: 42px; height: 42px; flex-shrink: 0; }
     .top-n { font-size: 15px; font-weight: 600; color: var(--text); }
     .top-p { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .top-p.free-price { color: #16A34A; font-weight: 700; }
-    .state-badge { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; }
-    .b-added { background: var(--red-light); color: var(--red-dark); }
-    .b-extra { background: #DCFCE7; color: #14532D; }
-    .b-light { background: #FEF9C3; color: #713F12; }
-    .b-free  { background: #DCFCE7; color: #14532D; }
+    .top-p.free-price { color: var(--dark); font-weight: 700; }
+    .top-right { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+    /* STATE BADGES — cream palette only */
+    .state-badge { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; background: var(--cream); color: var(--dark); border: 1.5px solid var(--border); }
+    .state-badge.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+    .state-badge.red { background: var(--red-light); color: var(--red-dark); border-color: var(--red); }
 
     /* SUMMARY */
     .sum-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
     .sum-label { color: #6B7280; }
     .sum-val { font-weight: 600; color: var(--text); }
-    .sum-val.free { color: #16A34A; }
+    .sum-val.free { color: var(--dark); font-weight: 700; }
     .sum-total { display: flex; justify-content: space-between; padding-top: 12px; margin-top: 4px; border-top: 2px solid var(--border); }
     .sum-tl { font-size: 15px; font-weight: 700; color: var(--text); }
     .sum-tv { font-size: 24px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
@@ -185,6 +169,63 @@
     .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
     .nav-box-img { width: 28px; height: 28px; object-fit: contain; opacity: 0.5; }
     .nav-item.active .nav-box-img { opacity: 1; }
+
+    /* ── BOTTOM SHEET ── */
+    .sheet-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.22s; }
+    .sheet-overlay.open { opacity: 1; pointer-events: all; }
+    .sheet {
+      position: fixed; left: 0; right: 0; bottom: 0;
+      background: var(--cream); z-index: 301;
+      border-radius: 20px 20px 0 0;
+      padding: 0 0 calc(24px + var(--safe-bottom));
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+      max-height: 70vh; overflow-y: auto;
+    }
+    .sheet.open { transform: translateY(0); }
+    .sheet-handle { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 12px auto 0; }
+    .sheet-header { padding: 16px 20px 12px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); }
+    .sheet-img { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; }
+    .sheet-title { font-size: 17px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
+    .sheet-price { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .sheet-body { padding: 16px 20px; }
+    .sheet-section-lbl { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+
+    /* HALF/WHOLE BUTTONS */
+    .placement-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .placement-btn {
+      flex: 1; padding: 10px 6px; border-radius: 10px;
+      border: 1.5px solid var(--border); background: #fff;
+      font-size: 12px; font-weight: 700; color: var(--muted);
+      cursor: pointer; font-family: inherit; transition: all 0.15s;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      text-align: center; line-height: 1.2;
+    }
+    .placement-btn i { font-size: 20px; }
+    .placement-btn.active { border-color: var(--dark); background: var(--dark); color: #fff; }
+    .placement-btn.remove { border-color: var(--red); }
+    .placement-btn.remove.active { background: var(--red); border-color: var(--red); color: #fff; }
+
+    /* AMOUNT BUTTONS */
+    .amount-row { display: flex; gap: 8px; margin-bottom: 0; }
+    .amount-btn {
+      flex: 1; padding: 10px 6px; border-radius: 10px;
+      border: 1.5px solid var(--border); background: #fff;
+      font-size: 12px; font-weight: 700; color: var(--muted);
+      cursor: pointer; font-family: inherit; transition: all 0.15s;
+      text-align: center;
+    }
+    .amount-btn.active { border-color: var(--dark); background: var(--dark); color: #fff; }
+
+    .sheet-divider { height: 1px; background: var(--border); margin: 14px 0; }
+    .sheet-done-btn {
+      width: 100%; padding: 16px; border-radius: 12px;
+      background: var(--dark); color: #fff;
+      font-size: 16px; font-weight: 700; border: none;
+      cursor: pointer; font-family: inherit; margin-top: 16px;
+      transition: background 0.15s;
+    }
+    .sheet-done-btn:active { background: var(--red); }
   </style>
 </head>
 <body>
@@ -243,7 +284,7 @@
       <div class="section">
         <div class="section-label">Step 3</div>
         <div class="section-title">Sauce</div>
-        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to select &nbsp;•&nbsp; <i class="ti ti-chevrons-left" style="font-size:13px"></i> Swipe Right for Light or Extra</div>
+        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to select &nbsp;•&nbsp; Tap again for placement & amount</div>
         <div class="sauce-list" id="sauces"></div>
         <div class="gb-card" id="gb-card">
           <div class="gb-inner">
@@ -264,27 +305,8 @@
       <div class="section">
         <div class="section-label">Step 4</div>
         <div class="section-title">Cheese</div>
-        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to add &nbsp;•&nbsp; <i class="ti ti-chevrons-right" style="font-size:13px"></i> Swipe Right for Light or Extra</div>
-        <div class="cheese-item" id="mozz-item">
-          <div class="cheese-actions" id="mozz-actions">
-            <button class="sw-btn sw-light" id="mozz-light" aria-label="Light Mozzarella">
-              <i class="ti ti-droplet-half-2" style="font-size:17px;color:#713F12"></i>
-              <span class="sw-lbl">Light</span>
-            </button>
-            <button class="sw-btn sw-extra" id="mozz-extra" aria-label="Extra Mozzarella">
-              <i class="ti ti-droplet-filled" style="font-size:17px;color:#14532D"></i>
-              <span class="sw-lbl">Extra +$1</span>
-            </button>
-          </div>
-          <div class="mozz-row" id="mozz-face" style="position:relative;z-index:2;will-change:transform;touch-action:pan-y;user-select:none;cursor:grab;">
-            <img src="images/Mozzarella-nobg.png" alt="Mozzarella" style="width:42px;height:42px;object-fit:contain;flex-shrink:0">
-            <div>
-              <div class="mozz-name">Mozzarella</div>
-              <div class="mozz-sub">Always included — the base of every pizza</div>
-            </div>
-            <div id="mozz-badge-wrap"><div class="mozz-badge">Included</div></div>
-          </div>
-        </div>
+        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to select &nbsp;•&nbsp; Tap again for placement & amount</div>
+        <div id="mozz-wrap"></div>
         <div class="cheese-add-lbl">Add a cheese</div>
         <div id="cheese-addons"></div>
       </div>
@@ -293,7 +315,7 @@
       <div class="section">
         <div class="section-label">Step 5</div>
         <div class="section-title">Toppings</div>
-        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to add &nbsp;•&nbsp; <i class="ti ti-chevrons-right" style="font-size:13px"></i> Swipe Right for Light or Extra</div>
+        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to add &nbsp;•&nbsp; Tap again for placement & amount</div>
         <div class="free-note" id="free-note" style="color:#9A8E88"><i class="ti ti-tag" style="font-size:14px"></i> First topping is included with your pizza</div>
         <div id="tops"></div>
       </div>
@@ -315,7 +337,7 @@
     </div>
   </div>
 
-  <!-- BOTTOM NAV — inside #app, after #main-app -->
+  <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
     <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
     <a href="index.html#menu" class="nav-item active"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
@@ -323,6 +345,44 @@
     <button class="nav-item"><i class="ti ti-star"></i><span class="nav-label">Rewards</span></button>
     <button class="nav-item"><img src="images/Pizza_Box_2-nobg.png" alt="Your Box" class="nav-box-img"><span class="nav-label">Your Box</span></button>
   </nav>
+
+  <!-- BOTTOM SHEET -->
+  <div class="sheet-overlay" id="sheet-overlay" onclick="closeSheet()"></div>
+  <div class="sheet" id="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <img src="" alt="" class="sheet-img" id="sheet-img">
+      <div>
+        <div class="sheet-title" id="sheet-title"></div>
+        <div class="sheet-price" id="sheet-price"></div>
+      </div>
+    </div>
+    <div class="sheet-body">
+      <div class="sheet-section-lbl">Placement</div>
+      <div class="placement-row">
+        <button class="placement-btn" id="pl-whole" onclick="setPlacement('whole')">
+          <i class="ti ti-circle"></i>Whole
+        </button>
+        <button class="placement-btn" id="pl-left" onclick="setPlacement('left')">
+          <i class="ti ti-circle-half"></i>Left Half
+        </button>
+        <button class="placement-btn" id="pl-right" onclick="setPlacement('right')">
+          <i class="ti ti-circle-half" style="transform:scaleX(-1)"></i>Right Half
+        </button>
+        <button class="placement-btn remove" id="pl-remove" onclick="setPlacement('remove')">
+          <i class="ti ti-x"></i>Remove
+        </button>
+      </div>
+      <div class="sheet-divider"></div>
+      <div class="sheet-section-lbl">Amount</div>
+      <div class="amount-row">
+        <button class="amount-btn" id="amt-light" onclick="setAmount('light')">Light</button>
+        <button class="amount-btn" id="amt-normal" onclick="setAmount('normal')">Normal</button>
+        <button class="amount-btn" id="amt-extra" onclick="setAmount('extra')">Extra</button>
+      </div>
+      <button class="sheet-done-btn" onclick="commitSheet()">Done</button>
+    </div>
+  </div>
 
 </div><!-- end #app -->
 
@@ -332,25 +392,21 @@
     { name:"Medium", inch:"12 inch", price:14.95, pop:false },
     { name:"Small",  inch:"10 inch", price:12.95, pop:false }
   ];
-
   const CRUSTS = [
-    { name:"Original — Pan Style", desc:"Thick, buttery, golden bottom"   },
+    { name:"Original — Pan Style", desc:"Thick, buttery, golden bottom" },
     { name:"Thin & Crispy",        desc:"Light, crackly, extra crisp edge" }
   ];
-
   const SAUCES = [
-    { name:"Marinara",       desc:"Classic tomato",        price:0,    free:true,  img:"images/Marinara_Basil_2-nobg.png" },
-    { name:"Spicy Marinara", desc:"Kick up every bite",    price:0,    free:true,  img:"images/Spicy_Marinara-nobg.png"   },
-    { name:"Alfredo",        desc:"Rich & creamy",         price:2.50, free:false, img:"images/Alfredo-nobg.png"          },
-    { name:"BBQ",            desc:"Tangy & bold",          price:2.50, free:false, img:"images/BBQ-nobg.png"              },
-    { name:"Buffalo",        desc:"Spicy, tangy, bold heat", price:2.50, free:false, img:"images/Buffalo-nobg.png"        }
+    { name:"Marinara",       desc:"Classic tomato",           price:0,    free:true,  img:"images/Marinara_Basil_2-nobg.png" },
+    { name:"Spicy Marinara", desc:"Kick up every bite",       price:0,    free:true,  img:"images/Spicy_Marinara-nobg.png"   },
+    { name:"Alfredo",        desc:"Rich & creamy",            price:2.50, free:false, img:"images/Alfredo-nobg.png"          },
+    { name:"BBQ",            desc:"Tangy & bold",             price:2.50, free:false, img:"images/BBQ-nobg.png"              },
+    { name:"Buffalo",        desc:"Spicy, tangy, bold heat",  price:2.50, free:false, img:"images/Buffalo-nobg.png"          }
   ];
-
   const CHEESE_ADDONS = [
     { name:"Cheddar",     desc:"Sharp — blends great with mozz", price:2.00, img:"images/Cheddar-nobg.png"     },
     { name:"Pepper Jack", desc:"Spicy kick — great with meats",  price:2.00, img:"images/Pepper_Jack-nobg.png" }
   ];
-
   const TOP_GROUPS = [
     { label:"Meats", items:[
       { n:"Pepperoni",       p:2.50, img:"images/Pepperoni-nobg.png"        },
@@ -377,17 +433,131 @@
 
   let allTops = [];
   TOP_GROUPS.forEach(g => g.items.forEach(t => { t._i = allTops.length; allTops.push(t); }));
-  let ord = { size:0, crust:0, sauce:0, sauceMod:'normal', gbCrust:false, mozzMod:'normal', cheeseAddons:{}, cheeseMod:{}, tops:{}, topOrder:[] };
+
+  // ord.tops[i] = { placement: 'whole'|'left'|'right', amount: 'light'|'normal'|'extra' } or null
+  // ord.sauce = index, ord.sauceMod = { placement, amount }
+  // ord.mozzMod = { placement, amount }
+  // ord.cheeseAddons[i] = { placement, amount } or null
+  let ord = {
+    size: 0, crust: 0,
+    sauce: 0,
+    sauceMod: { placement: 'whole', amount: 'normal' },
+    gbCrust: false,
+    mozzMod: { placement: 'whole', amount: 'normal' },
+    cheeseAddons: {},
+    tops: {},
+    topOrder: []
+  };
+
+  // ── SHEET STATE ──
+  let sheetCtx = null; // { type, idx, placement, amount }
+  let sheetPlacement = 'whole';
+  let sheetAmount = 'normal';
+
+  function openSheet(ctx) {
+    sheetCtx = ctx;
+    sheetPlacement = ctx.placement || 'whole';
+    sheetAmount = ctx.amount || 'normal';
+
+    document.getElementById('sheet-title').textContent = ctx.name;
+    document.getElementById('sheet-price').textContent = ctx.priceStr || '';
+    const imgEl = document.getElementById('sheet-img');
+    if (ctx.img) { imgEl.src = ctx.img; imgEl.style.display = 'block'; }
+    else { imgEl.style.display = 'none'; }
+
+    // Show/hide remove button
+    document.getElementById('pl-remove').style.display = ctx.canRemove ? '' : 'none';
+
+    // Show/hide amount section
+    const amountSection = document.querySelector('.sheet-section-lbl:last-of-type');
+
+    updateSheetUI();
+    document.getElementById('sheet-overlay').classList.add('open');
+    document.getElementById('sheet').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSheet() {
+    document.getElementById('sheet-overlay').classList.remove('open');
+    document.getElementById('sheet').classList.remove('open');
+    document.body.style.overflow = '';
+    sheetCtx = null;
+  }
+
+  function setPlacement(p) {
+    sheetPlacement = p;
+    updateSheetUI();
+    if (p === 'remove') { commitSheet(); }
+  }
+
+  function setAmount(a) {
+    sheetAmount = a;
+    updateSheetUI();
+  }
+
+  function updateSheetUI() {
+    ['whole','left','right','remove'].forEach(p => {
+      const el = document.getElementById('pl-' + p);
+      if (el) el.classList.toggle('active', sheetPlacement === p);
+    });
+    ['light','normal','extra'].forEach(a => {
+      const el = document.getElementById('amt-' + a);
+      if (el) el.classList.toggle('active', sheetAmount === a);
+    });
+  }
+
+  function commitSheet() {
+    if (!sheetCtx) return;
+    const { type, idx } = sheetCtx;
+    const removed = sheetPlacement === 'remove';
+
+    if (type === 'sauce') {
+      if (!removed) ord.sauceMod = { placement: sheetPlacement, amount: sheetAmount };
+    } else if (type === 'mozz') {
+      ord.mozzMod = { placement: sheetPlacement, amount: sheetAmount };
+    } else if (type === 'cheese') {
+      if (removed) { ord.cheeseAddons[idx] = null; }
+      else { ord.cheeseAddons[idx] = { placement: sheetPlacement, amount: sheetAmount }; }
+    } else if (type === 'top') {
+      if (removed) {
+        ord.tops[idx] = null;
+        ord.topOrder = ord.topOrder.filter(x => x !== idx);
+      } else {
+        const wasNull = !ord.tops[idx];
+        ord.tops[idx] = { placement: sheetPlacement, amount: sheetAmount };
+        if (wasNull) ord.topOrder.push(idx);
+      }
+    }
+
+    closeSheet();
+    renderAll();
+    updateAll();
+  }
 
   function getFreeIdx() {
     for (const idx of ord.topOrder) {
-      const s = ord.tops[idx];
-      if (s === 'added' || s === 'easy') return idx;
+      const t = ord.tops[idx];
+      if (t && (t.placement === 'whole' || t.placement === 'left' || t.placement === 'right') && t.amount !== 'extra') return idx;
     }
     return null;
   }
 
-  function init() { renderSizes(); renderCrusts(); renderSauces(); renderGb(); initMozz(); renderCheese(); renderTops(); updateAll(); }
+  function placementLabel(p) {
+    return p === 'left' ? 'Left Half' : p === 'right' ? 'Right Half' : 'Whole';
+  }
+  function amountLabel(a) {
+    return a === 'light' ? 'Light' : a === 'extra' ? 'Extra' : '';
+  }
+  function badgeText(placement, amount) {
+    const parts = [];
+    if (placement !== 'whole') parts.push(placementLabel(placement));
+    if (amount && amount !== 'normal') parts.push(amount === 'extra' ? 'Extra' : 'Light');
+    return parts.length ? parts.join(' · ') : 'Added';
+  }
+
+  function init() { renderAll(); updateAll(); }
+
+  function renderAll() { renderSizes(); renderCrusts(); renderSauces(); renderGb(); renderMozz(); renderCheese(); renderTops(); }
 
   function renderSizes() {
     const c = document.getElementById('sizes'); c.innerHTML = '';
@@ -415,73 +585,35 @@
     const c = document.getElementById('sauces'); c.innerHTML = '';
     SAUCES.forEach((s, i) => {
       const isSel = i === ord.sauce;
-      const wrap = document.createElement('div');
-      wrap.className = 'sauce-item';
-      const acts = document.createElement('div');
-      acts.className = 'sauce-actions';
-      acts.innerHTML = `
-        <button class="sw-btn sw-light" data-si="${i}" data-sm="light" aria-label="Light ${s.name}">
-          <i class="ti ti-droplet-half-2" style="font-size:17px;color:#713F12"></i>
-          <span class="sw-lbl">Light</span>
-        </button>
-        <button class="sw-btn sw-extra" data-si="${i}" data-sm="extra" aria-label="Extra ${s.name}">
-          <i class="ti ti-droplet-filled" style="font-size:17px;color:#14532D"></i>
-          <span class="sw-lbl">Extra +$1</span>
-        </button>`;
-      acts.querySelectorAll('.sw-btn').forEach(btn => {
-        btn.addEventListener('click', e => {
-          e.stopPropagation();
-          if (isSel) { ord.sauceMod = btn.dataset.sm; renderSauces(); }
-        });
-      });
-      const face = document.createElement('div');
-      let cls = 'sauce-row';
-      if (isSel) cls += s.free ? ' sel-free' : ' sel-paid';
-      face.className = cls;
-      face.style.cssText = 'position:relative;z-index:2;will-change:transform;touch-action:pan-y;user-select:none;margin-bottom:0;border-radius:12px;';
+      const mod = ord.sauceMod;
+      const row = document.createElement('div');
+      row.className = 'sauce-row' + (isSel ? ' sel' : '');
+
       let badge = '';
       if (isSel) {
-        if (ord.sauceMod === 'light')       badge = '<span class="badge-light">Light</span>';
-        else if (ord.sauceMod === 'extra')  badge = '<span class="badge-xtra">Extra +$1.00</span>';
-        else if (s.free)                    badge = '<span class="badge-incl">Included</span>';
-        else                                badge = '<span class="badge-added">Added</span>';
+        const txt = badgeText(mod.placement, mod.amount);
+        const isModified = mod.placement !== 'whole' || mod.amount !== 'normal';
+        badge = `<span class="state-badge${isModified ? ' active' : ''}">${txt}</span>`;
       } else if (!s.free) {
         badge = `<span style="font-size:13px;font-weight:700;color:var(--muted)">+$${s.price.toFixed(2)}</span>`;
       }
-      const imgHtml = s.img ? `<img src="${s.img}" alt="${s.name}" class="sauce-img">` : '';
-      face.innerHTML = `${imgHtml}<div class="sauce-info"><div class="sauce-name">${s.name}</div><div class="sauce-desc">${s.desc}</div></div><div>${badge}</div>`;
-      face.addEventListener('click', () => {
-        if (!didSwipeSauce) {
-          if (isSel) { ord.sauceMod = 'normal'; }
-          else { ord.sauce = i; ord.sauceMod = 'normal'; }
-          renderSauces(); updateAll();
-        }
-      });
-      if (isSel) attachSauceSwipe(face);
-      wrap.appendChild(acts);
-      wrap.appendChild(face);
-      c.appendChild(wrap);
-    });
-  }
 
-  let didSwipeSauce = false;
-  function attachSauceSwipe(face) {
-    const SNAP = 144;
-    let x0=0, y0=0, dragging=false, open=false, lastDx=0;
-    function snap(o) { face.style.transition='transform 0.26s cubic-bezier(0.25,0.46,0.45,0.94)'; face.style.transform=o?`translateX(${SNAP}px)`:'translateX(0)'; open=o; setTimeout(()=>{face.style.transition='';},280); }
-    face.addEventListener('pointerdown', e=>{x0=e.clientX;y0=e.clientY;dragging=false;lastDx=0;didSwipeSauce=false;face.setPointerCapture(e.pointerId);face.style.transition='none';});
-    face.addEventListener('pointermove', e=>{
-      const dx=e.clientX-x0,dy=e.clientY-y0;
-      if(!dragging){if(Math.abs(dx)<5&&Math.abs(dy)<5)return;if(Math.abs(dy)>Math.abs(dx))return;dragging=true;didSwipeSauce=true;}
-      e.preventDefault();lastDx=dx;
-      face.style.transform=`translateX(${Math.min(SNAP,Math.max(0,(open?SNAP:0)+dx))}px)`;
-    },{passive:false});
-    face.addEventListener('pointerup',()=>{
-      if(!dragging){if(open)snap(false);return;}
-      setTimeout(()=>{didSwipeSauce=false;},60);
-      (!open&&lastDx>40)?snap(true):(open&&lastDx<-40)?snap(false):snap(open);
+      const imgHtml = s.img ? `<img src="${s.img}" alt="${s.name}" class="sauce-img">` : '';
+      row.innerHTML = `${imgHtml}<div class="sauce-info"><div class="sauce-name">${s.name}</div><div class="sauce-desc">${s.desc}</div></div><div>${badge}</div>`;
+
+      row.onclick = () => {
+        if (!isSel) { ord.sauce = i; ord.sauceMod = { placement:'whole', amount:'normal' }; renderSauces(); updateAll(); }
+        else {
+          openSheet({
+            type:'sauce', idx:i, name:s.name,
+            priceStr: s.free ? 'Included' : `+$${s.price.toFixed(2)}`,
+            img: s.img, canRemove: false,
+            placement: ord.sauceMod.placement, amount: ord.sauceMod.amount
+          });
+        }
+      };
+      c.appendChild(row);
     });
-    face.addEventListener('pointercancel',()=>snap(open));
   }
 
   function renderGb() {
@@ -491,100 +623,62 @@
   }
   document.getElementById('gb-card').onclick = () => { ord.gbCrust = !ord.gbCrust; renderGb(); updateAll(); };
 
-  function initMozz() {
-    const face = document.getElementById('mozz-face');
-    const badgeWrap = document.getElementById('mozz-badge-wrap');
-    if (!face) return;
-    function updateMozzBadge() {
-      if (ord.mozzMod === 'light')       badgeWrap.innerHTML = '<span class="badge-light">Light</span>';
-      else if (ord.mozzMod === 'extra')  badgeWrap.innerHTML = '<span class="badge-xtra">Extra +$1.00</span>';
-      else                               badgeWrap.innerHTML = '<div class="mozz-badge">Included</div>';
-      updateAll();
-    }
-    document.getElementById('mozz-light').addEventListener('click', e => { e.stopPropagation(); ord.mozzMod = 'light'; updateMozzBadge(); });
-    document.getElementById('mozz-extra').addEventListener('click', e => { e.stopPropagation(); ord.mozzMod = 'extra'; updateMozzBadge(); });
-    const SNAP = 144;
-    let x0=0,y0=0,dragging=false,open=false,lastDx=0;
-    function snap(o){face.style.transition='transform 0.26s cubic-bezier(0.25,0.46,0.45,0.94)';face.style.transform=o?`translateX(${SNAP}px)`:'translateX(0)';open=o;setTimeout(()=>{face.style.transition='';},280);}
-    face.addEventListener('pointerdown',e=>{x0=e.clientX;y0=e.clientY;dragging=false;lastDx=0;face.setPointerCapture(e.pointerId);face.style.transition='none';});
-    face.addEventListener('pointermove',e=>{
-      const dx=e.clientX-x0,dy=e.clientY-y0;
-      if(!dragging){if(Math.abs(dx)<5&&Math.abs(dy)<5)return;if(Math.abs(dy)>Math.abs(dx))return;dragging=true;}
-      e.preventDefault();lastDx=dx;
-      face.style.transform=`translateX(${Math.min(SNAP,Math.max(0,(open?SNAP:0)+dx))}px)`;
-    },{passive:false});
-    face.addEventListener('pointerup',()=>{
-      if(!dragging){if(open)snap(false);return;}
-      (!open&&lastDx>40)?snap(true):(open&&lastDx<-40)?snap(false):snap(open);
-    });
-    face.addEventListener('pointercancel',()=>snap(open));
+  function renderMozz() {
+    const wrap = document.getElementById('mozz-wrap');
+    const mod = ord.mozzMod;
+    const isModified = mod.placement !== 'whole' || mod.amount !== 'normal';
+    const badge = isModified
+      ? `<span class="state-badge active">${badgeText(mod.placement, mod.amount)}</span>`
+      : `<span class="state-badge">Included</span>`;
+
+    wrap.innerHTML = `
+      <div class="mozz-row${isModified ? ' sel' : ''}" id="mozz-face">
+        <img src="images/Mozzarella-nobg.png" alt="Mozzarella" style="width:42px;height:42px;object-fit:contain;flex-shrink:0">
+        <div style="flex:1"><div class="mozz-name">Mozzarella</div><div class="mozz-sub">Always included — the base of every pizza</div></div>
+        <div>${badge}</div>
+      </div>`;
+
+    document.getElementById('mozz-face').onclick = () => {
+      openSheet({
+        type:'mozz', name:'Mozzarella', priceStr:'Included',
+        img:'images/Mozzarella-nobg.png', canRemove: false,
+        placement: ord.mozzMod.placement, amount: ord.mozzMod.amount
+      });
+    };
   }
 
   function renderCheese() {
     const c = document.getElementById('cheese-addons'); c.innerHTML = '';
     CHEESE_ADDONS.forEach((ch, i) => {
-      const sel = !!ord.cheeseAddons[i];
-      const mod = ord.cheeseMod[i] || 'normal';
-      const wrap = document.createElement('div');
-      wrap.className = 'cheese-item';
-      const acts = document.createElement('div');
-      acts.className = 'cheese-actions';
-      acts.innerHTML = `
-        <button class="sw-btn sw-light" data-ci="${i}" data-cm="light" aria-label="Light ${ch.name}">
-          <i class="ti ti-droplet-half-2" style="font-size:17px;color:#713F12"></i>
-          <span class="sw-lbl">Light</span>
-        </button>
-        <button class="sw-btn sw-extra" data-ci="${i}" data-cm="extra" aria-label="Extra ${ch.name}">
-          <i class="ti ti-droplet-filled" style="font-size:17px;color:#14532D"></i>
-          <span class="sw-lbl">Extra</span>
-        </button>`;
-      acts.querySelectorAll('.sw-btn').forEach(btn => {
-        btn.addEventListener('click', e => {
-          e.stopPropagation();
-          if (sel) { ord.cheeseMod[i] = btn.dataset.cm; renderCheese(); updateAll(); }
-        });
-      });
+      const mod = ord.cheeseAddons[i];
+      const sel = !!mod;
+      const row = document.createElement('div');
+      row.className = 'cheese-row' + (sel ? ' sel' : '');
+
       let badge = '';
       if (sel) {
-        if (mod === 'light')       badge = '<span class="badge-light">Light</span>';
-        else if (mod === 'extra')  badge = '<span class="badge-xtra">Extra</span>';
-        else                       badge = '<span class="badge-added">Added</span>';
+        const txt = badgeText(mod.placement, mod.amount);
+        badge = `<span class="state-badge red">${txt}</span>`;
       }
-      const face = document.createElement('div');
-      face.className = 'cheese-row' + (sel ? ' sel' : '');
-      face.style.cssText = 'position:relative;z-index:2;will-change:transform;touch-action:pan-y;user-select:none;margin-bottom:0;border-radius:12px;';
-      const imgHtml = ch.img ? `<img src="${ch.img}" alt="${ch.name}" style="width:42px;height:42px;object-fit:contain;flex-shrink:0">` : '';
-      face.innerHTML = `${imgHtml}<div><div class="ch-name">${ch.name}</div><div class="ch-sub">${ch.desc}</div></div><div class="ch-right"><span class="ch-price">+$${ch.price.toFixed(2)}</span>${badge}</div>`;
-      let didSwipeCheese = false;
-      face.addEventListener('click', () => {
-        if (didSwipeCheese) return;
-        if (sel) { ord.cheeseAddons[i] = false; ord.cheeseMod[i] = 'normal'; }
-        else { ord.cheeseAddons[i] = true; }
-        renderCheese(); updateAll();
-      });
-      attachCheeseSwipe(face, i, sel);
-      wrap.appendChild(acts);
-      wrap.appendChild(face);
-      c.appendChild(wrap);
-    });
-  }
 
-  function attachCheeseSwipe(face, idx, sel) {
-    const SNAP = 144;
-    let x0=0, y0=0, dragging=false, open=false, lastDx=0;
-    function snap(o) { face.style.transition='transform 0.26s cubic-bezier(0.25,0.46,0.45,0.94)'; face.style.transform=o?`translateX(${SNAP}px)`:'translateX(0)'; open=o; setTimeout(()=>{face.style.transition='';},280); }
-    face.addEventListener('pointerdown', e=>{x0=e.clientX;y0=e.clientY;dragging=false;lastDx=0;face.setPointerCapture(e.pointerId);face.style.transition='none';});
-    face.addEventListener('pointermove', e=>{
-      const dx=e.clientX-x0,dy=e.clientY-y0;
-      if(!dragging){if(Math.abs(dx)<5&&Math.abs(dy)<5)return;if(Math.abs(dy)>Math.abs(dx))return;dragging=true;}
-      e.preventDefault();lastDx=dx;
-      face.style.transform=`translateX(${Math.min(SNAP,Math.max(0,(open?SNAP:0)+dx))}px)`;
-    },{passive:false});
-    face.addEventListener('pointerup',()=>{
-      if(!dragging){if(open)snap(false);return;}
-      (!open&&lastDx>40)?snap(true):(open&&lastDx<-40)?snap(false):snap(open);
+      const imgHtml = ch.img ? `<img src="${ch.img}" alt="${ch.name}" style="width:42px;height:42px;object-fit:contain;flex-shrink:0">` : '';
+      row.innerHTML = `${imgHtml}<div><div class="ch-name">${ch.name}</div><div class="ch-sub">${ch.desc}</div></div><div class="ch-right"><span class="ch-price">+$${ch.price.toFixed(2)}</span>${badge}</div>`;
+
+      row.onclick = () => {
+        if (!sel) {
+          ord.cheeseAddons[i] = { placement:'whole', amount:'normal' };
+          renderCheese(); updateAll();
+        } else {
+          openSheet({
+            type:'cheese', idx:i, name:ch.name,
+            priceStr:`+$${ch.price.toFixed(2)}`,
+            img:ch.img, canRemove:true,
+            placement:mod.placement, amount:mod.amount
+          });
+        }
+      };
+      c.appendChild(row);
     });
-    face.addEventListener('pointercancel',()=>snap(open));
   }
 
   function renderTops() {
@@ -596,95 +690,85 @@
       lbl.className = 'grp-lbl'; lbl.textContent = group.label; c.appendChild(lbl);
       group.items.forEach(t => {
         const idx = gi++;
-        const state = ord.tops[idx] || 'none';
-        const isSelected = state !== 'none';
+        const mod = ord.tops[idx];
+        const isSel = !!mod;
         const isFree = idx === freeIdx;
-        const wrap = document.createElement('div'); wrap.className = 'top-item';
-        const acts = document.createElement('div'); acts.className = 'top-actions';
-        acts.innerHTML = `
-          <button class="sw-btn sw-light" data-idx="${idx}" data-st="easy"  aria-label="Light ${t.n}"><i class="ti ti-droplet-half-2" style="font-size:18px;color:#713F12"></i><span class="sw-lbl">Light</span></button>
-          <button class="sw-btn sw-extra" data-idx="${idx}" data-st="extra" aria-label="Extra ${t.n}"><i class="ti ti-droplet-filled"  style="font-size:18px;color:#14532D"></i><span class="sw-lbl">Extra</span></button>`;
-        acts.querySelectorAll('.sw-btn').forEach(btn => {
-          btn.addEventListener('click', e => { e.stopPropagation(); setTop(parseInt(btn.dataset.idx), btn.dataset.st); });
-        });
+
+        const row = document.createElement('div');
+        row.className = 'top-row' + (isFree ? ' is-free' : isSel ? ' sel' : '');
+
         let badge = '';
-        if (isFree)                 badge = '<span class="state-badge b-free">Included</span>';
-        else if (state === 'added') badge = '<span class="state-badge b-added">Added</span>';
-        else if (state === 'extra') badge = '<span class="state-badge b-extra">Extra</span>';
-        else if (state === 'easy')  badge = '<span class="state-badge b-light">Light</span>';
+        if (isFree) badge = '<span class="state-badge active">Included</span>';
+        else if (isSel) { badge = `<span class="state-badge red">${badgeText(mod.placement, mod.amount)}</span>`; }
+
         const priceLabel = isFree
           ? '<div class="top-p free-price">Included with pizza</div>'
           : `<div class="top-p">+$${t.p.toFixed(2)}</div>`;
-        const imgHtml = t.img
-          ? `<img src="${t.img}" alt="${t.n}" class="top-img">`
-          : `<div class="top-img-placeholder"></div>`;
-        let faceClass = 'top-face';
-        if (isFree) faceClass += ' is-free';
-        else if (isSelected) faceClass += ' selected';
-        const face = document.createElement('div');
-        face.className = faceClass;
-        face.innerHTML = `
-          <div style="display:flex;align-items:center;gap:10px">
+        const imgHtml = t.img ? `<img src="${t.img}" alt="${t.n}" class="top-img">` : `<div class="top-img-placeholder"></div>`;
+
+        row.innerHTML = `
+          <div style="display:flex;align-items:center;gap:10px;flex:1">
             ${imgHtml}
             <div><div class="top-n">${t.n}</div>${priceLabel}</div>
           </div>
-          <div>${badge}</div>`;
-        let didSwipe = false;
-        face.addEventListener('click', () => { if (didSwipe) return; setTop(idx, (ord.tops[idx] || 'none') === 'none' ? 'added' : 'none'); });
-        attachSwipe(face, () => { didSwipe = true; }, () => { setTimeout(() => { didSwipe = false; }, 60); });
-        wrap.appendChild(acts); wrap.appendChild(face); c.appendChild(wrap);
+          <div class="top-right">${badge}</div>`;
+
+        row.onclick = () => {
+          if (!isSel) {
+            ord.tops[idx] = { placement:'whole', amount:'normal' };
+            ord.topOrder.push(idx);
+            renderTops(); updateAll();
+          } else {
+            openSheet({
+              type:'top', idx, name:t.n,
+              priceStr: isFree ? 'Included' : `+$${t.p.toFixed(2)}`,
+              img:t.img, canRemove:true,
+              placement:mod.placement, amount:mod.amount
+            });
+          }
+        };
+        c.appendChild(row);
       });
     });
+
     const note = document.getElementById('free-note');
     if (freeIdx !== null) {
       note.innerHTML = `<i class="ti ti-circle-check" style="font-size:14px"></i> ${allTops[freeIdx].n} is your included topping`;
-      note.style.color = '#16A34A';
+      note.style.color = 'var(--dark)';
     } else {
       note.innerHTML = `<i class="ti ti-tag" style="font-size:14px"></i> First topping is included with your pizza`;
       note.style.color = '#9A8E88';
     }
   }
 
-  function attachSwipe(face, onStart, onEnd) {
-    const SNAP = 144; let x0=0, y0=0, dragging=false, open=false, lastDx=0;
-    function snap(o) { face.style.transition='transform 0.26s cubic-bezier(0.25,0.46,0.45,0.94)'; face.style.transform=o?`translateX(${SNAP}px)`:'translateX(0)'; open=o; setTimeout(()=>{face.style.transition='';},280); }
-    face.addEventListener('pointerdown', e=>{x0=e.clientX;y0=e.clientY;dragging=false;lastDx=0;face.setPointerCapture(e.pointerId);face.style.transition='none';});
-    face.addEventListener('pointermove', e=>{
-      const dx=e.clientX-x0,dy=e.clientY-y0;
-      if(!dragging){if(Math.abs(dx)<5&&Math.abs(dy)<5)return;if(Math.abs(dy)>Math.abs(dx))return;dragging=true;onStart();}
-      e.preventDefault();lastDx=dx;
-      face.style.transform=`translateX(${Math.min(SNAP,Math.max(0,(open?SNAP:0)+dx))}px)`;
-    },{passive:false});
-    face.addEventListener('pointerup',()=>{if(!dragging){if(open)snap(false);return;}onEnd();(!open&&lastDx>40)?snap(true):(open&&lastDx<-40)?snap(false):snap(open);});
-    face.addEventListener('pointercancel',()=>snap(open));
-  }
-
-  function setTop(i, state) {
-    const prev = ord.tops[i] || 'none';
-    ord.tops[i] = state;
-    if (state === 'none') ord.topOrder = ord.topOrder.filter(x => x !== i);
-    else if (prev === 'none') ord.topOrder.push(i);
-    renderTops(); updateAll();
-  }
-
   function calcTotal() {
     const freeIdx = getFreeIdx();
     let t = SIZES[ord.size].price + SAUCES[ord.sauce].price;
-    if (ord.sauceMod === 'extra') t += 1.00;
+    const sm = ord.sauceMod;
+    if (sm.amount === 'extra') t += 1.00;
+    if (sm.placement === 'left' || sm.placement === 'right') t += 0; // half placement no charge for sauce
     if (ord.gbCrust) t += 2.00;
-    if (ord.mozzMod === 'extra') t += 1.00;
-    Object.entries(ord.cheeseAddons).forEach(([i, on]) => {
-      if (on) {
-        t += CHEESE_ADDONS[i].price;
-        if (ord.cheeseMod[i] === 'extra') t += 1.00;
-      }
+    // mozz
+    const mm = ord.mozzMod;
+    if (mm.amount === 'extra') t += mm.placement === 'whole' ? 1.00 : 0.50;
+    // cheese addons
+    Object.entries(ord.cheeseAddons).forEach(([i, mod]) => {
+      if (!mod) return;
+      let price = CHEESE_ADDONS[i].price;
+      if (mod.placement === 'left' || mod.placement === 'right') price *= 0.5;
+      if (mod.amount === 'extra') price += (mod.placement === 'whole' ? 1.00 : 0.50);
+      t += price;
     });
-    Object.entries(ord.tops).forEach(([i, s]) => {
-      if (s === 'none') return;
+    // toppings
+    ord.topOrder.forEach(i => {
+      const mod = ord.tops[i]; if (!mod) return;
       const tp = allTops[i]; if (!tp) return;
-      const isFree = parseInt(i) === freeIdx;
-      if (s === 'extra') t += tp.p * 1.5;
-      else if (!isFree) t += tp.p;
+      const isFree = i === freeIdx;
+      if (isFree) return;
+      let price = tp.p;
+      if (mod.placement === 'left' || mod.placement === 'right') price *= 0.5;
+      if (mod.amount === 'extra') price *= 1.5;
+      t += price;
     });
     return t;
   }
@@ -698,56 +782,61 @@
   }
 
   function updateProg() {
-    const hasTops = Object.values(ord.tops).some(v => v !== 'none');
-    [1, 1, 1, hasTops ? 1 : 0, 1].forEach((v, i) => { document.getElementById('p' + i).className = 'prog-seg' + (v ? ' done' : ''); });
+    const hasTops = ord.topOrder.some(i => ord.tops[i]);
+    [1,1,1,hasTops?1:0,1].forEach((v,i) => { document.getElementById('p'+i).className='prog-seg'+(v?' done':''); });
+  }
+
+  function modStr(mod) {
+    const parts = [];
+    if (mod.placement !== 'whole') parts.push(placementLabel(mod.placement));
+    if (mod.amount !== 'normal') parts.push(mod.amount === 'extra' ? 'Extra' : 'Light');
+    return parts.length ? ` (${parts.join(', ')})` : '';
   }
 
   function renderSummary(tot) {
     const sc = SAUCES[ord.sauce]; const freeIdx = getFreeIdx();
-    let h = srow(SIZES[ord.size].name + ' (' + SIZES[ord.size].inch + ')', '$' + SIZES[ord.size].price.toFixed(2));
-    h += srow('Crust: ' + CRUSTS[ord.crust].name, 'Included');
-    const saucePriceStr = sc.price > 0 ? '+$' + sc.price.toFixed(2) : 'Included';
-    const sauceModStr = ord.sauceMod === 'extra' ? ' (Extra +$1.00)' : ord.sauceMod === 'light' ? ' (Light)' : '';
-    h += srow('Sauce: ' + sc.name + sauceModStr, ord.sauceMod === 'extra' ? (sc.price > 0 ? '+$' + (sc.price + 1).toFixed(2) : '+$1.00') : saucePriceStr);
+    let h = srow(SIZES[ord.size].name+' ('+SIZES[ord.size].inch+')', '$'+SIZES[ord.size].price.toFixed(2));
+    h += srow('Crust: '+CRUSTS[ord.crust].name, 'Included');
+    const saucePriceStr = sc.price > 0 ? '+$'+sc.price.toFixed(2) : 'Included';
+    h += srow('Sauce: '+sc.name+modStr(ord.sauceMod), saucePriceStr);
     if (ord.gbCrust) h += srow('+ Garlic Butter Crust', '+$2.00');
-    const mozzStr = ord.mozzMod === 'extra' ? 'Included + Extra (+$1.00)' : ord.mozzMod === 'light' ? 'Included (Light)' : 'Included';
-    h += srow('Cheese: Mozzarella', mozzStr);
-    Object.entries(ord.cheeseAddons).forEach(([i, on]) => {
-      if (on) {
-        const cm = ord.cheeseMod[i] || 'normal';
-        const extra = cm === 'extra' ? 1.00 : 0;
-        const modStr = cm === 'extra' ? ' (Extra)' : cm === 'light' ? ' (Light)' : '';
-        h += srow('+ ' + CHEESE_ADDONS[i].name + modStr, '+$' + (CHEESE_ADDONS[i].price + extra).toFixed(2));
-      }
+    h += srow('Cheese: Mozzarella'+modStr(ord.mozzMod), 'Included');
+    Object.entries(ord.cheeseAddons).forEach(([i,mod]) => {
+      if (!mod) return;
+      let price = CHEESE_ADDONS[i].price;
+      if (mod.placement !== 'whole') price *= 0.5;
+      if (mod.amount === 'extra') price += (mod.placement === 'whole' ? 1.00 : 0.50);
+      h += srow('+ '+CHEESE_ADDONS[i].name+modStr(mod), '+$'+price.toFixed(2));
     });
     ord.topOrder.forEach(i => {
-      const s = ord.tops[i]; if (!s || s === 'none') return;
+      const mod = ord.tops[i]; if (!mod) return;
       const tp = allTops[i]; if (!tp) return;
       const isFree = i === freeIdx;
-      const tag = s === 'extra' ? ' (Extra)' : s === 'easy' ? ' (Light)' : '';
-      if (s === 'extra') h += srow(tp.n + tag, '+$' + (tp.p * 1.5).toFixed(2));
-      else if (isFree) h += `<div class="sum-row"><span class="sum-label">${tp.n}${tag} <span style="font-size:11px;color:#16A34A">✓ included</span></span><span class="sum-val free">$0.00</span></div>`;
-      else h += srow(tp.n + tag, '+$' + tp.p.toFixed(2));
+      let price = tp.p;
+      if (mod.placement !== 'whole') price *= 0.5;
+      if (mod.amount === 'extra') price *= 1.5;
+      if (isFree) h += `<div class="sum-row"><span class="sum-label">${tp.n}${modStr(mod)} <span style="font-size:11px;font-weight:700">✓ included</span></span><span class="sum-val free">$0.00</span></div>`;
+      else h += srow(tp.n+modStr(mod), '+$'+price.toFixed(2));
     });
     h += `<div class="sum-total"><span class="sum-tl">Total</span><span class="sum-tv">$${tot.toFixed(2)}</span></div>`;
     document.getElementById('summary').innerHTML = h;
   }
 
-  function srow(l, v) { return `<div class="sum-row"><span class="sum-label">${l}</span><span class="sum-val">${v}</span></div>`; }
+  function srow(l,v) { return `<div class="sum-row"><span class="sum-label">${l}</span><span class="sum-val">${v}</span></div>`; }
 
   document.getElementById('cta-btn').addEventListener('click', placeOrder);
   function placeOrder() {
     const tot = calcTotal(); const sc = SAUCES[ord.sauce]; const freeIdx = getFreeIdx();
-    let h = confRow('Size', SIZES[ord.size].name + ' (' + SIZES[ord.size].inch + ')');
+    let h = confRow('Size', SIZES[ord.size].name+' ('+SIZES[ord.size].inch+')');
     h += confRow('Crust', CRUSTS[ord.crust].name);
-    let sauceStr = sc.name; if (ord.gbCrust) sauceStr += ' + Garlic Butter Crust';
+    let sauceStr = sc.name + modStr(ord.sauceMod);
+    if (ord.gbCrust) sauceStr += ' + Garlic Butter Crust';
     h += confRow('Sauce', sauceStr);
-    let cheeseStr = 'Mozzarella';
-    Object.entries(ord.cheeseAddons).forEach(([i, on]) => { if (on) cheeseStr += ', ' + CHEESE_ADDONS[i].name; });
+    let cheeseStr = 'Mozzarella' + modStr(ord.mozzMod);
+    Object.entries(ord.cheeseAddons).forEach(([i,mod]) => { if (mod) cheeseStr += ', '+CHEESE_ADDONS[i].name+modStr(mod); });
     h += confRow('Cheese', cheeseStr);
-    const tList = ord.topOrder.filter(i => ord.tops[i] !== 'none').map(i => {
-      const s = ord.tops[i];
-      return allTops[i].n + (s === 'extra' ? ' (Extra)' : s === 'easy' ? ' (Light)' : '') + (i === freeIdx ? ' ✓' : '');
+    const tList = ord.topOrder.filter(i=>ord.tops[i]).map(i => {
+      return allTops[i].n + modStr(ord.tops[i]) + (i===freeIdx?' ✓':'');
     });
     if (tList.length) h += confRow('Toppings', tList.join(', '));
     h += '<div class="conf-divider"></div>';
@@ -755,10 +844,10 @@
     document.getElementById('conf-detail').innerHTML = h;
     document.getElementById('conf-screen').style.display = 'flex';
   }
-  function confRow(l, v) { return `<div class="conf-row"><span>${l}</span><span>${v}</span></div>`; }
+  function confRow(l,v) { return `<div class="conf-row"><span>${l}</span><span>${v}</span></div>`; }
 
   document.getElementById('reset-btn').addEventListener('click', () => {
-    ord = { size:0, crust:0, sauce:0, sauceMod:'normal', gbCrust:false, mozzMod:'normal', cheeseAddons:{}, cheeseMod:{}, tops:{}, topOrder:[] };
+    ord = { size:0, crust:0, sauce:0, sauceMod:{placement:'whole',amount:'normal'}, gbCrust:false, mozzMod:{placement:'whole',amount:'normal'}, cheeseAddons:{}, tops:{}, topOrder:[] };
     document.getElementById('conf-screen').style.display = 'none';
     init();
     document.getElementById('scroll-body').scrollTop = 0;
