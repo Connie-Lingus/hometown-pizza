@@ -11,13 +11,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
     :root {
-      --red: #C8311A;
-      --red-light: #FAECE7;
-      --red-dark: #7A1D0E;
-      --cream: #FDF8F3;
-      --dark: #1A1410;
-      --border: #E8DDD6;
-      --muted: #9A8E88;
+      --red: #C8311A; --red-light: #FAECE7; --red-dark: #7A1D0E;
+      --cream: #FDF8F3; --dark: #1A1410; --border: #E8DDD6; --muted: #9A8E88;
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
@@ -31,135 +26,179 @@
       background: var(--cream); border-bottom: 1px solid var(--border);
       padding: 0 16px; padding-top: var(--safe-top);
       height: calc(56px + var(--safe-top));
-      display: flex; align-items: flex-end; justify-content: space-between;
-      padding-bottom: 10px;
+      display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 10px;
     }
-    .back-btn {
-      display: flex; align-items: center; gap: 6px;
-      color: var(--dark); font-size: 15px; font-weight: 600;
-      text-decoration: none; border: none; background: transparent;
-      cursor: pointer; font-family: inherit;
-    }
+    .back-btn { display: flex; align-items: center; gap: 6px; color: var(--dark); font-size: 15px; font-weight: 600; text-decoration: none; border: none; background: transparent; cursor: pointer; font-family: inherit; }
     .back-btn i { font-size: 20px; }
-    .header-title { font-size: 17px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
-
-    /* GROUP ORDER BUTTON */
-    .group-btn {
-      display: flex; align-items: center; gap: 5px;
-      color: var(--muted); font-size: 11px; font-weight: 700;
-      letter-spacing: 0.5px; text-decoration: none;
-      border: 1.5px solid var(--border); border-radius: 20px;
-      padding: 5px 10px; background: transparent;
-      cursor: pointer; font-family: inherit;
-      transition: all 0.15s;
-    }
-    .group-btn:active { border-color: var(--dark); color: var(--dark); }
+    .header-img { width: 44px; height: 44px; object-fit: contain; }
+    .group-btn { display: flex; align-items: center; gap: 5px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-decoration: none; border: 1.5px solid var(--border); border-radius: 20px; padding: 5px 10px; background: transparent; cursor: pointer; font-family: inherit; }
     .group-btn i { font-size: 15px; }
 
     /* BODY */
-    .page-body {
-      flex: 1;
-      padding-top: calc(56px + var(--safe-top));
-      padding-bottom: calc(40px + var(--safe-bottom));
-      display: flex; flex-direction: column;
-      overflow-y: auto;
-    }
+    .page-body { flex: 1; padding-top: calc(56px + var(--safe-top)); padding-bottom: calc(100px + var(--safe-bottom)); overflow-y: auto; }
 
     /* EMPTY STATE */
-    .empty-state {
-      flex: 1;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 40px 32px; text-align: center;
-    }
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 32px; text-align: center; min-height: 60vh; }
     .sad-chef { width: 220px; height: auto; margin-bottom: 24px; }
-    .empty-title {
-      font-size: 24px; font-weight: 800; color: var(--dark);
-      letter-spacing: -0.6px; margin-bottom: 8px; line-height: 1.2;
-    }
-    .empty-title.sub {
-      font-size: 18px; font-weight: 600; color: var(--muted);
-      margin-bottom: 28px;
-    }
-    .start-order-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 16px 28px; border-radius: 14px;
-      background: var(--red); color: #fff;
-      font-size: 16px; font-weight: 700;
-      text-decoration: none; border: none; cursor: pointer;
-      font-family: inherit; transition: background 0.15s, transform 0.1s;
-    }
-    .start-order-btn:active { background: var(--red-dark); transform: scale(0.98); }
+    .empty-title { font-size: 24px; font-weight: 800; color: var(--dark); letter-spacing: -0.6px; margin-bottom: 8px; }
+    .empty-sub { font-size: 16px; font-weight: 600; color: var(--muted); margin-bottom: 32px; }
+    .start-btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 28px; border-radius: 14px; background: var(--red); color: #fff; font-size: 16px; font-weight: 700; text-decoration: none; border: none; cursor: pointer; font-family: inherit; }
+    .start-btn:active { background: var(--red-dark); }
 
-    /* ITEMS STATE */
-    .box-items { display: none; flex-direction: column; gap: 12px; padding: 20px 16px; }
-    .box-item {
-      background: #fff; border-radius: 14px; border: 1.5px solid var(--border);
-      padding: 16px; display: flex; align-items: center; gap: 12px;
-    }
-    .box-item-img { width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; }
-    .box-item-body { flex: 1; }
-    .box-item-name { font-size: 15px; font-weight: 700; color: var(--dark); }
-    .box-item-desc { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
-    .box-item-price { font-size: 16px; font-weight: 800; color: var(--dark); flex-shrink: 0; }
+    /* ITEMS */
+    .items-wrap { padding: 20px 16px; display: flex; flex-direction: column; gap: 12px; }
+
+    .box-item { background: #fff; border-radius: 14px; border: 1.5px solid var(--border); padding: 16px; }
+    .box-item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+    .box-item-name { font-size: 16px; font-weight: 800; color: var(--dark); letter-spacing: -0.3px; }
+    .box-item-price { font-size: 18px; font-weight: 800; color: var(--red); flex-shrink: 0; margin-left: 12px; }
+    .box-item-detail { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .box-item-detail span { display: block; }
+    .box-item-footer { display: flex; justify-content: flex-end; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); gap: 8px; }
+    .item-remove-btn { font-size: 12px; font-weight: 700; color: var(--red); background: transparent; border: 1.5px solid var(--red); border-radius: 20px; padding: 5px 12px; cursor: pointer; font-family: inherit; }
+    .item-remove-btn:active { background: var(--red-light); }
+
+    /* ADD ANOTHER */
+    .add-another { display: flex; align-items: center; gap: 10px; padding: 16px; border-radius: 14px; border: 1.5px dashed var(--border); background: transparent; color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; text-decoration: none; width: 100%; justify-content: center; transition: all 0.15s; }
+    .add-another:active { border-color: var(--dark); color: var(--dark); }
+    .add-another i { font-size: 20px; }
+
+    /* ORDER TOTAL */
+    .order-total { margin: 0 16px; padding: 16px; background: #fff; border-radius: 14px; border: 1.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .order-total-label { font-size: 15px; font-weight: 700; color: var(--dark); }
+    .order-total-amount { font-size: 24px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; }
 
     /* CHECKOUT BAR */
-    .checkout-bar {
-      display: none;
-      position: fixed; bottom: 0; left: 0; right: 0;
-      padding: 12px 16px; padding-bottom: calc(12px + var(--safe-bottom));
-      background: var(--cream); border-top: 1px solid var(--border);
-    }
-    .checkout-btn {
-      width: 100%; padding: 18px; border-radius: 14px;
-      background: var(--red); color: #fff;
-      font-size: 17px; font-weight: 700; border: none;
-      cursor: pointer; font-family: inherit;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      transition: background 0.15s, transform 0.1s;
-    }
-    .checkout-btn:active { background: var(--red-dark); transform: scale(0.99); }
+    .checkout-bar { position: fixed; bottom: 0; left: 0; right: 0; padding: 12px 16px; padding-bottom: calc(12px + var(--safe-bottom)); background: var(--cream); border-top: 1px solid var(--border); }
+    .checkout-btn { width: 100%; padding: 18px; border-radius: 14px; background: var(--red); color: #fff; font-size: 17px; font-weight: 700; border: none; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.15s; }
+    .checkout-btn:active { background: var(--red-dark); }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
   <div class="header">
-    <a href="index.html" class="back-btn">
-      <i class="ti ti-arrow-left"></i> Back
-    </a>
-    <img src="images/Pizza_Box_2-nobg.png" alt="Your Pizza Box" style="width:44px;height:44px;object-fit:contain;">
+    <a href="index.html" class="back-btn"><i class="ti ti-arrow-left"></i> Menu</a>
+    <img src="images/Pizza_Box_2-nobg.png" alt="My Pizza Box" class="header-img">
     <button class="group-btn" title="Group Order — Coming Soon">
       <i class="ti ti-users"></i> Group Order
     </button>
   </div>
 
   <!-- PAGE BODY -->
-  <div class="page-body">
+  <div class="page-body" id="page-body">
 
-    <!-- EMPTY STATE -->
+    <!-- EMPTY STATE — shown when no items -->
     <div class="empty-state" id="empty-state">
-      <img src="images/fat_chef_empty_box-nobg.png" alt="Sad Fat Chef" class="sad-chef">
+      <img src="images/fat_chef_empty_box-nobg.png" alt="Empty Box" class="sad-chef">
       <div class="empty-title">YOUR PIZZA BOX IS EMPTY.</div>
-      <div class="empty-title sub">That is so sad.</div>
-      <a href="index.html#menu" class="start-order-btn">
+      <div class="empty-sub">That is so sad.</div>
+      <a href="index.html#menu" class="start-btn">
         <i class="ti ti-pizza" style="font-size:20px"></i>
         Order Now
       </a>
     </div>
 
-    <!-- ITEMS (hidden until orders exist) -->
-    <div class="box-items" id="box-items"></div>
+    <!-- ITEMS — shown when cart has items -->
+    <div id="items-view" style="display:none">
+      <div class="items-wrap" id="items-list"></div>
+      <div class="items-wrap" style="padding-top:0">
+        <a href="index.html#menu" class="add-another">
+          <i class="ti ti-circle-plus"></i> Add Another Item
+        </a>
+      </div>
+      <div class="order-total" id="order-total">
+        <span class="order-total-label">Order Total</span>
+        <span class="order-total-amount" id="total-amount">$0.00</span>
+      </div>
+    </div>
 
   </div>
 
-  <!-- CHECKOUT BAR (hidden until items exist) -->
-  <div class="checkout-bar" id="checkout-bar">
-    <button class="checkout-btn">
+  <!-- CHECKOUT BAR — shown when cart has items -->
+  <div class="checkout-bar" id="checkout-bar" style="display:none">
+    <button class="checkout-btn" onclick="window.location.href='checkout.html'">
       <i class="ti ti-lock" style="font-size:20px"></i>
-      Proceed to Checkout — $<span id="box-total">0.00</span>
+      Proceed to Checkout — $<span id="checkout-total">0.00</span>
     </button>
   </div>
+
+  <script>
+    function loadBox() {
+      try { return JSON.parse(localStorage.getItem('htp_box') || '[]'); }
+      catch(e) { return []; }
+    }
+
+    function saveBox(box) {
+      localStorage.setItem('htp_box', JSON.stringify(box));
+    }
+
+    function formatItem(item) {
+      const details = [];
+      if (item.crust) details.push(`Crust: ${item.crust}`);
+      if (item.sauce) details.push(`Sauce: ${item.sauce}`);
+      if (item.cheese) details.push(`Cheese: ${item.cheese}`);
+      if (item.toppings && item.toppings.length) details.push(`Toppings: ${item.toppings.join(', ')}`);
+      // specialty / other items
+      if (item.details) details.push(...item.details);
+      return details;
+    }
+
+    function render() {
+      const box = loadBox();
+      const emptyState = document.getElementById('empty-state');
+      const itemsView = document.getElementById('items-view');
+      const checkoutBar = document.getElementById('checkout-bar');
+      const itemsList = document.getElementById('items-list');
+
+      if (box.length === 0) {
+        emptyState.style.display = 'flex';
+        itemsView.style.display = 'none';
+        checkoutBar.style.display = 'none';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      itemsView.style.display = 'block';
+      checkoutBar.style.display = 'block';
+      itemsList.innerHTML = '';
+
+      let total = 0;
+      box.forEach((item, idx) => {
+        total += item.price || 0;
+        const details = formatItem(item);
+        const card = document.createElement('div');
+        card.className = 'box-item';
+        card.innerHTML = `
+          <div class="box-item-header">
+            <div class="box-item-name">${item.display || item.name}</div>
+            <div class="box-item-price">$${(item.price||0).toFixed(2)}</div>
+          </div>
+          <div class="box-item-detail">
+            ${details.map(d => `<span>${d}</span>`).join('')}
+          </div>
+          <div class="box-item-footer">
+            <button class="item-remove-btn" onclick="removeItem(${idx})">
+              <i class="ti ti-x" style="font-size:11px"></i> Remove
+            </button>
+          </div>`;
+        itemsList.appendChild(card);
+      });
+
+      document.getElementById('total-amount').textContent = '$'+total.toFixed(2);
+      document.getElementById('checkout-total').textContent = total.toFixed(2);
+    }
+
+    function removeItem(idx) {
+      const box = loadBox();
+      box.splice(idx, 1);
+      saveBox(box);
+      render();
+    }
+
+    // Run on load
+    render();
+  </script>
 
 </body>
 </html>
