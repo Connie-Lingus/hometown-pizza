@@ -75,7 +75,7 @@
     .pop-badge { font-size: 10px; font-weight: 600; background: var(--red); color: #fff; border-radius: 6px; padding: 2px 7px; margin-top: 3px; align-self: flex-start; }
 
     /* GARLIC BUTTER */
-    .gb-card { border: 1.5px solid var(--border); border-radius: 12px; background: #fff; transition: all 0.15s; cursor: pointer; margin-bottom: 0; }
+    .gb-card { border: 1.5px solid var(--border); border-radius: 12px; background: #fff; transition: all 0.15s; cursor: pointer; margin-bottom: 8px; }
     .gb-card:active { transform: scale(0.98); }
     .gb-card.sel { border-color: var(--dark); background: var(--cream); }
     .gb-inner { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
@@ -87,14 +87,22 @@
     .gb-chk { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; background: #fff; transition: all 0.15s; }
     .gb-card.sel .gb-chk { background: var(--dark); border-color: var(--dark); }
 
-    /* ── INGREDIENT ROW — the core expandable unit ── */
-    .ing-wrap { margin-bottom: 8px; border-radius: 12px; border: 1.5px solid var(--border); background: #fff; overflow: hidden; transition: border-color 0.15s; }
+    /* ── INGREDIENT ROW ── */
+    .ing-wrap {
+      margin-bottom: 8px; border-radius: 12px;
+      border: 1.5px solid var(--border); background: #fff;
+      overflow: hidden; transition: border-color 0.15s, background 0.15s;
+    }
     .ing-wrap.sel { border-color: var(--red); background: var(--red-light); }
     .ing-wrap.is-free { border-color: var(--dark); background: var(--cream); }
-    .ing-wrap.mozz { border-color: var(--border); background: var(--cream); }
+    .ing-wrap.mozz { background: var(--cream); }
     .ing-wrap.mozz.modified { border-color: var(--dark); }
 
-    .ing-face { display: flex; align-items: center; gap: 12px; padding: 11px 14px; cursor: pointer; min-height: 62px; }
+    /* Top part — always visible */
+    .ing-face {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 14px; cursor: pointer; min-height: 62px;
+    }
     .ing-face:active { opacity: 0.85; }
     .ing-img { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
     .ing-info { flex: 1; }
@@ -102,40 +110,44 @@
     .ing-wrap.sel .ing-name { color: var(--red-dark); }
     .ing-wrap.is-free .ing-name { color: var(--dark); }
     .ing-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .ing-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .ing-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .ing-price { font-size: 13px; font-weight: 700; color: var(--muted); }
     .ing-wrap.sel .ing-price { color: var(--red); }
 
-    /* status badge on the row */
-    .ing-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; background: var(--dark); color: #fff; border: 1.5px solid var(--dark); }
-    .ing-badge.free { background: var(--dark); color: #fff; }
-    .ing-badge.modified { background: var(--red); color: #fff; border-color: var(--red); }
-
-    /* ── INLINE OPTIONS (expanded) ── */
-    .ing-options { padding: 0 12px 12px; display: none; flex-direction: column; gap: 8px; }
-    .ing-options.open { display: flex; }
-
-    .pill-row { display: flex; gap: 6px; flex-wrap: wrap; }
-
-    .pill {
-      padding: 7px 12px; border-radius: 20px;
-      border: 1.5px solid var(--border); background: #fff;
-      font-size: 12px; font-weight: 700; color: var(--muted);
-      cursor: pointer; font-family: inherit; transition: all 0.15s;
-      white-space: nowrap;
+    /* ── INLINE CONTROLS — tight, always in row, no expand ── */
+    .ing-controls {
+      display: none;
+      padding: 0 12px 10px;
+      gap: 6px;
+      flex-direction: column;
     }
-    .pill:active { opacity: 0.8; }
-    .pill.active { background: var(--dark); color: #fff; border-color: var(--dark); }
-    .pill.remove { border-color: var(--red); color: var(--red); background: #fff; }
-    .pill.remove:active { background: var(--red); color: #fff; }
+    .ing-controls.show { display: flex; }
 
-    /* divider between placement and amount rows */
-    .pill-divider { height: 1px; background: var(--border); margin: 2px 0; }
+    /* Placement + Amount on one line */
+    .ctrl-row {
+      display: flex; gap: 5px; align-items: center;
+    }
+    .ctrl-sep {
+      width: 1px; height: 20px; background: var(--border);
+      flex-shrink: 0; margin: 0 2px;
+    }
 
-    /* SAUCE */
-    .sauce-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 14px; }
+    /* Individual control pill */
+    .cpill {
+      padding: 5px 10px; border-radius: 20px;
+      border: 1.5px solid var(--border); background: #fff;
+      font-size: 11px; font-weight: 700; color: var(--muted);
+      cursor: pointer; font-family: inherit; transition: all 0.12s;
+      white-space: nowrap; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cpill:active { opacity: 0.75; }
+    .cpill.active { background: var(--dark); color: #fff; border-color: var(--dark); }
 
-    /* CHEESE */
+    /* Placement symbol pills — slightly wider for the SVG */
+    .cpill-place { min-width: 34px; font-size: 15px; padding: 4px 8px; }
+
+    /* CHEESE add label */
     .cheese-add-lbl { font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin: 10px 0 8px; }
 
     /* SUMMARY */
@@ -184,8 +196,8 @@
           <div><div class="brand-name">Hometown Pizza</div><div class="brand-sub">BUILD YOUR OWN</div></div>
         </div>
         <div class="price-pill">
-          <span class="price-amt" id="h-price">$18.95</span>
-          <span class="price-desc" id="h-desc">Large • Pan Style</span>
+          <span class="price-amt" id="h-price">$16.99</span>
+          <span class="price-desc" id="h-desc">Large • Original</span>
         </div>
       </div>
       <div class="progress-bar">
@@ -216,14 +228,14 @@
       <div class="section">
         <div class="section-label">Step 3</div>
         <div class="section-title">Sauce</div>
-        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to select &nbsp;•&nbsp; Tap selected sauce to adjust</div>
+        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to select &nbsp;•&nbsp; Tap again to adjust</div>
         <div id="sauces"></div>
         <div class="gb-card" id="gb-card">
           <div class="gb-inner">
             <img src="images/Garlic_Butter-nobg.png" alt="Garlic Butter" style="width:44px;height:44px;object-fit:contain;flex-shrink:0">
             <div class="gb-text">
               <div class="gb-name">Garlic Butter Crust</div>
-              <div class="gb-desc">Brush your entire crust with a golden garlic butter base — rich, savory flavor baked into every layer.</div>
+              <div class="gb-desc">Brush the entire crust with golden garlic butter — rich, savory flavor baked into every layer.</div>
             </div>
             <div class="gb-right">
               <span class="gb-price">+$2.00</span>
@@ -237,7 +249,7 @@
       <div class="section">
         <div class="section-label">Step 4</div>
         <div class="section-title">Cheese</div>
-        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to select &nbsp;•&nbsp; Tap selected cheese to adjust</div>
+        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to select &nbsp;•&nbsp; Tap again to adjust</div>
         <div id="mozz-wrap"></div>
         <div class="cheese-add-lbl">Add a cheese</div>
         <div id="cheese-addons"></div>
@@ -247,7 +259,7 @@
       <div class="section">
         <div class="section-label">Step 5</div>
         <div class="section-title">Toppings</div>
-        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to add &nbsp;•&nbsp; Tap added topping to adjust</div>
+        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to add &nbsp;•&nbsp; Tap again to adjust or remove</div>
         <div class="free-note" id="free-note" style="color:#9A8E88"><i class="ti ti-tag" style="font-size:14px"></i> First topping is included with your pizza</div>
         <div id="tops"></div>
       </div>
@@ -264,7 +276,7 @@
     <div class="cta-bar">
       <button class="cta-btn" id="cta-btn">
         <i class="ti ti-shopping-cart" style="font-size:20px"></i>
-        Add to Your Pizza Box — $<span id="cta-price">18.95</span>
+        Add to Your Pizza Box — $<span id="cta-price">16.99</span>
       </button>
     </div>
   </div>
@@ -274,61 +286,77 @@
     <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
     <a href="index.html#menu" class="nav-item active"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
     <button class="nav-item"><i class="ti ti-refresh"></i><span class="nav-label">Reorder</span></button>
-    <button class="nav-item"><i class="ti ti-star"></i><span class="nav-label">Rewards</span></button>
     <button class="nav-item"><img src="images/Pizza_Box_2-nobg.png" alt="Your Box" class="nav-box-img"><span class="nav-label">Your Box</span></button>
   </nav>
 
 </div>
 
 <script>
+  // ── PLACEMENT SYMBOLS (SVG circles) ──
+  const SYM = {
+    whole: `<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor"/></svg>`,
+    left:  `<svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1a7 7 0 0 0 0 14V1z" fill="currentColor"/><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`,
+    right: `<svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1a7 7 0 0 1 0 14V1z" fill="currentColor"/><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`
+  };
+
+  // ── SIZES — corrected to match actual menu ──
   const SIZES = [
-    { name:"Large",  inch:"14 inch", price:18.95, pop:true  },
-    { name:"Medium", inch:"12 inch", price:14.95, pop:false },
-    { name:"Small",  inch:"10 inch", price:12.95, pop:false }
+    { name:"Large",  inch:"14\" • 10 slices", price:16.99, pop:true  },
+    { name:"Medium", inch:"12\" • 8 slices",  price:14.99, pop:false },
+    { name:"Small",  inch:"10\" • 6 slices",  price:10.99, pop:false },
+    { name:"Baby",   inch:"6\" • 4 slices",   price:6.99,  pop:false }
   ];
+
+  // Topping prices per size index
+  const TOP_PRICE = [1.99, 1.59, 0.99, 0.59];
+
   const CRUSTS = [
-    { name:"Original — Pan Style", desc:"Thick, buttery, golden bottom" },
-    { name:"Thin & Crispy",        desc:"Light, crackly, extra crisp edge" }
+    { name:"Original — Pan Style", desc:"Thick, buttery, golden bottom"    },
+    { name:"Thin & Crispy",        desc:"Light, crackly, extra crisp edge" },
+    { name:"Gluten Free",          desc:"10\" only — add $3.50",  surcharge:3.50, sizeLimit:2 }
   ];
+
   const SAUCES = [
-    { name:"Marinara",       desc:"Classic tomato",          price:0,    free:true,  img:"images/Marinara_Basil_2-nobg.png" },
-    { name:"Spicy Marinara", desc:"Kick up every bite",      price:0,    free:true,  img:"images/Spicy_Marinara-nobg.png"   },
-    { name:"Alfredo",        desc:"Rich & creamy",           price:2.50, free:false, img:"images/Alfredo-nobg.png"          },
-    { name:"BBQ",            desc:"Tangy & bold",            price:2.50, free:false, img:"images/BBQ-nobg.png"              },
-    { name:"Buffalo",        desc:"Spicy, tangy, bold heat", price:2.50, free:false, img:"images/Buffalo-nobg.png"          }
+    { name:"Marinara",       desc:"Classic tomato",   img:"images/Marinara_Basil_2-nobg.png" },
+    { name:"Spicy Marinara", desc:"Kick up every bite", img:"images/Spicy_Marinara-nobg.png" }
   ];
+
   const CHEESE_ADDONS = [
-    { name:"Cheddar",     desc:"Sharp — blends great with mozz", price:2.00, img:"images/Cheddar-nobg.png"     },
-    { name:"Pepper Jack", desc:"Spicy kick — great with meats",  price:2.00, img:"images/Pepper_Jack-nobg.png" }
+    { name:"Cheddar",     desc:"Sharp — blends great with mozz", img:"images/Cheddar-nobg.png"     },
+    { name:"Pepper Jack", desc:"Spicy kick — great with meats",  img:"images/Pepper_Jack-nobg.png" }
   ];
+
   const TOP_GROUPS = [
     { label:"Meats", items:[
-      { n:"Pepperoni",       p:2.50, img:"images/Pepperoni-nobg.png"        },
-      { n:"Beef",            p:2.50, img:"images/Beef-nobg.png"             },
-      { n:"Pork Sausage",    p:2.50, img:"images/Pork_Sausage_2-nobg.png"   },
-      { n:"Italian Sausage", p:2.50, img:"images/Italian_Sausage-nobg.png"  },
-      { n:"Ham",             p:2.50, img:"images/Ham-nobg.png"              },
-      { n:"Bacon",           p:2.75, img:"images/Bacon-nobg.png"            },
-      { n:"Chicken",         p:2.75, img:"images/Grilled_Chicken-nobg.png"  }
+      { n:"Pepperoni",       img:"images/Pepperoni-nobg.png"        },
+      { n:"Beef",            img:"images/Beef-nobg.png"             },
+      { n:"Pork Sausage",    img:"images/Pork_Sausage_2-nobg.png"   },
+      { n:"Italian Sausage", img:"images/Italian_Sausage-nobg.png"  },
+      { n:"Ham",             img:"images/Ham-nobg.png"              },
+      { n:"Bacon",           img:"images/Bacon-nobg.png"            },
+      { n:"Chicken",         img:"images/Grilled_Chicken-nobg.png"  },
+      { n:"Diced Ham",       img:"images/Ham-nobg.png"              }
     ]},
-    { label:"Vegetables", items:[
-      { n:"Onions",        p:1.50, img:"images/Onion-nobg.png"               },
-      { n:"Green Peppers", p:1.75, img:"images/Green_Pepper-nobg.png"        },
-      { n:"Mushrooms",     p:1.75, img:"images/Mushroom-nobg.png"            },
-      { n:"Black Olives",  p:1.75, img:"images/Black_Olive-nobg.png"         },
-      { n:"Jalapeños",     p:1.75, img:"images/Jalepeno-nobg.png"            },
-      { n:"Tomatoes",      p:1.75, img:"images/Tomato-nobg.png"              },
-      { n:"Green Olives",  p:1.75, img:"images/Green_Olive-nobg.png"         },
-      { n:"Peperoncini",   p:1.75, img:"images/Peperoncini_Peppers-nobg.png" },
-      { n:"Spinach",       p:1.75, img:"images/Spinach-nobg.png"             },
-      { n:"Pineapple",     p:1.75, img:"images/Pineapple-nobg.png"           }
+    { label:"Vegetables & More", items:[
+      { n:"Onions",          img:"images/Onion-nobg.png"               },
+      { n:"Green Peppers",   img:"images/Green_Pepper-nobg.png"        },
+      { n:"Mushrooms",       img:"images/Mushroom-nobg.png"            },
+      { n:"Black Olives",    img:"images/Black_Olive-nobg.png"         },
+      { n:"Jalapeños",       img:"images/Jalepeno-nobg.png"            },
+      { n:"Tomatoes",        img:"images/Tomato-nobg.png"              },
+      { n:"Green Olives",    img:"images/Green_Olive-nobg.png"         },
+      { n:"Peperoncini",     img:"images/Peperoncini_Peppers-nobg.png" },
+      { n:"Spinach",         img:"images/Spinach-nobg.png"             },
+      { n:"Pineapple",       img:"images/Pineapple-nobg.png"           },
+      { n:"Kalamata Olives", img:"images/Black_Olive-nobg.png"         },
+      { n:"Sauerkraut",      img:""                                     },
+      { n:"Dill Pickles",    img:""                                     }
     ]}
   ];
 
   let allTops = [];
   TOP_GROUPS.forEach(g => g.items.forEach(t => { t._i = allTops.length; allTops.push(t); }));
 
-  // mod object: { placement: 'whole'|'left'|'right', amount: 'light'|'normal'|'extra' }
   const defaultMod = () => ({ placement:'whole', amount:'normal' });
 
   let ord = {
@@ -336,71 +364,64 @@
     sauceMod: defaultMod(),
     gbCrust: false,
     mozzMod: defaultMod(),
-    cheeseAddons: {}, // idx -> mod or null
-    tops: {},         // idx -> mod or null
+    cheeseAddons: {},
+    tops: {},
     topOrder: []
   };
 
   // ── HELPERS ──
-  function placementLabel(p) { return p==='left'?'Left Half':p==='right'?'Right Half':'Whole'; }
-  function modSummary(mod) {
-    const parts = [];
-    if (mod.placement !== 'whole') parts.push(placementLabel(mod.placement));
-    if (mod.amount !== 'normal') parts.push(mod.amount === 'extra' ? 'Extra' : 'Light');
-    return parts.length ? parts.join(' · ') : 'Added';
+  function topPrice(sizeIdx) { return TOP_PRICE[sizeIdx]; }
+  function cheesePrice(sizeIdx) {
+    // Extra cheese: Large $3, Medium $2.50, Small $2, Baby $1
+    return [3.00, 2.50, 2.00, 1.00][sizeIdx];
   }
-  function isModified(mod) { return mod.placement !== 'whole' || mod.amount !== 'normal'; }
+
+  function placementLabel(p) { return p==='left'?'Left Half':p==='right'?'Right Half':'Whole'; }
   function modNote(mod) {
     const parts = [];
     if (mod.placement !== 'whole') parts.push(placementLabel(mod.placement));
     if (mod.amount !== 'normal') parts.push(mod.amount === 'extra' ? 'Extra' : 'Light');
     return parts.length ? ` (${parts.join(', ')})` : '';
   }
+  function isModified(mod) { return mod.placement !== 'whole' || mod.amount !== 'normal'; }
 
-  // ── INLINE OPTIONS BUILDER ──
-  function buildOptions(containerId, mod, onChange, onRemove) {
-    const wrap = document.createElement('div');
-    wrap.className = 'ing-options open';
-    wrap.id = containerId;
+  // ── BUILD INLINE CONTROLS (tight, no expand) ──
+  // canRemove: whether tapping the face a second time removes it
+  // showControls: whether placement/amount pills show (false for sauce on first tap)
+  function buildControls(mod, onChange, placement, amount) {
+    const ctrl = document.createElement('div');
+    ctrl.className = 'ing-controls show';
 
-    // Placement row
-    const placementRow = document.createElement('div');
-    placementRow.className = 'pill-row';
+    const row = document.createElement('div');
+    row.className = 'ctrl-row';
+
+    // Placement pills with SVG symbols
     ['whole','left','right'].forEach(p => {
       const btn = document.createElement('button');
-      btn.className = 'pill' + (mod.placement === p ? ' active' : '');
-      btn.textContent = p === 'whole' ? 'Whole' : p === 'left' ? 'Left Half' : 'Right Half';
-      btn.onclick = (e) => { e.stopPropagation(); mod.placement = p; onChange(mod); };
-      placementRow.appendChild(btn);
+      btn.className = 'cpill cpill-place' + (mod.placement === p ? ' active' : '');
+      btn.innerHTML = SYM[p];
+      btn.title = placementLabel(p);
+      btn.onclick = e => { e.stopPropagation(); mod.placement = p; onChange(mod); };
+      row.appendChild(btn);
     });
-    // Remove button in placement row
-    if (onRemove) {
-      const removeBtn = document.createElement('button');
-      removeBtn.className = 'pill remove';
-      removeBtn.innerHTML = '<i class="ti ti-x" style="font-size:11px;margin-right:3px"></i>Remove';
-      removeBtn.onclick = (e) => { e.stopPropagation(); onRemove(); };
-      placementRow.appendChild(removeBtn);
-    }
-    wrap.appendChild(placementRow);
 
-    // Divider
-    const div = document.createElement('div');
-    div.className = 'pill-divider';
-    wrap.appendChild(div);
+    // Separator
+    const sep = document.createElement('div');
+    sep.className = 'ctrl-sep';
+    row.appendChild(sep);
 
-    // Amount row
-    const amountRow = document.createElement('div');
-    amountRow.className = 'pill-row';
-    ['light','normal','extra'].forEach(a => {
+    // Amount pills
+    ['Light','Normal','Extra'].forEach(a => {
+      const aKey = a.toLowerCase();
       const btn = document.createElement('button');
-      btn.className = 'pill' + (mod.amount === a ? ' active' : '');
-      btn.textContent = a === 'normal' ? 'Normal' : a === 'light' ? 'Light' : 'Extra';
-      btn.onclick = (e) => { e.stopPropagation(); mod.amount = a; onChange(mod); };
-      amountRow.appendChild(btn);
+      btn.className = 'cpill' + (mod.amount === aKey ? ' active' : '');
+      btn.textContent = a;
+      btn.onclick = e => { e.stopPropagation(); mod.amount = aKey; onChange(mod); };
+      row.appendChild(btn);
     });
-    wrap.appendChild(amountRow);
 
-    return wrap;
+    ctrl.appendChild(row);
+    return ctrl;
   }
 
   function getFreeIdx() {
@@ -419,7 +440,12 @@
       const d = document.createElement('div');
       d.className = 'opt-row'+(i===ord.size?' sel':'');
       d.innerHTML = `<div><div class="opt-name">${s.name}</div><div class="opt-sub">${s.inch}</div>${s.pop?'<div class="pop-badge">Most Popular</div>':''}</div><div class="opt-price">$${s.price.toFixed(2)}</div>`;
-      d.onclick = () => { ord.size=i; renderSizes(); updateAll(); };
+      d.onclick = () => {
+        ord.size = i;
+        // If gluten free selected and size > small, reset crust
+        if (ord.crust === 2 && i < 2) ord.crust = 0;
+        renderSizes(); renderCrusts(); updateAll();
+      };
       c.appendChild(d);
     });
   }
@@ -427,10 +453,17 @@
   function renderCrusts() {
     const c = document.getElementById('crusts'); c.innerHTML = '';
     CRUSTS.forEach((cr,i) => {
+      const isGF = i === 2;
+      const gfDisabled = isGF && ord.size !== 2; // GF only for Small
       const d = document.createElement('div');
-      d.className = 'opt-row'+(i===ord.crust?' sel':'');
-      d.innerHTML = `<div><div class="opt-name">${cr.name}</div><div class="opt-sub">${cr.desc}</div></div>`;
-      d.onclick = () => { ord.crust=i; renderCrusts(); updateAll(); };
+      d.className = 'opt-row'+(i===ord.crust?' sel':'')+(gfDisabled?' soon':'');
+      d.style.opacity = gfDisabled ? '0.4' : '1';
+      d.innerHTML = `<div><div class="opt-name">${cr.name}</div><div class="opt-sub">${cr.desc}</div></div>${isGF?'<div class="opt-price" style="font-size:13px">+$3.50</div>':''}`;
+      d.onclick = () => {
+        if (gfDisabled) return;
+        ord.crust = i;
+        renderCrusts(); updateAll();
+      };
       c.appendChild(d);
     });
   }
@@ -443,20 +476,16 @@
 
       const wrap = document.createElement('div');
       wrap.className = 'ing-wrap' + (isSel ? ' sel' : '');
-      wrap.style.marginBottom = '8px';
-
-      // Badge text
-      let badgeHtml = '';
-      if (isSel) {
-        const txt = modSummary(mod);
-        const modified = isModified(mod);
-        badgeHtml = `<span class="ing-badge${modified?' modified':''}">${txt}</span>`;
-      } else if (!s.free) {
-        badgeHtml = `<span style="font-size:13px;font-weight:700;color:var(--muted)">+$${s.price.toFixed(2)}</span>`;
-      }
 
       const face = document.createElement('div');
       face.className = 'ing-face';
+
+      let badgeHtml = isSel
+        ? `<span style="font-size:11px;font-weight:700;color:${isModified(mod)?'var(--red)':'var(--dark)'};background:${isModified(mod)?'var(--red-light)':'var(--cream)'};padding:3px 9px;border-radius:20px;border:1.5px solid ${isModified(mod)?'var(--red)':'var(--border)'}">
+            ${isModified(mod) ? (mod.placement!=='whole'?placementLabel(mod.placement)+' ':'')+(mod.amount!=='normal'?mod.amount:'') : '✓'}
+           </span>`
+        : '';
+
       face.innerHTML = `
         ${s.img?`<img src="${s.img}" alt="${s.name}" class="ing-img">`:''}
         <div class="ing-info"><div class="ing-name">${s.name}</div><div class="ing-sub">${s.desc}</div></div>
@@ -464,27 +493,21 @@
 
       face.onclick = () => {
         if (!isSel) {
-          ord.sauce = i;
-          ord.sauceMod = defaultMod();
+          ord.sauce = i; ord.sauceMod = defaultMod();
           renderSauces(); updateAll();
         } else {
-          // toggle options
-          const opts = wrap.querySelector('.ing-options');
-          if (opts) opts.classList.toggle('open');
+          const ctrl = wrap.querySelector('.ing-controls');
+          if (ctrl) ctrl.classList.toggle('show');
         }
       };
       wrap.appendChild(face);
 
-      // Options — only for selected sauce
       if (isSel) {
-        const opts = buildOptions('sauce-opts', mod,
-          (newMod) => { ord.sauceMod = newMod; renderSauces(); updateAll(); },
-          null // no remove for sauce
+        const ctrl = buildControls(mod,
+          (m) => { ord.sauceMod = m; renderSauces(); updateAll(); }
         );
-        opts.classList.add('open'); // start open when selected
-        wrap.appendChild(opts);
+        wrap.appendChild(ctrl);
       }
-
       c.appendChild(wrap);
     });
   }
@@ -503,28 +526,28 @@
 
     const container = document.createElement('div');
     container.className = 'ing-wrap mozz' + (modified ? ' modified' : '');
-    container.style.marginBottom = '8px';
 
-    const badgeHtml = `<span class="ing-badge${modified?' modified':''}">${modified ? modSummary(mod) : 'Included'}</span>`;
+    const badgeHtml = `<span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:${modified?'var(--red-light)':'var(--cream)'};color:${modified?'var(--red-dark)':'var(--dark)'};border:1.5px solid ${modified?'var(--red)':'var(--border)'}">
+      ${modified ? (mod.placement!=='whole'?placementLabel(mod.placement)+' ':'')+(mod.amount!=='normal'?mod.amount:'') : 'Included'}
+    </span>`;
 
     const face = document.createElement('div');
     face.className = 'ing-face';
     face.innerHTML = `
       <img src="images/Mozzarella-nobg.png" alt="Mozzarella" class="ing-img">
-      <div class="ing-info"><div class="ing-name">Mozzarella</div><div class="ing-sub">Always included — the base of every pizza</div></div>
+      <div class="ing-info"><div class="ing-name">Mozzarella</div><div class="ing-sub">Always included</div></div>
       <div class="ing-right">${badgeHtml}</div>`;
 
     face.onclick = () => {
-      const opts = container.querySelector('.ing-options');
-      if (opts) opts.classList.toggle('open');
+      const ctrl = container.querySelector('.ing-controls');
+      if (ctrl) ctrl.classList.toggle('show');
     };
     container.appendChild(face);
 
-    const opts = buildOptions('mozz-opts', mod,
-      (newMod) => { ord.mozzMod = newMod; renderMozz(); updateAll(); },
-      null
+    const ctrl = buildControls(mod,
+      (m) => { ord.mozzMod = m; renderMozz(); updateAll(); }
     );
-    container.appendChild(opts);
+    container.appendChild(ctrl);
     wrap.innerHTML = '';
     wrap.appendChild(container);
   }
@@ -534,39 +557,50 @@
     CHEESE_ADDONS.forEach((ch,i) => {
       const mod = ord.cheeseAddons[i];
       const sel = !!mod;
+      const cp = cheesePrice(ord.size);
 
       const wrap = document.createElement('div');
       wrap.className = 'ing-wrap' + (sel ? ' sel' : '');
 
       let badgeHtml = sel
-        ? `<span class="ing-badge${isModified(mod)?' modified':''}">${modSummary(mod)}</span>`
-        : `<span style="font-size:13px;font-weight:700;color:var(--muted)">+$${ch.price.toFixed(2)}</span>`;
+        ? `<span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:${isModified(mod)?'var(--red-light)':'var(--dark)'};color:${isModified(mod)?'var(--red-dark)':'#fff'};border:1.5px solid ${isModified(mod)?'var(--red)':'var(--dark)'}">
+            ${isModified(mod)?((mod.placement!=='whole'?placementLabel(mod.placement)+' ':'')+mod.amount):'Added'}</span>`
+        : `<span style="font-size:13px;font-weight:700;color:var(--muted)">+$${cp.toFixed(2)}</span>`;
 
       const face = document.createElement('div');
       face.className = 'ing-face';
       face.innerHTML = `
         ${ch.img?`<img src="${ch.img}" alt="${ch.name}" class="ing-img">`:''}
         <div class="ing-info"><div class="ing-name">${ch.name}</div><div class="ing-sub">${ch.desc}</div></div>
-        <div class="ing-right"><span class="ing-price">+$${ch.price.toFixed(2)}</span>${badgeHtml}</div>`;
+        <div class="ing-right">${badgeHtml}</div>`;
 
       face.onclick = () => {
         if (!sel) {
           ord.cheeseAddons[i] = defaultMod();
           renderCheese(); updateAll();
         } else {
-          const opts = wrap.querySelector('.ing-options');
-          if (opts) opts.classList.toggle('open');
+          // second tap = toggle controls or deselect if controls already visible
+          const ctrl = wrap.querySelector('.ing-controls');
+          if (ctrl) ctrl.classList.toggle('show');
         }
       };
       wrap.appendChild(face);
 
       if (sel) {
-        const opts = buildOptions(`cheese-opts-${i}`, mod,
-          (newMod) => { ord.cheeseAddons[i] = newMod; renderCheese(); updateAll(); },
-          () => { ord.cheeseAddons[i] = null; renderCheese(); updateAll(); }
+        const ctrl = buildControls(mod,
+          (m) => { ord.cheeseAddons[i] = m; renderCheese(); updateAll(); }
         );
-        opts.classList.add('open');
-        wrap.appendChild(opts);
+        // Add a remove button below the controls
+        const removeRow = document.createElement('div');
+        removeRow.style.cssText = 'padding:0 12px 10px;';
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'cpill remove';
+        removeBtn.style.cssText = 'border-color:var(--red);color:var(--red);background:#fff;width:100%;margin-top:4px;';
+        removeBtn.innerHTML = '<i class="ti ti-x" style="font-size:11px;margin-right:4px"></i>Remove';
+        removeBtn.onclick = e => { e.stopPropagation(); ord.cheeseAddons[i]=null; renderCheese(); updateAll(); };
+        removeRow.appendChild(removeBtn);
+        ctrl.appendChild(removeRow);
+        wrap.appendChild(ctrl);
       }
       c.appendChild(wrap);
     });
@@ -584,17 +618,22 @@
         const mod = ord.tops[idx];
         const isSel = !!mod;
         const isFree = idx === freeIdx;
+        const tp = topPrice(ord.size);
 
         const wrap = document.createElement('div');
         wrap.className = 'ing-wrap' + (isFree ? ' is-free' : isSel ? ' sel' : '');
 
         let badgeHtml = '';
-        if (isFree) badgeHtml = `<span class="ing-badge free">Included</span>`;
-        else if (isSel) badgeHtml = `<span class="ing-badge${isModified(mod)?' modified':''}">${modSummary(mod)}</span>`;
+        if (isFree) {
+          badgeHtml = `<span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--dark);color:#fff;border:1.5px solid var(--dark)">${isModified(mod)?((mod.placement!=='whole'?placementLabel(mod.placement)+' ':'')+mod.amount):'Included'}</span>`;
+        } else if (isSel) {
+          badgeHtml = `<span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:${isModified(mod)?'var(--red-light)':'var(--dark)'};color:${isModified(mod)?'var(--red-dark)':'#fff'};border:1.5px solid ${isModified(mod)?'var(--red)':'var(--dark)'}">
+            ${isModified(mod)?((mod.placement!=='whole'?placementLabel(mod.placement)+' ':'')+mod.amount):'Added'}</span>`;
+        }
 
         const priceLabel = isFree
-          ? '<div class="ing-sub" style="color:var(--dark);font-weight:700">Included with pizza</div>'
-          : `<div class="ing-sub">+$${t.p.toFixed(2)}</div>`;
+          ? `<div class="ing-sub" style="font-weight:700;color:var(--dark)">Included</div>`
+          : `<div class="ing-sub">+$${tp.toFixed(2)}</div>`;
 
         const face = document.createElement('div');
         face.className = 'ing-face';
@@ -606,28 +645,42 @@
           <div class="ing-right">${badgeHtml}</div>`;
 
         face.onclick = () => {
-          if (!isSel) {
+          if (!isSel && !isFree) {
+            // First tap — select with defaults
             ord.tops[idx] = defaultMod();
             ord.topOrder.push(idx);
             renderTops(); updateAll();
           } else {
-            const opts = wrap.querySelector('.ing-options');
-            if (opts) opts.classList.toggle('open');
+            // Second tap — toggle controls
+            const ctrl = wrap.querySelector('.ing-controls');
+            if (ctrl) ctrl.classList.toggle('show');
           }
         };
         wrap.appendChild(face);
 
         if (isSel || isFree) {
-          const opts = buildOptions(`top-opts-${idx}`, mod || defaultMod(),
-            (newMod) => { ord.tops[idx] = newMod; renderTops(); updateAll(); },
-            isFree ? null : () => {
+          const ctrl = buildControls(
+            mod || defaultMod(),
+            (m) => { ord.tops[idx] = m; renderTops(); updateAll(); }
+          );
+          // Remove button for non-free toppings
+          if (!isFree) {
+            const removeRow = document.createElement('div');
+            removeRow.style.cssText = 'padding:0 12px 10px;';
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'cpill';
+            removeBtn.style.cssText = 'border-color:var(--red);color:var(--red);background:#fff;width:100%;margin-top:4px;';
+            removeBtn.innerHTML = '<i class="ti ti-x" style="font-size:11px;margin-right:4px"></i>Remove';
+            removeBtn.onclick = e => {
+              e.stopPropagation();
               ord.tops[idx] = null;
               ord.topOrder = ord.topOrder.filter(x => x !== idx);
               renderTops(); updateAll();
-            }
-          );
-          if (isSel) opts.classList.add('open');
-          wrap.appendChild(opts);
+            };
+            removeRow.appendChild(removeBtn);
+            ctrl.appendChild(removeRow);
+          }
+          wrap.appendChild(ctrl);
         }
         c.appendChild(wrap);
       });
@@ -645,28 +698,33 @@
 
   function calcTotal() {
     const freeIdx = getFreeIdx();
-    let t = SIZES[ord.size].price + SAUCES[ord.sauce].price;
-    const sm = ord.sauceMod;
-    if (sm.amount === 'extra') t += (sm.placement === 'whole' ? 1.00 : 0.50);
+    const si = ord.size;
+    let t = SIZES[si].price;
+    if (ord.crust === 2) t += 3.50; // Gluten free
     if (ord.gbCrust) t += 2.00;
+    // Mozz extra
     const mm = ord.mozzMod;
-    if (mm.amount === 'extra') t += (mm.placement === 'whole' ? 1.00 : 0.50);
+    if (mm.amount === 'extra') t += (mm.placement === 'whole' ? cheesePrice(si) : cheesePrice(si) * 0.5);
+    // Cheese addons
     Object.entries(ord.cheeseAddons).forEach(([i,mod]) => {
       if (!mod) return;
-      let p = CHEESE_ADDONS[i].price;
-      if (mod.placement !== 'whole') p *= 0.5;
-      if (mod.amount === 'extra') p += (mod.placement === 'whole' ? 1.00 : 0.50);
-      t += p;
-    });
-    ord.topOrder.forEach(i => {
-      const mod = ord.tops[i]; if (!mod) return;
-      const tp = allTops[i]; if (!tp) return;
-      if (i === freeIdx) return;
-      let p = tp.p;
+      let p = cheesePrice(si);
       if (mod.placement !== 'whole') p *= 0.5;
       if (mod.amount === 'extra') p *= 1.5;
       t += p;
     });
+    // Toppings
+    ord.topOrder.forEach(i => {
+      const mod = ord.tops[i]; if (!mod) return;
+      if (i === freeIdx) return;
+      let p = topPrice(si);
+      if (mod.placement !== 'whole') p *= 0.5;
+      if (mod.amount === 'extra') p *= 1.5;
+      t += p;
+    });
+    // Extra sauce surcharge ($0.75)
+    const sm = ord.sauceMod;
+    if (sm.amount === 'extra') t += 0.75;
     return t;
   }
 
@@ -674,7 +732,8 @@
     const tot = calcTotal(), fmt = tot.toFixed(2);
     document.getElementById('h-price').textContent = '$'+fmt;
     document.getElementById('cta-price').textContent = fmt;
-    document.getElementById('h-desc').textContent = SIZES[ord.size].name+' • '+(ord.crust===0?'Pan Style':'Thin & Crispy');
+    const crustName = ord.crust===0?'Original':ord.crust===1?'Thin':'Gluten Free';
+    document.getElementById('h-desc').textContent = SIZES[ord.size].name+' • '+crustName;
     updateProg(); renderSummary(tot);
   }
 
@@ -684,29 +743,31 @@
   }
 
   function renderSummary(tot) {
-    const sc = SAUCES[ord.sauce]; const freeIdx = getFreeIdx();
-    let h = srow(SIZES[ord.size].name+' ('+SIZES[ord.size].inch+')', '$'+SIZES[ord.size].price.toFixed(2));
-    h += srow('Crust: '+CRUSTS[ord.crust].name, 'Included');
-    h += srow('Sauce: '+sc.name+modNote(ord.sauceMod), sc.price>0?'+$'+sc.price.toFixed(2):'Included');
+    const sc = SAUCES[ord.sauce]; const freeIdx = getFreeIdx(); const si = ord.size;
+    let h = srow(SIZES[si].name+' ('+SIZES[si].inch+')', '$'+SIZES[si].price.toFixed(2));
+    const crustName = CRUSTS[ord.crust].name;
+    h += srow('Crust: '+crustName, ord.crust===2?'+$3.50':'Included');
+    h += srow('Sauce: '+sc.name+modNote(ord.sauceMod), 'Included');
     if (ord.gbCrust) h += srow('+ Garlic Butter Crust', '+$2.00');
-    h += srow('Cheese: Mozzarella'+modNote(ord.mozzMod), 'Included');
+    h += srow('Cheese: Mozzarella'+modNote(ord.mozzMod), ord.mozzMod.amount==='extra'?'+$'+(cheesePrice(si)*(ord.mozzMod.placement==='whole'?1:0.5)).toFixed(2):'Included');
     Object.entries(ord.cheeseAddons).forEach(([i,mod]) => {
       if (!mod) return;
-      let p = CHEESE_ADDONS[i].price;
+      let p = cheesePrice(si);
       if (mod.placement !== 'whole') p *= 0.5;
-      if (mod.amount === 'extra') p += (mod.placement==='whole'?1.00:0.50);
+      if (mod.amount === 'extra') p *= 1.5;
       h += srow('+ '+CHEESE_ADDONS[i].name+modNote(mod), '+$'+p.toFixed(2));
     });
     ord.topOrder.forEach(i => {
       const mod = ord.tops[i]; if (!mod) return;
       const tp = allTops[i]; if (!tp) return;
       const isFree = i === freeIdx;
-      let p = tp.p;
+      let p = topPrice(si);
       if (mod.placement !== 'whole') p *= 0.5;
       if (mod.amount === 'extra') p *= 1.5;
-      if (isFree) h += `<div class="sum-row"><span class="sum-label">${tp.n}${modNote(mod)} <span style="font-size:11px;font-weight:700">✓ included</span></span><span class="sum-val free">$0.00</span></div>`;
+      if (isFree) h += `<div class="sum-row"><span class="sum-label">${tp.n}${modNote(mod)} <span style="font-size:11px;font-weight:700">✓ free</span></span><span class="sum-val free">$0.00</span></div>`;
       else h += srow(tp.n+modNote(mod), '+$'+p.toFixed(2));
     });
+    if (ord.sauceMod.amount === 'extra') h += srow('Extra sauce', '+$0.75');
     h += `<div class="sum-total"><span class="sum-tl">Total</span><span class="sum-tv">$${tot.toFixed(2)}</span></div>`;
     document.getElementById('summary').innerHTML = h;
   }
@@ -715,10 +776,10 @@
 
   document.getElementById('cta-btn').addEventListener('click', placeOrder);
   function placeOrder() {
-    const tot = calcTotal(); const sc = SAUCES[ord.sauce]; const freeIdx = getFreeIdx();
-    let h = confRow('Size', SIZES[ord.size].name+' ('+SIZES[ord.size].inch+')');
+    const tot = calcTotal(); const sc = SAUCES[ord.sauce]; const freeIdx = getFreeIdx(); const si = ord.size;
+    let h = confRow('Size', SIZES[si].name);
     h += confRow('Crust', CRUSTS[ord.crust].name);
-    let sauceStr = sc.name+modNote(ord.sauceMod); if (ord.gbCrust) sauceStr += ' + Garlic Butter Crust';
+    let sauceStr = sc.name+modNote(ord.sauceMod); if (ord.gbCrust) sauceStr += ' + Garlic Butter';
     h += confRow('Sauce', sauceStr);
     let cheeseStr = 'Mozzarella'+modNote(ord.mozzMod);
     Object.entries(ord.cheeseAddons).forEach(([i,mod]) => { if (mod) cheeseStr += ', '+CHEESE_ADDONS[i].name+modNote(mod); });
