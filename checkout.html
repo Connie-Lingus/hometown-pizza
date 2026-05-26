@@ -70,18 +70,11 @@
     }
     .field-input::placeholder { color: var(--border); }
 
-    /* ORDER TYPE TOGGLE */
-    .type-toggle { display: flex; gap: 8px; margin: 16px 16px 0; }
-    .type-btn {
-      flex: 1; padding: 14px; border-radius: 12px;
-      border: 1.5px solid var(--border); background: #fff;
-      font-size: 14px; font-weight: 700; color: var(--muted);
-      cursor: pointer; font-family: inherit; transition: all 0.15s;
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-    }
-    .type-btn i { font-size: 24px; }
-    .type-btn.active { border-color: var(--dark); background: var(--dark); color: #fff; }
-    .type-btn:active { opacity: 0.85; }
+    /* ORDER TYPE TOGGLE — matches index.html style */
+    .order-toggle { display: flex; align-items: center; background: var(--border); border-radius: 20px; padding: 3px; gap: 2px; }
+    .toggle-btn { padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; transition: all 0.2s; background: transparent; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+    .toggle-btn.active { background: var(--dark); color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+    .toggle-btn i { font-size: 14px; }
 
     /* PICKUP TIME SLOTS */
     .time-slots { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px; }
@@ -99,13 +92,16 @@
     .delivery-fields.show { display: block; }
 
     /* NOTES */
-    .notes-input {
-      font-size: 15px; font-weight: 500; color: var(--dark);
-      border: none; background: transparent; outline: none;
-      font-family: inherit; width: 100%; padding: 0;
-      resize: none; min-height: 60px; line-height: 1.5;
+    /* DELIVERY INSTRUCTIONS */
+    .instr-grid { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 16px; }
+    .instr-btn {
+      padding: 9px 16px; border-radius: 20px;
+      border: 1.5px solid var(--border); background: #fff;
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      cursor: pointer; font-family: inherit; transition: all 0.15s;
     }
-    .notes-input::placeholder { color: var(--border); }
+    .instr-btn.active { border-color: var(--dark); background: var(--dark); color: #fff; }
+    .instr-btn:active { opacity: 0.8; }
 
     /* PLACE ORDER BAR */
     .place-bar {
@@ -158,24 +154,25 @@
   <!-- PAGE BODY -->
   <div class="page-body">
 
+    <!-- PICKUP/DELIVERY TOGGLE — top of page, same style as index -->
+    <div style="display:flex;justify-content:center;padding:16px 16px 0;">
+      <div class="order-toggle">
+        <button class="toggle-btn active" id="btn-pickup" onclick="setType('pickup')">
+          <i class="ti ti-building-store"></i> Pickup
+        </button>
+        <button class="toggle-btn" id="btn-delivery" onclick="setType('delivery')">
+          <i class="ti ti-bike"></i> Delivery
+        </button>
+      </div>
+    </div>
+
     <!-- ORDER SUMMARY -->
-    <div class="section" style="padding-top:24px">
+    <div class="section" style="padding-top:20px">
       <div class="section-title">Your Order</div>
     </div>
     <div class="order-card" id="order-summary"></div>
 
-    <!-- PICKUP OR DELIVERY -->
-    <div class="section" style="padding-top:20px">
-      <div class="section-title">Order Type</div>
-    </div>
-    <div class="type-toggle">
-      <button class="type-btn active" id="btn-pickup" onclick="setType('pickup')">
-        <i class="ti ti-building-store"></i>Pickup
-      </button>
-      <button class="type-btn" id="btn-delivery" onclick="setType('delivery')">
-        <i class="ti ti-bike"></i>Delivery
-      </button>
-    </div>
+
 
     <!-- YOUR INFO -->
     <div class="section" style="padding-top:20px">
@@ -221,13 +218,18 @@
       </div>
     </div>
 
-    <!-- ORDER NOTES -->
-    <div class="section" style="padding-top:20px">
-      <div class="section-title">Special Instructions (optional)</div>
-    </div>
-    <div class="form-card" style="margin-bottom:8px">
-      <div class="field-row">
-        <textarea class="notes-input" id="field-notes" placeholder="Allergy info, gate codes, extra napkins..."></textarea>
+    <!-- DELIVERY INSTRUCTIONS — delivery only, controlled options -->
+    <div id="delivery-instructions" style="display:none">
+      <div class="section" style="padding-top:20px">
+        <div class="section-title">Delivery Instructions (optional)</div>
+      </div>
+      <div class="instr-grid" id="instr-grid">
+        <button class="instr-btn" data-val="Leave at door." onclick="toggleInstr(this)">Leave at Door</button>
+        <button class="instr-btn" data-val="Go to back door." onclick="toggleInstr(this)">Go to Back Door</button>
+        <button class="instr-btn" data-val="Ring doorbell." onclick="toggleInstr(this)">Ring Doorbell</button>
+        <button class="instr-btn" data-val="Please knock." onclick="toggleInstr(this)">Please Knock</button>
+        <button class="instr-btn" data-val="Leave at front desk." onclick="toggleInstr(this)">Leave at Front Desk</button>
+        <button class="instr-btn" data-val="Beware of dog." onclick="toggleInstr(this)">Beware of Dog</button>
       </div>
     </div>
 
@@ -301,6 +303,19 @@
       document.getElementById('btn-delivery').classList.toggle('active', type === 'delivery');
       document.getElementById('pickup-section').style.display = type === 'pickup' ? 'block' : 'none';
       document.getElementById('delivery-section').classList.toggle('show', type === 'delivery');
+      document.getElementById('delivery-instructions').style.display = type === 'delivery' ? 'block' : 'none';
+      // Save choice to localStorage so it persists from index
+      localStorage.setItem('htp_order_type', type);
+    }
+
+    // ── DELIVERY INSTRUCTIONS ──
+    function toggleInstr(btn) {
+      btn.classList.toggle('active');
+    }
+
+    function getInstructions() {
+      const active = document.querySelectorAll('.instr-btn.active');
+      return Array.from(active).map(b => b.dataset.val).join(' ');
     }
 
     // ── TIME SLOTS ──
@@ -376,6 +391,9 @@
       document.getElementById('conf-order-num').innerHTML = `Order <span>#${orderNum}</span>`;
       document.getElementById('conf-screen').style.display = 'flex';
 
+      // Include delivery instructions if any
+      const instrText = getInstructions ? getInstructions() : '';
+
       // Clear the cart
       localStorage.removeItem('htp_box');
     }
@@ -388,6 +406,10 @@
     renderSummary();
     renderSlots();
     document.getElementById('place-btn').disabled = true;
+
+    // Sync toggle with index.html selection
+    const savedType = localStorage.getItem('htp_order_type') || 'pickup';
+    setType(savedType);
   </script>
 
 </body>
