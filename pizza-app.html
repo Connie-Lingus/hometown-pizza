@@ -6,7 +6,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#1A1410">
+  <meta name="theme-color" content="#FDF8F3">
   <title>Hometown Pizza</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
@@ -41,19 +41,19 @@
     #main-app { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
 
     /* HEADER */
-    .header { background: var(--dark); padding: 0 18px 14px; padding-top: calc(14px + var(--safe-top)); flex-shrink: 0; position: relative; z-index: 10; }
+    .header { background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 18px 14px; padding-top: calc(14px + var(--safe-top)); flex-shrink: 0; position: relative; z-index: 10; }
     .hdr-row { display: flex; justify-content: space-between; align-items: center; }
-    .brand-name { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
-    .brand-sub { font-size: 11px; color: #555; letter-spacing: 0.8px; margin-top: 1px; }
+    .brand-name { font-size: 20px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; }
+    .brand-sub { font-size: 11px; color: var(--muted); letter-spacing: 0.8px; margin-top: 1px; }
     .price-pill { background: var(--red); border-radius: 22px; padding: 8px 16px; display: flex; flex-direction: column; align-items: flex-end; }
     .price-amt { font-size: 21px; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -0.5px; }
     .price-desc { font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 1px; }
     .progress-bar { display: flex; gap: 5px; margin-top: 14px; }
-    .prog-seg { flex: 1; height: 3px; border-radius: 2px; background: #2a2a2a; transition: background 0.35s; }
+    .prog-seg { flex: 1; height: 3px; border-radius: 2px; background: var(--border); transition: background 0.35s; }
     .prog-seg.done { background: var(--red); }
 
     /* SCROLL */
-    .scroll-body { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 22px 16px; padding-bottom: calc(120px + var(--safe-bottom)); }
+    .scroll-body { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 22px 16px; padding-bottom: calc(40px + var(--safe-bottom)); }
     .section { margin-bottom: 24px; }
     .section-label { font-size: 10px; font-weight: 600; color: var(--red); letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 5px; }
     .section-title { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.6px; margin-bottom: 14px; }
@@ -164,15 +164,7 @@
     .cta-btn { width: 100%; padding: 18px; border-radius: 14px; background: var(--red); color: #fff; font-size: 17px; font-weight: 700; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s, transform 0.1s; -webkit-appearance: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .cta-btn:active { background: var(--red-dark); transform: scale(0.99); }
 
-    /* BOTTOM NAV */
-    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-top: 1px solid var(--border); display: flex; align-items: stretch; height: calc(56px + var(--safe-bottom)); padding-bottom: var(--safe-bottom); }
-    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; cursor: pointer; border: none; background: transparent; font-family: inherit; transition: all 0.15s; text-decoration: none; color: var(--muted); padding: 6px 0; }
-    .nav-item:active { opacity: 0.7; }
-    .nav-item.active { color: var(--red); }
-    .nav-item i { font-size: 22px; }
-    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
-    .nav-box-img { width: 28px; height: 28px; object-fit: contain; opacity: 0.5; }
-    .nav-item.active .nav-box-img { opacity: 1; }
+    /* BOTTOM NAV — coming back */
   </style>
 </head>
 <body>
@@ -259,17 +251,11 @@
       <div class="section">
         <div class="section-label">Step 5</div>
         <div class="section-title">Toppings</div>
-        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to add &nbsp;•&nbsp; Tap again to adjust or remove</div>
+        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to add &nbsp;•&nbsp; Tap again to adjust &nbsp;•&nbsp; Tap selected item to remove</div>
         <div class="free-note" id="free-note" style="color:#9A8E88"><i class="ti ti-tag" style="font-size:14px"></i> First topping is included with your pizza</div>
         <div id="tops"></div>
       </div>
-      <div class="divider"></div>
 
-      <div class="section">
-        <div class="section-label">Step 6</div>
-        <div class="section-title">Your order</div>
-        <div id="summary"></div>
-      </div>
 
     </div>
 
@@ -281,13 +267,7 @@
     </div>
   </div>
 
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
-    <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
-    <a href="index.html#menu" class="nav-item active"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
-    <button class="nav-item"><i class="ti ti-refresh"></i><span class="nav-label">Reorder</span></button>
-    <button class="nav-item"><img src="images/Pizza_Box_2-nobg.png" alt="Your Box" class="nav-box-img"><span class="nav-label">Your Box</span></button>
-  </nav>
+  <!-- BOTTOM NAV — coming back to this -->
 
 </div>
 
@@ -317,8 +297,7 @@
   ];
 
   const SAUCES = [
-    { name:"Marinara",       desc:"Classic tomato",   img:"images/Marinara_Basil_2-nobg.png" },
-    { name:"Spicy Marinara", desc:"Kick up every bite", img:"images/Spicy_Marinara-nobg.png" }
+    { name:"Marinara", desc:"Classic tomato", img:"images/Marinara_Basil_2-nobg.png" }
   ];
 
   const CHEESE_ADDONS = [
@@ -385,30 +364,30 @@
   }
   function isModified(mod) { return mod.placement !== 'whole' || mod.amount !== 'normal'; }
 
-  // ── BUILD INLINE CONTROLS (tight, no expand) ──
-  // canRemove: whether tapping the face a second time removes it
-  // showControls: whether placement/amount pills show (false for sauce on first tap)
-  function buildControls(mod, onChange, placement, amount) {
+  // ── BUILD INLINE CONTROLS ──
+  // showPlacement: false for sauce/mozz — amount only
+  function buildControls(mod, onChange, showPlacement=true) {
     const ctrl = document.createElement('div');
     ctrl.className = 'ing-controls show';
 
     const row = document.createElement('div');
     row.className = 'ctrl-row';
 
-    // Placement pills with SVG symbols
-    ['whole','left','right'].forEach(p => {
-      const btn = document.createElement('button');
-      btn.className = 'cpill cpill-place' + (mod.placement === p ? ' active' : '');
-      btn.innerHTML = SYM[p];
-      btn.title = placementLabel(p);
-      btn.onclick = e => { e.stopPropagation(); mod.placement = p; onChange(mod); };
-      row.appendChild(btn);
-    });
-
-    // Separator
-    const sep = document.createElement('div');
-    sep.className = 'ctrl-sep';
-    row.appendChild(sep);
+    if (showPlacement) {
+      // Placement pills with SVG symbols
+      ['whole','left','right'].forEach(p => {
+        const btn = document.createElement('button');
+        btn.className = 'cpill cpill-place' + (mod.placement === p ? ' active' : '');
+        btn.innerHTML = SYM[p];
+        btn.title = placementLabel(p);
+        btn.onclick = e => { e.stopPropagation(); mod.placement = p; onChange(mod); };
+        row.appendChild(btn);
+      });
+      // Separator
+      const sep = document.createElement('div');
+      sep.className = 'ctrl-sep';
+      row.appendChild(sep);
+    }
 
     // Amount pills
     ['Light','Normal','Extra'].forEach(a => {
@@ -504,7 +483,8 @@
 
       if (isSel) {
         const ctrl = buildControls(mod,
-          (m) => { ord.sauceMod = m; renderSauces(); updateAll(); }
+          (m) => { ord.sauceMod = m; renderSauces(); updateAll(); },
+          false // no placement for sauce
         );
         wrap.appendChild(ctrl);
       }
@@ -545,7 +525,8 @@
     container.appendChild(face);
 
     const ctrl = buildControls(mod,
-      (m) => { ord.mozzMod = m; renderMozz(); updateAll(); }
+      (m) => { ord.mozzMod = m; renderMozz(); updateAll(); },
+      false // no placement for mozz
     );
     container.appendChild(ctrl);
     wrap.innerHTML = '';
@@ -579,9 +560,14 @@
           ord.cheeseAddons[i] = defaultMod();
           renderCheese(); updateAll();
         } else {
-          // second tap = toggle controls or deselect if controls already visible
           const ctrl = wrap.querySelector('.ing-controls');
-          if (ctrl) ctrl.classList.toggle('show');
+          if (ctrl && ctrl.classList.contains('show')) {
+            // Controls visible — second tap removes
+            ord.cheeseAddons[i] = null;
+            renderCheese(); updateAll();
+          } else {
+            if (ctrl) ctrl.classList.add('show');
+          }
         }
       };
       wrap.appendChild(face);
@@ -590,16 +576,7 @@
         const ctrl = buildControls(mod,
           (m) => { ord.cheeseAddons[i] = m; renderCheese(); updateAll(); }
         );
-        // Add a remove button below the controls
-        const removeRow = document.createElement('div');
-        removeRow.style.cssText = 'padding:0 12px 10px;';
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'cpill remove';
-        removeBtn.style.cssText = 'border-color:var(--red);color:var(--red);background:#fff;width:100%;margin-top:4px;';
-        removeBtn.innerHTML = '<i class="ti ti-x" style="font-size:11px;margin-right:4px"></i>Remove';
-        removeBtn.onclick = e => { e.stopPropagation(); ord.cheeseAddons[i]=null; renderCheese(); updateAll(); };
-        removeRow.appendChild(removeBtn);
-        ctrl.appendChild(removeRow);
+
         wrap.appendChild(ctrl);
       }
       c.appendChild(wrap);
@@ -646,12 +623,23 @@
 
         face.onclick = () => {
           if (!isSel && !isFree) {
-            // First tap — select with defaults
+            // First tap — select with defaults, show controls
             ord.tops[idx] = defaultMod();
             ord.topOrder.push(idx);
             renderTops(); updateAll();
+          } else if (isSel) {
+            const ctrl = wrap.querySelector('.ing-controls');
+            if (ctrl && ctrl.classList.contains('show')) {
+              // Controls visible — second tap removes
+              ord.tops[idx] = null;
+              ord.topOrder = ord.topOrder.filter(x => x !== idx);
+              renderTops(); updateAll();
+            } else {
+              // Controls hidden — show them
+              if (ctrl) ctrl.classList.add('show');
+            }
           } else {
-            // Second tap — toggle controls
+            // isFree — toggle controls
             const ctrl = wrap.querySelector('.ing-controls');
             if (ctrl) ctrl.classList.toggle('show');
           }
@@ -663,23 +651,7 @@
             mod || defaultMod(),
             (m) => { ord.tops[idx] = m; renderTops(); updateAll(); }
           );
-          // Remove button for non-free toppings
-          if (!isFree) {
-            const removeRow = document.createElement('div');
-            removeRow.style.cssText = 'padding:0 12px 10px;';
-            const removeBtn = document.createElement('button');
-            removeBtn.className = 'cpill';
-            removeBtn.style.cssText = 'border-color:var(--red);color:var(--red);background:#fff;width:100%;margin-top:4px;';
-            removeBtn.innerHTML = '<i class="ti ti-x" style="font-size:11px;margin-right:4px"></i>Remove';
-            removeBtn.onclick = e => {
-              e.stopPropagation();
-              ord.tops[idx] = null;
-              ord.topOrder = ord.topOrder.filter(x => x !== idx);
-              renderTops(); updateAll();
-            };
-            removeRow.appendChild(removeBtn);
-            ctrl.appendChild(removeRow);
-          }
+
           wrap.appendChild(ctrl);
         }
         c.appendChild(wrap);
@@ -734,7 +706,7 @@
     document.getElementById('cta-price').textContent = fmt;
     const crustName = ord.crust===0?'Original':ord.crust===1?'Thin':'Gluten Free';
     document.getElementById('h-desc').textContent = SIZES[ord.size].name+' • '+crustName;
-    updateProg(); renderSummary(tot);
+    updateProg();
   }
 
   function updateProg() {
