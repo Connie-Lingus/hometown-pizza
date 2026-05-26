@@ -11,25 +11,19 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
     :root {
-      --red: #C8311A;
-      --red-light: #FAECE7;
-      --red-dark: #7A1D0E;
-      --cream: #FDF8F3;
-      --dark: #1A1410;
-      --border: #E8DDD6;
-      --muted: #9A8E88;
-      --text: #1A1410;
+      --red: #C8311A; --red-light: #FAECE7; --red-dark: #7A1D0E;
+      --cream: #FDF8F3; --dark: #1A1410; --border: #E8DDD6;
+      --muted: #9A8E88; --text: #1A1410;
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     html, body { height: 100%; overscroll-behavior: none; background: var(--dark); }
     body { font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-
     #app { position: fixed; inset: 0; background: var(--cream); display: flex; flex-direction: column; overflow: hidden; }
 
     /* CONFIRMATION */
-    #conf-screen { position: absolute; inset: 0; background: var(--dark); display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px 28px; padding-top: calc(40px + var(--safe-top)); padding-bottom: calc(40px + var(--safe-bottom)); z-index: 150; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    #conf-screen { position: absolute; inset: 0; background: var(--dark); display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px 28px; padding-top: calc(40px + var(--safe-top)); padding-bottom: calc(40px + var(--safe-bottom)); z-index: 150; overflow-y: auto; }
     .conf-check { width: 72px; height: 72px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; margin-bottom: 22px; animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
     @keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
     .conf-title { font-size: 30px; font-weight: 800; color: #fff; margin-bottom: 8px; letter-spacing: -0.8px; }
@@ -42,7 +36,6 @@
     .conf-total span:first-child { font-size: 15px; font-weight: 600; color: #fff; }
     .conf-total span:last-child { font-size: 22px; font-weight: 800; color: var(--red); }
     .reset-btn { padding: 16px 36px; border-radius: 12px; border: 1.5px solid #2a2a2a; background: transparent; color: #666; font-size: 15px; cursor: pointer; font-family: inherit; }
-    .reset-btn:active { border-color: #444; color: #999; }
 
     /* MAIN */
     #main-app { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
@@ -65,8 +58,11 @@
     .section-label { font-size: 10px; font-weight: 600; color: var(--red); letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 5px; }
     .section-title { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.6px; margin-bottom: 14px; }
     .divider { height: 1px; background: var(--border); margin: 22px 0; }
+    .hint { font-size: 12px; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+    .free-note { font-size: 12px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
+    .grp-lbl { font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; margin: 14px 0 7px; }
 
-    /* SHARED ROW */
+    /* SIZE / CRUST */
     .opt-list { display: flex; flex-direction: column; gap: 8px; }
     .opt-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-radius: 12px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; transition: all 0.15s; min-height: 60px; }
     .opt-row:active { transform: scale(0.98); }
@@ -78,73 +74,69 @@
     .opt-row.sel .opt-price { color: var(--red); }
     .pop-badge { font-size: 10px; font-weight: 600; background: var(--red); color: #fff; border-radius: 6px; padding: 2px 7px; margin-top: 3px; align-self: flex-start; }
 
-    /* SAUCE */
-    .sauce-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
-    .sauce-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; transition: all 0.15s; min-height: 64px; }
-    .sauce-row:active { transform: scale(0.98); }
-    .sauce-row.sel { border-color: var(--red); background: var(--red-light); }
-    .sauce-row.sel .sauce-name { color: var(--red-dark); }
-    .sauce-img { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; }
-    .sauce-info { flex: 1; }
-    .sauce-name { font-size: 15px; font-weight: 600; color: var(--text); }
-    .sauce-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .badge-pill { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; background: var(--cream); color: var(--dark); border: 1.5px solid var(--border); }
-    .badge-pill.sel { background: var(--dark); color: #fff; border-color: var(--dark); }
-    .badge-pill.red { background: var(--red-light); color: var(--red-dark); border-color: var(--red); }
-
     /* GARLIC BUTTER */
-    .gb-card { border: 1.5px solid var(--border); border-radius: 12px; background: #fff; transition: all 0.15s; cursor: pointer; }
+    .gb-card { border: 1.5px solid var(--border); border-radius: 12px; background: #fff; transition: all 0.15s; cursor: pointer; margin-bottom: 0; }
     .gb-card:active { transform: scale(0.98); }
     .gb-card.sel { border-color: var(--dark); background: var(--cream); }
     .gb-inner { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
     .gb-text { flex: 1; }
     .gb-name { font-size: 15px; font-weight: 700; color: var(--text); }
-    .gb-card.sel .gb-name { color: var(--dark); }
     .gb-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
     .gb-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; margin-left: 8px; flex-shrink: 0; }
     .gb-price { font-size: 14px; font-weight: 700; color: var(--muted); }
-    .gb-card.sel .gb-price { color: var(--dark); }
     .gb-chk { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; background: #fff; transition: all 0.15s; }
     .gb-card.sel .gb-chk { background: var(--dark); border-color: var(--dark); }
 
+    /* ── INGREDIENT ROW — the core expandable unit ── */
+    .ing-wrap { margin-bottom: 8px; border-radius: 12px; border: 1.5px solid var(--border); background: #fff; overflow: hidden; transition: border-color 0.15s; }
+    .ing-wrap.sel { border-color: var(--red); background: var(--red-light); }
+    .ing-wrap.is-free { border-color: var(--dark); background: var(--cream); }
+    .ing-wrap.mozz { border-color: var(--border); background: var(--cream); }
+    .ing-wrap.mozz.modified { border-color: var(--dark); }
+
+    .ing-face { display: flex; align-items: center; gap: 12px; padding: 11px 14px; cursor: pointer; min-height: 62px; }
+    .ing-face:active { opacity: 0.85; }
+    .ing-img { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
+    .ing-info { flex: 1; }
+    .ing-name { font-size: 15px; font-weight: 600; color: var(--text); }
+    .ing-wrap.sel .ing-name { color: var(--red-dark); }
+    .ing-wrap.is-free .ing-name { color: var(--dark); }
+    .ing-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .ing-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .ing-price { font-size: 13px; font-weight: 700; color: var(--muted); }
+    .ing-wrap.sel .ing-price { color: var(--red); }
+
+    /* status badge on the row */
+    .ing-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; background: var(--dark); color: #fff; border: 1.5px solid var(--dark); }
+    .ing-badge.free { background: var(--dark); color: #fff; }
+    .ing-badge.modified { background: var(--red); color: #fff; border-color: var(--red); }
+
+    /* ── INLINE OPTIONS (expanded) ── */
+    .ing-options { padding: 0 12px 12px; display: none; flex-direction: column; gap: 8px; }
+    .ing-options.open { display: flex; }
+
+    .pill-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .pill {
+      padding: 7px 12px; border-radius: 20px;
+      border: 1.5px solid var(--border); background: #fff;
+      font-size: 12px; font-weight: 700; color: var(--muted);
+      cursor: pointer; font-family: inherit; transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .pill:active { opacity: 0.8; }
+    .pill.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+    .pill.remove { border-color: var(--red); color: var(--red); background: #fff; }
+    .pill.remove:active { background: var(--red); color: #fff; }
+
+    /* divider between placement and amount rows */
+    .pill-divider { height: 1px; background: var(--border); margin: 2px 0; }
+
+    /* SAUCE */
+    .sauce-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 14px; }
+
     /* CHEESE */
-    .mozz-row { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px; background: var(--cream); border: 1.5px solid var(--border); margin-bottom: 8px; cursor: pointer; transition: all 0.15s; }
-    .mozz-row:active { transform: scale(0.98); }
-    .mozz-row.sel { border-color: var(--dark); }
-    .mozz-name { font-size: 15px; font-weight: 700; color: var(--text); }
-    .mozz-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
     .cheese-add-lbl { font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin: 10px 0 8px; }
-    .cheese-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; transition: all 0.15s; min-height: 60px; margin-bottom: 8px; }
-    .cheese-row:active { transform: scale(0.98); }
-    .cheese-row.sel { border-color: var(--red); background: var(--red-light); }
-    .ch-name { font-size: 15px; font-weight: 600; color: var(--text); }
-    .cheese-row.sel .ch-name { color: var(--red-dark); }
-    .ch-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .ch-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
-    .ch-price { font-size: 13px; font-weight: 700; color: var(--muted); }
-    .cheese-row.sel .ch-price { color: var(--red); }
-
-    /* TOPPINGS */
-    .hint { font-size: 12px; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
-    .free-note { font-size: 12px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
-    .grp-lbl { font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; margin: 14px 0 7px; }
-    .top-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 12px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; transition: all 0.15s; min-height: 62px; margin-bottom: 8px; }
-    .top-row:active { transform: scale(0.98); }
-    .top-row.sel { border-color: var(--red); background: var(--red-light); }
-    .top-row.sel .top-n { color: var(--red-dark); }
-    .top-row.is-free { border-color: var(--dark); background: var(--cream); }
-    .top-row.is-free .top-n { color: var(--dark); }
-    .top-img { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
-    .top-img-placeholder { width: 42px; height: 42px; flex-shrink: 0; }
-    .top-n { font-size: 15px; font-weight: 600; color: var(--text); }
-    .top-p { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .top-p.free-price { color: var(--dark); font-weight: 700; }
-    .top-right { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-
-    /* STATE BADGES — cream palette only */
-    .state-badge { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 11px; white-space: nowrap; background: var(--cream); color: var(--dark); border: 1.5px solid var(--border); }
-    .state-badge.active { background: var(--dark); color: #fff; border-color: var(--dark); }
-    .state-badge.red { background: var(--red-light); color: var(--red-dark); border-color: var(--red); }
 
     /* SUMMARY */
     .sum-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
@@ -169,63 +161,6 @@
     .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
     .nav-box-img { width: 28px; height: 28px; object-fit: contain; opacity: 0.5; }
     .nav-item.active .nav-box-img { opacity: 1; }
-
-    /* ── BOTTOM SHEET ── */
-    .sheet-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.22s; }
-    .sheet-overlay.open { opacity: 1; pointer-events: all; }
-    .sheet {
-      position: fixed; left: 0; right: 0; bottom: 0;
-      background: var(--cream); z-index: 301;
-      border-radius: 20px 20px 0 0;
-      padding: 0 0 calc(24px + var(--safe-bottom));
-      transform: translateY(100%);
-      transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
-      max-height: 70vh; overflow-y: auto;
-    }
-    .sheet.open { transform: translateY(0); }
-    .sheet-handle { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 12px auto 0; }
-    .sheet-header { padding: 16px 20px 12px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); }
-    .sheet-img { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; }
-    .sheet-title { font-size: 17px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
-    .sheet-price { font-size: 13px; color: var(--muted); margin-top: 2px; }
-    .sheet-body { padding: 16px 20px; }
-    .sheet-section-lbl { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
-
-    /* HALF/WHOLE BUTTONS */
-    .placement-row { display: flex; gap: 8px; margin-bottom: 16px; }
-    .placement-btn {
-      flex: 1; padding: 10px 6px; border-radius: 10px;
-      border: 1.5px solid var(--border); background: #fff;
-      font-size: 12px; font-weight: 700; color: var(--muted);
-      cursor: pointer; font-family: inherit; transition: all 0.15s;
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      text-align: center; line-height: 1.2;
-    }
-    .placement-btn i { font-size: 20px; }
-    .placement-btn.active { border-color: var(--dark); background: var(--dark); color: #fff; }
-    .placement-btn.remove { border-color: var(--red); }
-    .placement-btn.remove.active { background: var(--red); border-color: var(--red); color: #fff; }
-
-    /* AMOUNT BUTTONS */
-    .amount-row { display: flex; gap: 8px; margin-bottom: 0; }
-    .amount-btn {
-      flex: 1; padding: 10px 6px; border-radius: 10px;
-      border: 1.5px solid var(--border); background: #fff;
-      font-size: 12px; font-weight: 700; color: var(--muted);
-      cursor: pointer; font-family: inherit; transition: all 0.15s;
-      text-align: center;
-    }
-    .amount-btn.active { border-color: var(--dark); background: var(--dark); color: #fff; }
-
-    .sheet-divider { height: 1px; background: var(--border); margin: 14px 0; }
-    .sheet-done-btn {
-      width: 100%; padding: 16px; border-radius: 12px;
-      background: var(--dark); color: #fff;
-      font-size: 16px; font-weight: 700; border: none;
-      cursor: pointer; font-family: inherit; margin-top: 16px;
-      transition: background 0.15s;
-    }
-    .sheet-done-btn:active { background: var(--red); }
   </style>
 </head>
 <body>
@@ -246,10 +181,7 @@
       <div class="hdr-row">
         <div style="display:flex;align-items:center;gap:10px">
           <img src="images/Pizza_Box_2-nobg.png" alt="Hometown Pizza" style="width:44px;height:44px;object-fit:contain;flex-shrink:0">
-          <div>
-            <div class="brand-name">Hometown Pizza</div>
-            <div class="brand-sub">BUILD YOUR OWN</div>
-          </div>
+          <div><div class="brand-name">Hometown Pizza</div><div class="brand-sub">BUILD YOUR OWN</div></div>
         </div>
         <div class="price-pill">
           <span class="price-amt" id="h-price">$18.95</span>
@@ -284,14 +216,14 @@
       <div class="section">
         <div class="section-label">Step 3</div>
         <div class="section-title">Sauce</div>
-        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to select &nbsp;•&nbsp; Tap again for placement & amount</div>
-        <div class="sauce-list" id="sauces"></div>
+        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to select &nbsp;•&nbsp; Tap selected sauce to adjust</div>
+        <div id="sauces"></div>
         <div class="gb-card" id="gb-card">
           <div class="gb-inner">
             <img src="images/Garlic_Butter-nobg.png" alt="Garlic Butter" style="width:44px;height:44px;object-fit:contain;flex-shrink:0">
             <div class="gb-text">
               <div class="gb-name">Garlic Butter Crust</div>
-              <div class="gb-desc">Brush your entire crust with a golden garlic butter base before we build your pizza — rich, savory flavor baked into every layer.</div>
+              <div class="gb-desc">Brush your entire crust with a golden garlic butter base — rich, savory flavor baked into every layer.</div>
             </div>
             <div class="gb-right">
               <span class="gb-price">+$2.00</span>
@@ -305,7 +237,7 @@
       <div class="section">
         <div class="section-label">Step 4</div>
         <div class="section-title">Cheese</div>
-        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to select &nbsp;•&nbsp; Tap again for placement & amount</div>
+        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to select &nbsp;•&nbsp; Tap selected cheese to adjust</div>
         <div id="mozz-wrap"></div>
         <div class="cheese-add-lbl">Add a cheese</div>
         <div id="cheese-addons"></div>
@@ -315,7 +247,7 @@
       <div class="section">
         <div class="section-label">Step 5</div>
         <div class="section-title">Toppings</div>
-        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to add &nbsp;•&nbsp; Tap again for placement & amount</div>
+        <div class="hint"><i class="ti ti-hand-finger" style="font-size:14px"></i> Tap to add &nbsp;•&nbsp; Tap added topping to adjust</div>
         <div class="free-note" id="free-note" style="color:#9A8E88"><i class="ti ti-tag" style="font-size:14px"></i> First topping is included with your pizza</div>
         <div id="tops"></div>
       </div>
@@ -346,45 +278,7 @@
     <button class="nav-item"><img src="images/Pizza_Box_2-nobg.png" alt="Your Box" class="nav-box-img"><span class="nav-label">Your Box</span></button>
   </nav>
 
-  <!-- BOTTOM SHEET -->
-  <div class="sheet-overlay" id="sheet-overlay" onclick="closeSheet()"></div>
-  <div class="sheet" id="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <img src="" alt="" class="sheet-img" id="sheet-img">
-      <div>
-        <div class="sheet-title" id="sheet-title"></div>
-        <div class="sheet-price" id="sheet-price"></div>
-      </div>
-    </div>
-    <div class="sheet-body">
-      <div class="sheet-section-lbl">Placement</div>
-      <div class="placement-row">
-        <button class="placement-btn" id="pl-whole" onclick="setPlacement('whole')">
-          <i class="ti ti-circle"></i>Whole
-        </button>
-        <button class="placement-btn" id="pl-left" onclick="setPlacement('left')">
-          <i class="ti ti-circle-half"></i>Left Half
-        </button>
-        <button class="placement-btn" id="pl-right" onclick="setPlacement('right')">
-          <i class="ti ti-circle-half" style="transform:scaleX(-1)"></i>Right Half
-        </button>
-        <button class="placement-btn remove" id="pl-remove" onclick="setPlacement('remove')">
-          <i class="ti ti-x"></i>Remove
-        </button>
-      </div>
-      <div class="sheet-divider"></div>
-      <div class="sheet-section-lbl">Amount</div>
-      <div class="amount-row">
-        <button class="amount-btn" id="amt-light" onclick="setAmount('light')">Light</button>
-        <button class="amount-btn" id="amt-normal" onclick="setAmount('normal')">Normal</button>
-        <button class="amount-btn" id="amt-extra" onclick="setAmount('extra')">Extra</button>
-      </div>
-      <button class="sheet-done-btn" onclick="commitSheet()">Done</button>
-    </div>
-  </div>
-
-</div><!-- end #app -->
+</div>
 
 <script>
   const SIZES = [
@@ -397,11 +291,11 @@
     { name:"Thin & Crispy",        desc:"Light, crackly, extra crisp edge" }
   ];
   const SAUCES = [
-    { name:"Marinara",       desc:"Classic tomato",           price:0,    free:true,  img:"images/Marinara_Basil_2-nobg.png" },
-    { name:"Spicy Marinara", desc:"Kick up every bite",       price:0,    free:true,  img:"images/Spicy_Marinara-nobg.png"   },
-    { name:"Alfredo",        desc:"Rich & creamy",            price:2.50, free:false, img:"images/Alfredo-nobg.png"          },
-    { name:"BBQ",            desc:"Tangy & bold",             price:2.50, free:false, img:"images/BBQ-nobg.png"              },
-    { name:"Buffalo",        desc:"Spicy, tangy, bold heat",  price:2.50, free:false, img:"images/Buffalo-nobg.png"          }
+    { name:"Marinara",       desc:"Classic tomato",          price:0,    free:true,  img:"images/Marinara_Basil_2-nobg.png" },
+    { name:"Spicy Marinara", desc:"Kick up every bite",      price:0,    free:true,  img:"images/Spicy_Marinara-nobg.png"   },
+    { name:"Alfredo",        desc:"Rich & creamy",           price:2.50, free:false, img:"images/Alfredo-nobg.png"          },
+    { name:"BBQ",            desc:"Tangy & bold",            price:2.50, free:false, img:"images/BBQ-nobg.png"              },
+    { name:"Buffalo",        desc:"Spicy, tangy, bold heat", price:2.50, free:false, img:"images/Buffalo-nobg.png"          }
   ];
   const CHEESE_ADDONS = [
     { name:"Cheddar",     desc:"Sharp — blends great with mozz", price:2.00, img:"images/Cheddar-nobg.png"     },
@@ -434,185 +328,164 @@
   let allTops = [];
   TOP_GROUPS.forEach(g => g.items.forEach(t => { t._i = allTops.length; allTops.push(t); }));
 
-  // ord.tops[i] = { placement: 'whole'|'left'|'right', amount: 'light'|'normal'|'extra' } or null
-  // ord.sauce = index, ord.sauceMod = { placement, amount }
-  // ord.mozzMod = { placement, amount }
-  // ord.cheeseAddons[i] = { placement, amount } or null
+  // mod object: { placement: 'whole'|'left'|'right', amount: 'light'|'normal'|'extra' }
+  const defaultMod = () => ({ placement:'whole', amount:'normal' });
+
   let ord = {
-    size: 0, crust: 0,
-    sauce: 0,
-    sauceMod: { placement: 'whole', amount: 'normal' },
+    size:0, crust:0, sauce:0,
+    sauceMod: defaultMod(),
     gbCrust: false,
-    mozzMod: { placement: 'whole', amount: 'normal' },
-    cheeseAddons: {},
-    tops: {},
+    mozzMod: defaultMod(),
+    cheeseAddons: {}, // idx -> mod or null
+    tops: {},         // idx -> mod or null
     topOrder: []
   };
 
-  // ── SHEET STATE ──
-  let sheetCtx = null; // { type, idx, placement, amount }
-  let sheetPlacement = 'whole';
-  let sheetAmount = 'normal';
-
-  function openSheet(ctx) {
-    sheetCtx = ctx;
-    sheetPlacement = ctx.placement || 'whole';
-    sheetAmount = ctx.amount || 'normal';
-
-    document.getElementById('sheet-title').textContent = ctx.name;
-    document.getElementById('sheet-price').textContent = ctx.priceStr || '';
-    const imgEl = document.getElementById('sheet-img');
-    if (ctx.img) { imgEl.src = ctx.img; imgEl.style.display = 'block'; }
-    else { imgEl.style.display = 'none'; }
-
-    // Show/hide remove button
-    document.getElementById('pl-remove').style.display = ctx.canRemove ? '' : 'none';
-
-    // Show/hide amount section
-    const amountSection = document.querySelector('.sheet-section-lbl:last-of-type');
-
-    updateSheetUI();
-    document.getElementById('sheet-overlay').classList.add('open');
-    document.getElementById('sheet').classList.add('open');
-    document.body.style.overflow = 'hidden';
+  // ── HELPERS ──
+  function placementLabel(p) { return p==='left'?'Left Half':p==='right'?'Right Half':'Whole'; }
+  function modSummary(mod) {
+    const parts = [];
+    if (mod.placement !== 'whole') parts.push(placementLabel(mod.placement));
+    if (mod.amount !== 'normal') parts.push(mod.amount === 'extra' ? 'Extra' : 'Light');
+    return parts.length ? parts.join(' · ') : 'Added';
+  }
+  function isModified(mod) { return mod.placement !== 'whole' || mod.amount !== 'normal'; }
+  function modNote(mod) {
+    const parts = [];
+    if (mod.placement !== 'whole') parts.push(placementLabel(mod.placement));
+    if (mod.amount !== 'normal') parts.push(mod.amount === 'extra' ? 'Extra' : 'Light');
+    return parts.length ? ` (${parts.join(', ')})` : '';
   }
 
-  function closeSheet() {
-    document.getElementById('sheet-overlay').classList.remove('open');
-    document.getElementById('sheet').classList.remove('open');
-    document.body.style.overflow = '';
-    sheetCtx = null;
-  }
+  // ── INLINE OPTIONS BUILDER ──
+  function buildOptions(containerId, mod, onChange, onRemove) {
+    const wrap = document.createElement('div');
+    wrap.className = 'ing-options open';
+    wrap.id = containerId;
 
-  function setPlacement(p) {
-    sheetPlacement = p;
-    updateSheetUI();
-    if (p === 'remove') { commitSheet(); }
-  }
-
-  function setAmount(a) {
-    sheetAmount = a;
-    updateSheetUI();
-  }
-
-  function updateSheetUI() {
-    ['whole','left','right','remove'].forEach(p => {
-      const el = document.getElementById('pl-' + p);
-      if (el) el.classList.toggle('active', sheetPlacement === p);
+    // Placement row
+    const placementRow = document.createElement('div');
+    placementRow.className = 'pill-row';
+    ['whole','left','right'].forEach(p => {
+      const btn = document.createElement('button');
+      btn.className = 'pill' + (mod.placement === p ? ' active' : '');
+      btn.textContent = p === 'whole' ? 'Whole' : p === 'left' ? 'Left Half' : 'Right Half';
+      btn.onclick = (e) => { e.stopPropagation(); mod.placement = p; onChange(mod); };
+      placementRow.appendChild(btn);
     });
-    ['light','normal','extra'].forEach(a => {
-      const el = document.getElementById('amt-' + a);
-      if (el) el.classList.toggle('active', sheetAmount === a);
-    });
-  }
-
-  function commitSheet() {
-    if (!sheetCtx) return;
-    const { type, idx } = sheetCtx;
-    const removed = sheetPlacement === 'remove';
-
-    if (type === 'sauce') {
-      if (!removed) ord.sauceMod = { placement: sheetPlacement, amount: sheetAmount };
-    } else if (type === 'mozz') {
-      ord.mozzMod = { placement: sheetPlacement, amount: sheetAmount };
-    } else if (type === 'cheese') {
-      if (removed) { ord.cheeseAddons[idx] = null; }
-      else { ord.cheeseAddons[idx] = { placement: sheetPlacement, amount: sheetAmount }; }
-    } else if (type === 'top') {
-      if (removed) {
-        ord.tops[idx] = null;
-        ord.topOrder = ord.topOrder.filter(x => x !== idx);
-      } else {
-        const wasNull = !ord.tops[idx];
-        ord.tops[idx] = { placement: sheetPlacement, amount: sheetAmount };
-        if (wasNull) ord.topOrder.push(idx);
-      }
+    // Remove button in placement row
+    if (onRemove) {
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'pill remove';
+      removeBtn.innerHTML = '<i class="ti ti-x" style="font-size:11px;margin-right:3px"></i>Remove';
+      removeBtn.onclick = (e) => { e.stopPropagation(); onRemove(); };
+      placementRow.appendChild(removeBtn);
     }
+    wrap.appendChild(placementRow);
 
-    closeSheet();
-    renderAll();
-    updateAll();
+    // Divider
+    const div = document.createElement('div');
+    div.className = 'pill-divider';
+    wrap.appendChild(div);
+
+    // Amount row
+    const amountRow = document.createElement('div');
+    amountRow.className = 'pill-row';
+    ['light','normal','extra'].forEach(a => {
+      const btn = document.createElement('button');
+      btn.className = 'pill' + (mod.amount === a ? ' active' : '');
+      btn.textContent = a === 'normal' ? 'Normal' : a === 'light' ? 'Light' : 'Extra';
+      btn.onclick = (e) => { e.stopPropagation(); mod.amount = a; onChange(mod); };
+      amountRow.appendChild(btn);
+    });
+    wrap.appendChild(amountRow);
+
+    return wrap;
   }
 
   function getFreeIdx() {
     for (const idx of ord.topOrder) {
       const t = ord.tops[idx];
-      if (t && (t.placement === 'whole' || t.placement === 'left' || t.placement === 'right') && t.amount !== 'extra') return idx;
+      if (t && t.amount !== 'extra') return idx;
     }
     return null;
   }
 
-  function placementLabel(p) {
-    return p === 'left' ? 'Left Half' : p === 'right' ? 'Right Half' : 'Whole';
-  }
-  function amountLabel(a) {
-    return a === 'light' ? 'Light' : a === 'extra' ? 'Extra' : '';
-  }
-  function badgeText(placement, amount) {
-    const parts = [];
-    if (placement !== 'whole') parts.push(placementLabel(placement));
-    if (amount && amount !== 'normal') parts.push(amount === 'extra' ? 'Extra' : 'Light');
-    return parts.length ? parts.join(' · ') : 'Added';
-  }
-
-  function init() { renderAll(); updateAll(); }
-
-  function renderAll() { renderSizes(); renderCrusts(); renderSauces(); renderGb(); renderMozz(); renderCheese(); renderTops(); }
+  function init() { renderSizes(); renderCrusts(); renderSauces(); renderGb(); renderMozz(); renderCheese(); renderTops(); updateAll(); }
 
   function renderSizes() {
     const c = document.getElementById('sizes'); c.innerHTML = '';
-    SIZES.forEach((s, i) => {
+    SIZES.forEach((s,i) => {
       const d = document.createElement('div');
-      d.className = 'opt-row' + (i === ord.size ? ' sel' : '');
-      d.innerHTML = `<div><div class="opt-name">${s.name}</div><div class="opt-sub">${s.inch}</div>${s.pop ? '<div class="pop-badge">Most Popular</div>' : ''}</div><div class="opt-price">$${s.price.toFixed(2)}</div>`;
-      d.onclick = () => { ord.size = i; renderSizes(); updateAll(); };
+      d.className = 'opt-row'+(i===ord.size?' sel':'');
+      d.innerHTML = `<div><div class="opt-name">${s.name}</div><div class="opt-sub">${s.inch}</div>${s.pop?'<div class="pop-badge">Most Popular</div>':''}</div><div class="opt-price">$${s.price.toFixed(2)}</div>`;
+      d.onclick = () => { ord.size=i; renderSizes(); updateAll(); };
       c.appendChild(d);
     });
   }
 
   function renderCrusts() {
     const c = document.getElementById('crusts'); c.innerHTML = '';
-    CRUSTS.forEach((cr, i) => {
+    CRUSTS.forEach((cr,i) => {
       const d = document.createElement('div');
-      d.className = 'opt-row' + (i === ord.crust ? ' sel' : '');
+      d.className = 'opt-row'+(i===ord.crust?' sel':'');
       d.innerHTML = `<div><div class="opt-name">${cr.name}</div><div class="opt-sub">${cr.desc}</div></div>`;
-      d.onclick = () => { ord.crust = i; renderCrusts(); updateAll(); };
+      d.onclick = () => { ord.crust=i; renderCrusts(); updateAll(); };
       c.appendChild(d);
     });
   }
 
   function renderSauces() {
     const c = document.getElementById('sauces'); c.innerHTML = '';
-    SAUCES.forEach((s, i) => {
+    SAUCES.forEach((s,i) => {
       const isSel = i === ord.sauce;
       const mod = ord.sauceMod;
-      const row = document.createElement('div');
-      row.className = 'sauce-row' + (isSel ? ' sel' : '');
 
-      let badge = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'ing-wrap' + (isSel ? ' sel' : '');
+      wrap.style.marginBottom = '8px';
+
+      // Badge text
+      let badgeHtml = '';
       if (isSel) {
-        const txt = badgeText(mod.placement, mod.amount);
-        const isModified = mod.placement !== 'whole' || mod.amount !== 'normal';
-        badge = `<span class="state-badge${isModified ? ' active' : ''}">${txt}</span>`;
+        const txt = modSummary(mod);
+        const modified = isModified(mod);
+        badgeHtml = `<span class="ing-badge${modified?' modified':''}">${txt}</span>`;
       } else if (!s.free) {
-        badge = `<span style="font-size:13px;font-weight:700;color:var(--muted)">+$${s.price.toFixed(2)}</span>`;
+        badgeHtml = `<span style="font-size:13px;font-weight:700;color:var(--muted)">+$${s.price.toFixed(2)}</span>`;
       }
 
-      const imgHtml = s.img ? `<img src="${s.img}" alt="${s.name}" class="sauce-img">` : '';
-      row.innerHTML = `${imgHtml}<div class="sauce-info"><div class="sauce-name">${s.name}</div><div class="sauce-desc">${s.desc}</div></div><div>${badge}</div>`;
+      const face = document.createElement('div');
+      face.className = 'ing-face';
+      face.innerHTML = `
+        ${s.img?`<img src="${s.img}" alt="${s.name}" class="ing-img">`:''}
+        <div class="ing-info"><div class="ing-name">${s.name}</div><div class="ing-sub">${s.desc}</div></div>
+        <div class="ing-right">${badgeHtml}</div>`;
 
-      row.onclick = () => {
-        if (!isSel) { ord.sauce = i; ord.sauceMod = { placement:'whole', amount:'normal' }; renderSauces(); updateAll(); }
-        else {
-          openSheet({
-            type:'sauce', idx:i, name:s.name,
-            priceStr: s.free ? 'Included' : `+$${s.price.toFixed(2)}`,
-            img: s.img, canRemove: false,
-            placement: ord.sauceMod.placement, amount: ord.sauceMod.amount
-          });
+      face.onclick = () => {
+        if (!isSel) {
+          ord.sauce = i;
+          ord.sauceMod = defaultMod();
+          renderSauces(); updateAll();
+        } else {
+          // toggle options
+          const opts = wrap.querySelector('.ing-options');
+          if (opts) opts.classList.toggle('open');
         }
       };
-      c.appendChild(row);
+      wrap.appendChild(face);
+
+      // Options — only for selected sauce
+      if (isSel) {
+        const opts = buildOptions('sauce-opts', mod,
+          (newMod) => { ord.sauceMod = newMod; renderSauces(); updateAll(); },
+          null // no remove for sauce
+        );
+        opts.classList.add('open'); // start open when selected
+        wrap.appendChild(opts);
+      }
+
+      c.appendChild(wrap);
     });
   }
 
@@ -621,63 +494,81 @@
     card.classList.toggle('sel', ord.gbCrust);
     chk.innerHTML = ord.gbCrust ? '<i class="ti ti-check" style="font-size:13px;color:#fff"></i>' : '';
   }
-  document.getElementById('gb-card').onclick = () => { ord.gbCrust = !ord.gbCrust; renderGb(); updateAll(); };
+  document.getElementById('gb-card').onclick = () => { ord.gbCrust=!ord.gbCrust; renderGb(); updateAll(); };
 
   function renderMozz() {
     const wrap = document.getElementById('mozz-wrap');
     const mod = ord.mozzMod;
-    const isModified = mod.placement !== 'whole' || mod.amount !== 'normal';
-    const badge = isModified
-      ? `<span class="state-badge active">${badgeText(mod.placement, mod.amount)}</span>`
-      : `<span class="state-badge">Included</span>`;
+    const modified = isModified(mod);
 
-    wrap.innerHTML = `
-      <div class="mozz-row${isModified ? ' sel' : ''}" id="mozz-face">
-        <img src="images/Mozzarella-nobg.png" alt="Mozzarella" style="width:42px;height:42px;object-fit:contain;flex-shrink:0">
-        <div style="flex:1"><div class="mozz-name">Mozzarella</div><div class="mozz-sub">Always included — the base of every pizza</div></div>
-        <div>${badge}</div>
-      </div>`;
+    const container = document.createElement('div');
+    container.className = 'ing-wrap mozz' + (modified ? ' modified' : '');
+    container.style.marginBottom = '8px';
 
-    document.getElementById('mozz-face').onclick = () => {
-      openSheet({
-        type:'mozz', name:'Mozzarella', priceStr:'Included',
-        img:'images/Mozzarella-nobg.png', canRemove: false,
-        placement: ord.mozzMod.placement, amount: ord.mozzMod.amount
-      });
+    const badgeHtml = `<span class="ing-badge${modified?' modified':''}">${modified ? modSummary(mod) : 'Included'}</span>`;
+
+    const face = document.createElement('div');
+    face.className = 'ing-face';
+    face.innerHTML = `
+      <img src="images/Mozzarella-nobg.png" alt="Mozzarella" class="ing-img">
+      <div class="ing-info"><div class="ing-name">Mozzarella</div><div class="ing-sub">Always included — the base of every pizza</div></div>
+      <div class="ing-right">${badgeHtml}</div>`;
+
+    face.onclick = () => {
+      const opts = container.querySelector('.ing-options');
+      if (opts) opts.classList.toggle('open');
     };
+    container.appendChild(face);
+
+    const opts = buildOptions('mozz-opts', mod,
+      (newMod) => { ord.mozzMod = newMod; renderMozz(); updateAll(); },
+      null
+    );
+    container.appendChild(opts);
+    wrap.innerHTML = '';
+    wrap.appendChild(container);
   }
 
   function renderCheese() {
     const c = document.getElementById('cheese-addons'); c.innerHTML = '';
-    CHEESE_ADDONS.forEach((ch, i) => {
+    CHEESE_ADDONS.forEach((ch,i) => {
       const mod = ord.cheeseAddons[i];
       const sel = !!mod;
-      const row = document.createElement('div');
-      row.className = 'cheese-row' + (sel ? ' sel' : '');
 
-      let badge = '';
-      if (sel) {
-        const txt = badgeText(mod.placement, mod.amount);
-        badge = `<span class="state-badge red">${txt}</span>`;
-      }
+      const wrap = document.createElement('div');
+      wrap.className = 'ing-wrap' + (sel ? ' sel' : '');
 
-      const imgHtml = ch.img ? `<img src="${ch.img}" alt="${ch.name}" style="width:42px;height:42px;object-fit:contain;flex-shrink:0">` : '';
-      row.innerHTML = `${imgHtml}<div><div class="ch-name">${ch.name}</div><div class="ch-sub">${ch.desc}</div></div><div class="ch-right"><span class="ch-price">+$${ch.price.toFixed(2)}</span>${badge}</div>`;
+      let badgeHtml = sel
+        ? `<span class="ing-badge${isModified(mod)?' modified':''}">${modSummary(mod)}</span>`
+        : `<span style="font-size:13px;font-weight:700;color:var(--muted)">+$${ch.price.toFixed(2)}</span>`;
 
-      row.onclick = () => {
+      const face = document.createElement('div');
+      face.className = 'ing-face';
+      face.innerHTML = `
+        ${ch.img?`<img src="${ch.img}" alt="${ch.name}" class="ing-img">`:''}
+        <div class="ing-info"><div class="ing-name">${ch.name}</div><div class="ing-sub">${ch.desc}</div></div>
+        <div class="ing-right"><span class="ing-price">+$${ch.price.toFixed(2)}</span>${badgeHtml}</div>`;
+
+      face.onclick = () => {
         if (!sel) {
-          ord.cheeseAddons[i] = { placement:'whole', amount:'normal' };
+          ord.cheeseAddons[i] = defaultMod();
           renderCheese(); updateAll();
         } else {
-          openSheet({
-            type:'cheese', idx:i, name:ch.name,
-            priceStr:`+$${ch.price.toFixed(2)}`,
-            img:ch.img, canRemove:true,
-            placement:mod.placement, amount:mod.amount
-          });
+          const opts = wrap.querySelector('.ing-options');
+          if (opts) opts.classList.toggle('open');
         }
       };
-      c.appendChild(row);
+      wrap.appendChild(face);
+
+      if (sel) {
+        const opts = buildOptions(`cheese-opts-${i}`, mod,
+          (newMod) => { ord.cheeseAddons[i] = newMod; renderCheese(); updateAll(); },
+          () => { ord.cheeseAddons[i] = null; renderCheese(); updateAll(); }
+        );
+        opts.classList.add('open');
+        wrap.appendChild(opts);
+      }
+      c.appendChild(wrap);
     });
   }
 
@@ -694,40 +585,51 @@
         const isSel = !!mod;
         const isFree = idx === freeIdx;
 
-        const row = document.createElement('div');
-        row.className = 'top-row' + (isFree ? ' is-free' : isSel ? ' sel' : '');
+        const wrap = document.createElement('div');
+        wrap.className = 'ing-wrap' + (isFree ? ' is-free' : isSel ? ' sel' : '');
 
-        let badge = '';
-        if (isFree) badge = '<span class="state-badge active">Included</span>';
-        else if (isSel) { badge = `<span class="state-badge red">${badgeText(mod.placement, mod.amount)}</span>`; }
+        let badgeHtml = '';
+        if (isFree) badgeHtml = `<span class="ing-badge free">Included</span>`;
+        else if (isSel) badgeHtml = `<span class="ing-badge${isModified(mod)?' modified':''}">${modSummary(mod)}</span>`;
 
         const priceLabel = isFree
-          ? '<div class="top-p free-price">Included with pizza</div>'
-          : `<div class="top-p">+$${t.p.toFixed(2)}</div>`;
-        const imgHtml = t.img ? `<img src="${t.img}" alt="${t.n}" class="top-img">` : `<div class="top-img-placeholder"></div>`;
+          ? '<div class="ing-sub" style="color:var(--dark);font-weight:700">Included with pizza</div>'
+          : `<div class="ing-sub">+$${t.p.toFixed(2)}</div>`;
 
-        row.innerHTML = `
+        const face = document.createElement('div');
+        face.className = 'ing-face';
+        face.innerHTML = `
           <div style="display:flex;align-items:center;gap:10px;flex:1">
-            ${imgHtml}
-            <div><div class="top-n">${t.n}</div>${priceLabel}</div>
+            ${t.img?`<img src="${t.img}" alt="${t.n}" class="ing-img">`:'<div style="width:42px;height:42px;flex-shrink:0"></div>'}
+            <div><div class="ing-name">${t.n}</div>${priceLabel}</div>
           </div>
-          <div class="top-right">${badge}</div>`;
+          <div class="ing-right">${badgeHtml}</div>`;
 
-        row.onclick = () => {
+        face.onclick = () => {
           if (!isSel) {
-            ord.tops[idx] = { placement:'whole', amount:'normal' };
+            ord.tops[idx] = defaultMod();
             ord.topOrder.push(idx);
             renderTops(); updateAll();
           } else {
-            openSheet({
-              type:'top', idx, name:t.n,
-              priceStr: isFree ? 'Included' : `+$${t.p.toFixed(2)}`,
-              img:t.img, canRemove:true,
-              placement:mod.placement, amount:mod.amount
-            });
+            const opts = wrap.querySelector('.ing-options');
+            if (opts) opts.classList.toggle('open');
           }
         };
-        c.appendChild(row);
+        wrap.appendChild(face);
+
+        if (isSel || isFree) {
+          const opts = buildOptions(`top-opts-${idx}`, mod || defaultMod(),
+            (newMod) => { ord.tops[idx] = newMod; renderTops(); updateAll(); },
+            isFree ? null : () => {
+              ord.tops[idx] = null;
+              ord.topOrder = ord.topOrder.filter(x => x !== idx);
+              renderTops(); updateAll();
+            }
+          );
+          if (isSel) opts.classList.add('open');
+          wrap.appendChild(opts);
+        }
+        c.appendChild(wrap);
       });
     });
 
@@ -745,39 +647,34 @@
     const freeIdx = getFreeIdx();
     let t = SIZES[ord.size].price + SAUCES[ord.sauce].price;
     const sm = ord.sauceMod;
-    if (sm.amount === 'extra') t += 1.00;
-    if (sm.placement === 'left' || sm.placement === 'right') t += 0; // half placement no charge for sauce
+    if (sm.amount === 'extra') t += (sm.placement === 'whole' ? 1.00 : 0.50);
     if (ord.gbCrust) t += 2.00;
-    // mozz
     const mm = ord.mozzMod;
-    if (mm.amount === 'extra') t += mm.placement === 'whole' ? 1.00 : 0.50;
-    // cheese addons
-    Object.entries(ord.cheeseAddons).forEach(([i, mod]) => {
+    if (mm.amount === 'extra') t += (mm.placement === 'whole' ? 1.00 : 0.50);
+    Object.entries(ord.cheeseAddons).forEach(([i,mod]) => {
       if (!mod) return;
-      let price = CHEESE_ADDONS[i].price;
-      if (mod.placement === 'left' || mod.placement === 'right') price *= 0.5;
-      if (mod.amount === 'extra') price += (mod.placement === 'whole' ? 1.00 : 0.50);
-      t += price;
+      let p = CHEESE_ADDONS[i].price;
+      if (mod.placement !== 'whole') p *= 0.5;
+      if (mod.amount === 'extra') p += (mod.placement === 'whole' ? 1.00 : 0.50);
+      t += p;
     });
-    // toppings
     ord.topOrder.forEach(i => {
       const mod = ord.tops[i]; if (!mod) return;
       const tp = allTops[i]; if (!tp) return;
-      const isFree = i === freeIdx;
-      if (isFree) return;
-      let price = tp.p;
-      if (mod.placement === 'left' || mod.placement === 'right') price *= 0.5;
-      if (mod.amount === 'extra') price *= 1.5;
-      t += price;
+      if (i === freeIdx) return;
+      let p = tp.p;
+      if (mod.placement !== 'whole') p *= 0.5;
+      if (mod.amount === 'extra') p *= 1.5;
+      t += p;
     });
     return t;
   }
 
   function updateAll() {
     const tot = calcTotal(), fmt = tot.toFixed(2);
-    document.getElementById('h-price').textContent = '$' + fmt;
+    document.getElementById('h-price').textContent = '$'+fmt;
     document.getElementById('cta-price').textContent = fmt;
-    document.getElementById('h-desc').textContent = SIZES[ord.size].name + ' • ' + (ord.crust === 0 ? 'Pan Style' : 'Thin & Crispy');
+    document.getElementById('h-desc').textContent = SIZES[ord.size].name+' • '+(ord.crust===0?'Pan Style':'Thin & Crispy');
     updateProg(); renderSummary(tot);
   }
 
@@ -786,37 +683,29 @@
     [1,1,1,hasTops?1:0,1].forEach((v,i) => { document.getElementById('p'+i).className='prog-seg'+(v?' done':''); });
   }
 
-  function modStr(mod) {
-    const parts = [];
-    if (mod.placement !== 'whole') parts.push(placementLabel(mod.placement));
-    if (mod.amount !== 'normal') parts.push(mod.amount === 'extra' ? 'Extra' : 'Light');
-    return parts.length ? ` (${parts.join(', ')})` : '';
-  }
-
   function renderSummary(tot) {
     const sc = SAUCES[ord.sauce]; const freeIdx = getFreeIdx();
     let h = srow(SIZES[ord.size].name+' ('+SIZES[ord.size].inch+')', '$'+SIZES[ord.size].price.toFixed(2));
     h += srow('Crust: '+CRUSTS[ord.crust].name, 'Included');
-    const saucePriceStr = sc.price > 0 ? '+$'+sc.price.toFixed(2) : 'Included';
-    h += srow('Sauce: '+sc.name+modStr(ord.sauceMod), saucePriceStr);
+    h += srow('Sauce: '+sc.name+modNote(ord.sauceMod), sc.price>0?'+$'+sc.price.toFixed(2):'Included');
     if (ord.gbCrust) h += srow('+ Garlic Butter Crust', '+$2.00');
-    h += srow('Cheese: Mozzarella'+modStr(ord.mozzMod), 'Included');
+    h += srow('Cheese: Mozzarella'+modNote(ord.mozzMod), 'Included');
     Object.entries(ord.cheeseAddons).forEach(([i,mod]) => {
       if (!mod) return;
-      let price = CHEESE_ADDONS[i].price;
-      if (mod.placement !== 'whole') price *= 0.5;
-      if (mod.amount === 'extra') price += (mod.placement === 'whole' ? 1.00 : 0.50);
-      h += srow('+ '+CHEESE_ADDONS[i].name+modStr(mod), '+$'+price.toFixed(2));
+      let p = CHEESE_ADDONS[i].price;
+      if (mod.placement !== 'whole') p *= 0.5;
+      if (mod.amount === 'extra') p += (mod.placement==='whole'?1.00:0.50);
+      h += srow('+ '+CHEESE_ADDONS[i].name+modNote(mod), '+$'+p.toFixed(2));
     });
     ord.topOrder.forEach(i => {
       const mod = ord.tops[i]; if (!mod) return;
       const tp = allTops[i]; if (!tp) return;
       const isFree = i === freeIdx;
-      let price = tp.p;
-      if (mod.placement !== 'whole') price *= 0.5;
-      if (mod.amount === 'extra') price *= 1.5;
-      if (isFree) h += `<div class="sum-row"><span class="sum-label">${tp.n}${modStr(mod)} <span style="font-size:11px;font-weight:700">✓ included</span></span><span class="sum-val free">$0.00</span></div>`;
-      else h += srow(tp.n+modStr(mod), '+$'+price.toFixed(2));
+      let p = tp.p;
+      if (mod.placement !== 'whole') p *= 0.5;
+      if (mod.amount === 'extra') p *= 1.5;
+      if (isFree) h += `<div class="sum-row"><span class="sum-label">${tp.n}${modNote(mod)} <span style="font-size:11px;font-weight:700">✓ included</span></span><span class="sum-val free">$0.00</span></div>`;
+      else h += srow(tp.n+modNote(mod), '+$'+p.toFixed(2));
     });
     h += `<div class="sum-total"><span class="sum-tl">Total</span><span class="sum-tv">$${tot.toFixed(2)}</span></div>`;
     document.getElementById('summary').innerHTML = h;
@@ -829,15 +718,12 @@
     const tot = calcTotal(); const sc = SAUCES[ord.sauce]; const freeIdx = getFreeIdx();
     let h = confRow('Size', SIZES[ord.size].name+' ('+SIZES[ord.size].inch+')');
     h += confRow('Crust', CRUSTS[ord.crust].name);
-    let sauceStr = sc.name + modStr(ord.sauceMod);
-    if (ord.gbCrust) sauceStr += ' + Garlic Butter Crust';
+    let sauceStr = sc.name+modNote(ord.sauceMod); if (ord.gbCrust) sauceStr += ' + Garlic Butter Crust';
     h += confRow('Sauce', sauceStr);
-    let cheeseStr = 'Mozzarella' + modStr(ord.mozzMod);
-    Object.entries(ord.cheeseAddons).forEach(([i,mod]) => { if (mod) cheeseStr += ', '+CHEESE_ADDONS[i].name+modStr(mod); });
+    let cheeseStr = 'Mozzarella'+modNote(ord.mozzMod);
+    Object.entries(ord.cheeseAddons).forEach(([i,mod]) => { if (mod) cheeseStr += ', '+CHEESE_ADDONS[i].name+modNote(mod); });
     h += confRow('Cheese', cheeseStr);
-    const tList = ord.topOrder.filter(i=>ord.tops[i]).map(i => {
-      return allTops[i].n + modStr(ord.tops[i]) + (i===freeIdx?' ✓':'');
-    });
+    const tList = ord.topOrder.filter(i=>ord.tops[i]).map(i => allTops[i].n+modNote(ord.tops[i])+(i===freeIdx?' ✓':''));
     if (tList.length) h += confRow('Toppings', tList.join(', '));
     h += '<div class="conf-divider"></div>';
     h += `<div class="conf-total"><span>Total</span><span>$${tot.toFixed(2)}</span></div>`;
@@ -847,7 +733,7 @@
   function confRow(l,v) { return `<div class="conf-row"><span>${l}</span><span>${v}</span></div>`; }
 
   document.getElementById('reset-btn').addEventListener('click', () => {
-    ord = { size:0, crust:0, sauce:0, sauceMod:{placement:'whole',amount:'normal'}, gbCrust:false, mozzMod:{placement:'whole',amount:'normal'}, cheeseAddons:{}, tops:{}, topOrder:[] };
+    ord = { size:0, crust:0, sauce:0, sauceMod:defaultMod(), gbCrust:false, mozzMod:defaultMod(), cheeseAddons:{}, tops:{}, topOrder:[] };
     document.getElementById('conf-screen').style.display = 'none';
     init();
     document.getElementById('scroll-body').scrollTop = 0;
