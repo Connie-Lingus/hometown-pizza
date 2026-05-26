@@ -53,7 +53,7 @@
     .prog-seg.done { background: var(--red); }
 
     /* SCROLL */
-    .scroll-body { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 22px 16px; padding-bottom: calc(40px + var(--safe-bottom)); }
+    .scroll-body { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 22px 16px; padding-bottom: calc(140px + var(--safe-bottom)); }
     .section { margin-bottom: 24px; }
     .section-label { font-size: 10px; font-weight: 600; color: var(--red); letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 5px; }
     .section-title { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.6px; margin-bottom: 14px; }
@@ -159,12 +159,17 @@
     .sum-tl { font-size: 15px; font-weight: 700; color: var(--text); }
     .sum-tv { font-size: 24px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
 
-    /* CTA */
-    .cta-bar { flex-shrink: 0; padding: 12px 16px; padding-bottom: calc(12px + var(--safe-bottom)); background: var(--cream); border-top: 1px solid var(--border); }
-    .cta-btn { width: 100%; padding: 18px; border-radius: 14px; background: var(--red); color: #fff; font-size: 17px; font-weight: 700; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s, transform 0.1s; -webkit-appearance: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    /* COMBINED BOTTOM BAR */
+    .bottom-bar { flex-shrink: 0; background: var(--cream); border-top: 1px solid var(--border); padding: 10px 16px; padding-bottom: calc(10px + var(--safe-bottom)); display: flex; flex-direction: column; gap: 8px; }
+    .cta-btn { width: 100%; padding: 16px; border-radius: 14px; background: var(--red); color: #fff; font-size: 16px; font-weight: 700; border: none; cursor: pointer; font-family: inherit; transition: background 0.15s, transform 0.1s; -webkit-appearance: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .cta-btn:active { background: var(--red-dark); transform: scale(0.99); }
-
-    /* BOTTOM NAV — coming back */
+    .inner-nav { display: flex; align-items: center; justify-content: space-around; padding: 4px 0; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; border: none; background: transparent; font-family: inherit; transition: all 0.15s; text-decoration: none; color: var(--muted); padding: 4px 16px; }
+    .nav-item:active { opacity: 0.7; }
+    .nav-item i { font-size: 22px; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
+    .nav-box-img { width: 28px; height: 28px; object-fit: contain; opacity: 0.6; }
+    .box-badge { position: absolute; top: -4px; right: -6px; background: var(--red); color: #fff; font-size: 10px; font-weight: 800; border-radius: 10px; padding: 2px 5px; min-width: 16px; text-align: center; }
   </style>
 </head>
 <body>
@@ -259,15 +264,25 @@
 
     </div>
 
-    <div class="cta-bar">
+    <!-- COMBINED CTA + NAV BAR -->
+    <div class="bottom-bar">
       <button class="cta-btn" id="cta-btn">
-        <i class="ti ti-shopping-cart" style="font-size:20px"></i>
-        Add to Your Pizza Box — $<span id="cta-price">16.99</span>
+        <i class="ti ti-circle-plus" style="font-size:20px"></i>
+        Add to Your Box — $<span id="cta-price">16.99</span>
       </button>
+      <nav class="inner-nav">
+        <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
+        <a href="index.html#menu" class="nav-item"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
+        <a href="pizza-box.html" class="nav-item" id="nav-box">
+          <div style="position:relative;display:inline-flex">
+            <img src="images/Pizza_Box_2-nobg.png" alt="Your Box" class="nav-box-img">
+            <span class="box-badge" id="box-badge" style="display:none">0</span>
+          </div>
+          <span class="nav-label">My Box</span>
+        </a>
+      </nav>
     </div>
   </div>
-
-  <!-- BOTTOM NAV — coming back to this -->
 
 </div>
 
@@ -746,33 +761,71 @@
 
   function srow(l,v) { return `<div class="sum-row"><span class="sum-label">${l}</span><span class="sum-val">${v}</span></div>`; }
 
-  document.getElementById('cta-btn').addEventListener('click', placeOrder);
-  function placeOrder() {
-    const tot = calcTotal(); const sc = SAUCES[ord.sauce]; const freeIdx = getFreeIdx(); const si = ord.size;
-    let h = confRow('Size', SIZES[si].name);
-    h += confRow('Crust', CRUSTS[ord.crust].name);
-    let sauceStr = sc.name+modNote(ord.sauceMod); if (ord.gbCrust) sauceStr += ' + Garlic Butter';
-    h += confRow('Sauce', sauceStr);
-    let cheeseStr = 'Mozzarella'+modNote(ord.mozzMod);
-    Object.entries(ord.cheeseAddons).forEach(([i,mod]) => { if (mod) cheeseStr += ', '+CHEESE_ADDONS[i].name+modNote(mod); });
-    h += confRow('Cheese', cheeseStr);
-    const tList = ord.topOrder.filter(i=>ord.tops[i]).map(i => allTops[i].n+modNote(ord.tops[i])+(i===freeIdx?' ✓':''));
-    if (tList.length) h += confRow('Toppings', tList.join(', '));
-    h += '<div class="conf-divider"></div>';
-    h += `<div class="conf-total"><span>Total</span><span>$${tot.toFixed(2)}</span></div>`;
-    document.getElementById('conf-detail').innerHTML = h;
-    document.getElementById('conf-screen').style.display = 'flex';
+  document.getElementById('cta-btn').addEventListener('click', addToBox);
+
+  function buildOrderSummary() {
+    const tot = calcTotal(); const sc = SAUCES[ord.sauce];
+    const freeIdx = getFreeIdx(); const si = ord.size;
+    const crustName = CRUSTS[ord.crust].name;
+    let toppings = [];
+    ord.topOrder.forEach(i => {
+      const mod = ord.tops[i]; if (!mod) return;
+      const tp = allTops[i]; if (!tp) return;
+      toppings.push(tp.n + modNote(mod) + (i===freeIdx?' (free)':''));
+    });
+    let cheeses = ['Mozzarella'+modNote(ord.mozzMod)];
+    Object.entries(ord.cheeseAddons).forEach(([i,mod]) => {
+      if (mod) cheeses.push(CHEESE_ADDONS[i].name+modNote(mod));
+    });
+    let sauceStr = sc.name+modNote(ord.sauceMod);
+    if (ord.gbCrust) sauceStr += ' + Garlic Butter';
+    return {
+      id: Date.now(),
+      type: 'build',
+      name: `${SIZES[si].name} ${crustName}`,
+      size: SIZES[si].name,
+      crust: crustName,
+      sauce: sauceStr,
+      cheese: cheeses.join(', '),
+      toppings: toppings,
+      price: tot,
+      display: `${SIZES[si].name} Build Your Own`
+    };
   }
-  function confRow(l,v) { return `<div class="conf-row"><span>${l}</span><span>${v}</span></div>`; }
+
+  function addToBox() {
+    const item = buildOrderSummary();
+    // Save to localStorage
+    let box = [];
+    try { box = JSON.parse(localStorage.getItem('htp_box') || '[]'); } catch(e) {}
+    box.push(item);
+    localStorage.setItem('htp_box', JSON.stringify(box));
+    // Update badge
+    updateBoxBadge();
+    // Navigate to pizza box
+    window.location.href = 'pizza-box.html';
+  }
+
+  function updateBoxBadge() {
+    let box = [];
+    try { box = JSON.parse(localStorage.getItem('htp_box') || '[]'); } catch(e) {}
+    const badge = document.getElementById('box-badge');
+    if (badge) {
+      if (box.length > 0) { badge.textContent = box.length; badge.style.display = 'block'; }
+      else { badge.style.display = 'none'; }
+    }
+  }
 
   document.getElementById('reset-btn').addEventListener('click', () => {
     ord = { size:0, crust:0, sauce:0, sauceMod:defaultMod(), gbCrust:false, mozzMod:defaultMod(), cheeseAddons:{}, tops:{}, topOrder:[] };
     document.getElementById('conf-screen').style.display = 'none';
     init();
+  updateBoxBadge();
     document.getElementById('scroll-body').scrollTop = 0;
   });
 
   init();
+  updateBoxBadge();
 </script>
 </body>
 </html>
