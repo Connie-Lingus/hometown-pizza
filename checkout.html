@@ -1,1 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#FDF8F3">
+  <title>Checkout — Hometown Pizza</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root {
+      --red: #C8311A; --red-light: #FAECE7; --red-dark: #7A1D0E;
+      --cream: #FDF8F3; --dark: #1A1410; --border: #E8DDD6; --muted: #9A8E88;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; background: var(--cream); }
+    body { font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; }
 
+    /* HEADER */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 0 16px; padding-top: var(--safe-top);
+      height: calc(56px + var(--safe-top));
+      display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 10px;
+    }
+    .back-btn { display: flex; align-items: center; gap: 6px; color: var(--dark); font-size: 15px; font-weight: 600; text-decoration: none; border: none; background: transparent; cursor: pointer; font-family: inherit; }
+    .back-btn i { font-size: 20px; }
+    .header-title { font-size: 17px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
+    .header-spacer { width: 60px; }
+
+    /* PAGE BODY */
+    .page-body {
+      flex: 1; overflow-y: auto;
+      padding-top: calc(56px + var(--safe-top));
+      padding-bottom: calc(100px + var(--safe-bottom));
+    }
+
+    /* SECTIONS */
+    .section { padding: 20px 16px 0; }
+    .section-title {
+      font-size: 11px; font-weight: 700; color: var(--muted);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;
+    }
+
+    /* ORDER SUMMARY */
+    .order-card { background: #fff; border-radius: 14px; border: 1.5px solid var(--border); margin: 20px 16px 0; overflow: hidden; }
+    .order-item { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .order-item:last-child { border-bottom: none; }
+    .order-item-name { font-size: 14px; font-weight: 700; color: var(--dark); }
+    .order-item-detail { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+    .order-item-price { font-size: 15px; font-weight: 800; color: var(--dark); flex-shrink: 0; }
+    .order-total-row { padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; background: var(--cream); border-top: 2px solid var(--border); }
+    .order-total-label { font-size: 15px; font-weight: 700; color: var(--dark); }
+    .order-total-amount { font-size: 22px; font-weight: 800; color: var(--red); }
+
+    /* FORM FIELDS */
+    .form-card { background: #fff; border-radius: 14px; border: 1.5px solid var(--border); margin: 16px 16px 0; overflow: hidden; }
+    .field-row { display: flex; flex-direction: column; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+    .field-row:last-child { border-bottom: none; }
+    .field-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+    .field-input {
+      font-size: 16px; font-weight: 500; color: var(--dark);
+      border: none; background: transparent; outline: none;
+      font-family: inherit; width: 100%; padding: 0;
+    }
+    .field-input::placeholder { color: var(--border); }
+
+    /* ORDER TYPE TOGGLE */
+    .type-toggle { display: flex; gap: 8px; margin: 16px 16px 0; }
+    .type-btn {
+      flex: 1; padding: 14px; border-radius: 12px;
+      border: 1.5px solid var(--border); background: #fff;
+      font-size: 14px; font-weight: 700; color: var(--muted);
+      cursor: pointer; font-family: inherit; transition: all 0.15s;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    .type-btn i { font-size: 24px; }
+    .type-btn.active { border-color: var(--dark); background: var(--dark); color: #fff; }
+    .type-btn:active { opacity: 0.85; }
+
+    /* PICKUP TIME SLOTS */
+    .time-slots { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px; }
+    .time-slot {
+      padding: 8px 16px; border-radius: 20px;
+      border: 1.5px solid var(--border); background: #fff;
+      font-size: 13px; font-weight: 700; color: var(--muted);
+      cursor: pointer; font-family: inherit; transition: all 0.15s;
+    }
+    .time-slot.active { border-color: var(--dark); background: var(--dark); color: #fff; }
+    .time-slot:active { opacity: 0.85; }
+
+    /* DELIVERY ADDRESS (hidden when pickup) */
+    .delivery-fields { display: none; }
+    .delivery-fields.show { display: block; }
+
+    /* NOTES */
+    .notes-input {
+      font-size: 15px; font-weight: 500; color: var(--dark);
+      border: none; background: transparent; outline: none;
+      font-family: inherit; width: 100%; padding: 0;
+      resize: none; min-height: 60px; line-height: 1.5;
+    }
+    .notes-input::placeholder { color: var(--border); }
+
+    /* PLACE ORDER BAR */
+    .place-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      padding: 12px 16px; padding-bottom: calc(12px + var(--safe-bottom));
+      background: var(--cream); border-top: 1px solid var(--border);
+    }
+    .place-btn {
+      width: 100%; padding: 18px; border-radius: 14px;
+      background: var(--red); color: #fff;
+      font-size: 17px; font-weight: 700; border: none;
+      cursor: pointer; font-family: inherit;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .place-btn:active { background: var(--red-dark); transform: scale(0.99); }
+    .place-btn:disabled { background: var(--muted); cursor: default; transform: none; }
+
+    /* CONFIRMATION SCREEN */
+    #conf-screen {
+      display: none; position: fixed; inset: 0; background: var(--dark);
+      flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px 28px; z-index: 200;
+      padding-top: calc(40px + var(--safe-top));
+      padding-bottom: calc(40px + var(--safe-bottom));
+    }
+    .conf-check { width: 80px; height: 80px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; margin-bottom: 28px; animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+    .conf-title { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 10px; letter-spacing: -0.8px; text-align: center; }
+    .conf-sub { font-size: 16px; color: #666; line-height: 1.6; margin-bottom: 12px; text-align: center; }
+    .conf-eta { font-size: 36px; font-weight: 800; color: var(--red); margin-bottom: 32px; }
+    .conf-order-num { font-size: 13px; color: #444; margin-bottom: 40px; text-align: center; }
+    .conf-order-num span { color: #888; font-weight: 700; }
+    .conf-done-btn {
+      padding: 16px 40px; border-radius: 14px;
+      border: 1.5px solid #2a2a2a; background: transparent;
+      color: #666; font-size: 15px; cursor: pointer; font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <a href="pizza-box.html" class="back-btn"><i class="ti ti-arrow-left"></i> My Box</a>
+    <div class="header-title">Checkout</div>
+    <div class="header-spacer"></div>
+  </div>
+
+  <!-- PAGE BODY -->
+  <div class="page-body">
+
+    <!-- ORDER SUMMARY -->
+    <div class="section" style="padding-top:24px">
+      <div class="section-title">Your Order</div>
+    </div>
+    <div class="order-card" id="order-summary"></div>
+
+    <!-- PICKUP OR DELIVERY -->
+    <div class="section" style="padding-top:20px">
+      <div class="section-title">Order Type</div>
+    </div>
+    <div class="type-toggle">
+      <button class="type-btn active" id="btn-pickup" onclick="setType('pickup')">
+        <i class="ti ti-building-store"></i>Pickup
+      </button>
+      <button class="type-btn" id="btn-delivery" onclick="setType('delivery')">
+        <i class="ti ti-bike"></i>Delivery
+      </button>
+    </div>
+
+    <!-- YOUR INFO -->
+    <div class="section" style="padding-top:20px">
+      <div class="section-title">Your Info</div>
+    </div>
+    <div class="form-card">
+      <div class="field-row">
+        <div class="field-label">Name</div>
+        <input class="field-input" id="field-name" type="text" placeholder="First & Last Name" autocomplete="name">
+      </div>
+      <div class="field-row">
+        <div class="field-label">Phone</div>
+        <input class="field-input" id="field-phone" type="tel" placeholder="(816) 555-0000" autocomplete="tel">
+      </div>
+    </div>
+
+    <!-- PICKUP TIME -->
+    <div id="pickup-section">
+      <div class="section" style="padding-top:20px">
+        <div class="section-title">Pickup Time</div>
+      </div>
+      <div class="time-slots" id="time-slots"></div>
+    </div>
+
+    <!-- DELIVERY ADDRESS -->
+    <div class="delivery-fields" id="delivery-section">
+      <div class="section" style="padding-top:20px">
+        <div class="section-title">Delivery Address</div>
+      </div>
+      <div class="form-card">
+        <div class="field-row">
+          <div class="field-label">Street Address</div>
+          <input class="field-input" id="field-address" type="text" placeholder="123 Main St" autocomplete="street-address">
+        </div>
+        <div class="field-row">
+          <div class="field-label">Apt / Unit (optional)</div>
+          <input class="field-input" id="field-apt" type="text" placeholder="Apt 4B">
+        </div>
+        <div class="field-row">
+          <div class="field-label">City</div>
+          <input class="field-input" id="field-city" type="text" placeholder="Richmond" autocomplete="address-level2">
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER NOTES -->
+    <div class="section" style="padding-top:20px">
+      <div class="section-title">Special Instructions (optional)</div>
+    </div>
+    <div class="form-card" style="margin-bottom:8px">
+      <div class="field-row">
+        <textarea class="notes-input" id="field-notes" placeholder="Allergy info, gate codes, extra napkins..."></textarea>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PLACE ORDER BAR -->
+  <div class="place-bar">
+    <button class="place-btn" id="place-btn" onclick="placeOrder()">
+      <i class="ti ti-check" style="font-size:20px"></i>
+      Place Order — $<span id="place-total">0.00</span>
+    </button>
+  </div>
+
+  <!-- CONFIRMATION SCREEN -->
+  <div id="conf-screen">
+    <div class="conf-check"><i class="ti ti-check" style="font-size:36px;color:#fff"></i></div>
+    <div class="conf-title">Order Received!</div>
+    <div class="conf-sub">We're making it fresh right now.</div>
+    <div class="conf-eta" id="conf-eta">~25 min</div>
+    <div class="conf-order-num" id="conf-order-num">Order <span>#000000</span></div>
+    <button class="conf-done-btn" onclick="orderDone()">Done</button>
+  </div>
+
+  <script>
+    let orderType = 'pickup';
+    let selectedTime = null;
+
+    // ── LOAD CART ──
+    function loadBox() {
+      try { return JSON.parse(localStorage.getItem('htp_box') || '[]'); }
+      catch(e) { return []; }
+    }
+
+    function renderSummary() {
+      const box = loadBox();
+      const container = document.getElementById('order-summary');
+      if (box.length === 0) {
+        window.location.href = 'pizza-box.html';
+        return;
+      }
+      let total = 0;
+      let html = '';
+      box.forEach(item => {
+        total += item.price || 0;
+        const details = [];
+        if (item.crust) details.push(`${item.crust} crust`);
+        if (item.sauce) details.push(item.sauce);
+        if (item.cheese) details.push(item.cheese);
+        if (item.toppings && item.toppings.length) details.push(item.toppings.join(', '));
+        if (item.details) details.push(...item.details);
+        html += `<div class="order-item">
+          <div>
+            <div class="order-item-name">${item.display || item.name}</div>
+            ${details.length ? `<div class="order-item-detail">${details.join(' · ')}</div>` : ''}
+          </div>
+          <div class="order-item-price">$${(item.price||0).toFixed(2)}</div>
+        </div>`;
+      });
+      html += `<div class="order-total-row">
+        <span class="order-total-label">Total</span>
+        <span class="order-total-amount">$${total.toFixed(2)}</span>
+      </div>`;
+      container.innerHTML = html;
+      document.getElementById('place-total').textContent = total.toFixed(2);
+    }
+
+    // ── ORDER TYPE ──
+    function setType(type) {
+      orderType = type;
+      document.getElementById('btn-pickup').classList.toggle('active', type === 'pickup');
+      document.getElementById('btn-delivery').classList.toggle('active', type === 'delivery');
+      document.getElementById('pickup-section').style.display = type === 'pickup' ? 'block' : 'none';
+      document.getElementById('delivery-section').classList.toggle('show', type === 'delivery');
+    }
+
+    // ── TIME SLOTS ──
+    function generateSlots() {
+      const now = new Date();
+      const slots = [];
+      // First slot is always ASAP (~25 min)
+      slots.push({ label: 'ASAP (~25 min)', value: 'asap' });
+      // Then every 15 min for next 2 hours
+      let t = new Date(now.getTime() + 30 * 60000); // start 30 min from now
+      t.setMinutes(Math.ceil(t.getMinutes() / 15) * 15, 0, 0);
+      for (let i = 0; i < 8; i++) {
+        const h = t.getHours();
+        const m = t.getMinutes();
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        const h12 = h % 12 || 12;
+        const mStr = m.toString().padStart(2, '0');
+        slots.push({ label: `${h12}:${mStr} ${ampm}`, value: t.toISOString() });
+        t = new Date(t.getTime() + 15 * 60000);
+      }
+      return slots;
+    }
+
+    function renderSlots() {
+      const slots = generateSlots();
+      const wrap = document.getElementById('time-slots');
+      wrap.innerHTML = '';
+      slots.forEach((s, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'time-slot' + (i === 0 ? ' active' : '');
+        btn.textContent = s.label;
+        if (i === 0) selectedTime = s.value;
+        btn.onclick = () => {
+          selectedTime = s.value;
+          wrap.querySelectorAll('.time-slot').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        };
+        wrap.appendChild(btn);
+      });
+    }
+
+    // ── VALIDATION ──
+    function validate() {
+      const name = document.getElementById('field-name').value.trim();
+      const phone = document.getElementById('field-phone').value.trim();
+      if (!name || !phone) return false;
+      if (orderType === 'delivery') {
+        const addr = document.getElementById('field-address').value.trim();
+        if (!addr) return false;
+      }
+      if (orderType === 'pickup' && !selectedTime) return false;
+      return true;
+    }
+
+    // Live validation — enable/disable button
+    ['field-name','field-phone','field-address'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', () => {
+        document.getElementById('place-btn').disabled = !validate();
+      });
+    });
+
+    // ── PLACE ORDER ──
+    function placeOrder() {
+      if (!validate()) return;
+      const box = loadBox();
+      const total = box.reduce((s, i) => s + (i.price||0), 0);
+      const orderNum = Math.floor(100000 + Math.random() * 900000);
+      const eta = orderType === 'delivery' ? '~45 min' : '~25 min';
+
+      // Show confirmation
+      document.getElementById('conf-eta').textContent = eta;
+      document.getElementById('conf-order-num').innerHTML = `Order <span>#${orderNum}</span>`;
+      document.getElementById('conf-screen').style.display = 'flex';
+
+      // Clear the cart
+      localStorage.removeItem('htp_box');
+    }
+
+    function orderDone() {
+      window.location.href = 'index.html';
+    }
+
+    // ── INIT ──
+    renderSummary();
+    renderSlots();
+    document.getElementById('place-btn').disabled = true;
+  </script>
+
+</body>
+</html>
