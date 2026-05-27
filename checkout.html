@@ -21,31 +21,18 @@
     body { font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; }
 
     /* HEADER */
-    .header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: var(--cream); border-bottom: 1px solid var(--border);
-      padding: 0 16px; padding-top: var(--safe-top);
-      height: calc(56px + var(--safe-top));
-      display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 10px;
-    }
+    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 16px; padding-top: var(--safe-top); height: calc(56px + var(--safe-top)); display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 10px; }
     .back-btn { display: flex; align-items: center; gap: 6px; color: var(--dark); font-size: 15px; font-weight: 600; text-decoration: none; border: none; background: transparent; cursor: pointer; font-family: inherit; }
     .back-btn i { font-size: 20px; }
     .header-title { font-size: 17px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
     .header-spacer { width: 60px; }
 
-    /* PAGE BODY */
-    .page-body {
-      flex: 1; overflow-y: auto;
-      padding-top: calc(56px + var(--safe-top));
-      padding-bottom: calc(160px + var(--safe-bottom));
-    }
+    /* PAGE BODY — padded for header + place-bar + nav */
+    .page-body { flex: 1; overflow-y: auto; padding-top: calc(56px + var(--safe-top)); padding-bottom: calc(180px + var(--safe-bottom)); }
 
     /* SECTIONS */
     .section { padding: 20px 16px 0; }
-    .section-title {
-      font-size: 11px; font-weight: 700; color: var(--muted);
-      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;
-    }
+    .section-title { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
 
     /* ORDER SUMMARY */
     .order-card { background: #fff; border-radius: 14px; border: 1.5px solid var(--border); margin: 20px 16px 0; overflow: hidden; }
@@ -63,84 +50,42 @@
     .field-row { display: flex; flex-direction: column; padding: 14px 16px; border-bottom: 1px solid var(--border); }
     .field-row:last-child { border-bottom: none; }
     .field-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
-    .field-input {
-      font-size: 16px; font-weight: 500; color: var(--dark);
-      border: none; background: transparent; outline: none;
-      font-family: inherit; width: 100%; padding: 0;
-    }
+    .field-input { font-size: 16px; font-weight: 500; color: var(--dark); border: none; background: transparent; outline: none; font-family: inherit; width: 100%; padding: 0; }
     .field-input::placeholder { color: var(--border); }
 
-    /* ORDER TYPE TOGGLE — matches index.html style */
+    /* TOGGLE — matches index.html */
     .order-toggle { display: flex; align-items: center; background: var(--border); border-radius: 20px; padding: 3px; gap: 2px; }
     .toggle-btn { padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; transition: all 0.2s; background: transparent; color: var(--muted); display: flex; align-items: center; gap: 5px; }
     .toggle-btn.active { background: var(--dark); color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
     .toggle-btn i { font-size: 14px; }
 
-    /* PICKUP TIME SLOTS */
+    /* TIME SLOTS */
     .time-slots { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px; }
-    .time-slot {
-      padding: 8px 16px; border-radius: 20px;
-      border: 1.5px solid var(--border); background: #fff;
-      font-size: 13px; font-weight: 700; color: var(--muted);
-      cursor: pointer; font-family: inherit; transition: all 0.15s;
-    }
+    .time-slot { padding: 8px 16px; border-radius: 20px; border: 1.5px solid var(--border); background: #fff; font-size: 13px; font-weight: 700; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; }
     .time-slot.active { border-color: var(--dark); background: var(--dark); color: #fff; }
-    .time-slot:active { opacity: 0.85; }
 
-    /* DELIVERY ADDRESS (hidden when pickup) */
+    /* DELIVERY */
     .delivery-fields { display: none; }
     .delivery-fields.show { display: block; }
 
-    /* NOTES */
     /* DELIVERY INSTRUCTIONS */
     .instr-grid { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 16px; }
-    .instr-btn {
-      padding: 9px 16px; border-radius: 20px;
-      border: 1.5px solid var(--border); background: #fff;
-      font-size: 13px; font-weight: 600; color: var(--muted);
-      cursor: pointer; font-family: inherit; transition: all 0.15s;
-    }
+    .instr-btn { padding: 9px 16px; border-radius: 20px; border: 1.5px solid var(--border); background: #fff; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; }
     .instr-btn.active { border-color: var(--dark); background: var(--dark); color: #fff; }
-    .instr-btn:active { opacity: 0.8; }
 
-    /* PLACE ORDER BAR */
+    /* PLACE ORDER BAR — sits above bottom nav */
     .place-bar {
-      position: fixed; bottom: calc(56px + var(--safe-bottom)); left: 0; right: 0;
+      position: fixed;
+      bottom: calc(56px + var(--safe-bottom));
+      left: 0; right: 0;
       padding: 12px 16px;
-      background: var(--cream); border-top: 1px solid var(--border);
+      background: var(--cream);
+      border-top: 1px solid var(--border);
       z-index: 99;
     }
-    .place-btn {
-      width: 100%; padding: 18px; border-radius: 14px;
-      background: var(--red); color: #fff;
-      font-size: 17px; font-weight: 700; border: none;
-      cursor: pointer; font-family: inherit;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      transition: background 0.15s, transform 0.1s;
-    }
+    .place-btn { width: 100%; padding: 18px; border-radius: 14px; background: var(--red); color: #fff; font-size: 17px; font-weight: 700; border: none; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.15s, transform 0.1s; }
     .place-btn:active { background: var(--red-dark); transform: scale(0.99); }
     .place-btn:disabled { background: var(--muted); cursor: default; transform: none; }
-
-    /* CONFIRMATION SCREEN */
-    #conf-screen {
-      display: none; position: fixed; inset: 0; background: var(--dark);
-      flex-direction: column; align-items: center; justify-content: center;
-      padding: 40px 28px; z-index: 200;
-      padding-top: calc(40px + var(--safe-top));
-      padding-bottom: calc(40px + var(--safe-bottom));
-    }
-    .conf-check { width: 80px; height: 80px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; margin-bottom: 28px; animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
-    @keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
-    .conf-title { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 10px; letter-spacing: -0.8px; text-align: center; }
-    .conf-sub { font-size: 16px; color: #666; line-height: 1.6; margin-bottom: 12px; text-align: center; }
-    .conf-eta { font-size: 36px; font-weight: 800; color: var(--red); margin-bottom: 32px; }
-    .conf-order-num { font-size: 13px; color: #444; margin-bottom: 40px; text-align: center; }
-    .conf-order-num span { color: #888; font-weight: 700; }
-    .conf-done-btn {
-      padding: 16px 40px; border-radius: 14px;
-      border: 1.5px solid #2a2a2a; background: transparent;
-      color: #666; font-size: 15px; cursor: pointer; font-family: inherit;
-    }
 
     /* BOTTOM NAV */
     .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-top: 1px solid var(--border); display: flex; align-items: stretch; height: calc(56px + var(--safe-bottom)); padding-bottom: var(--safe-bottom); }
@@ -150,8 +95,18 @@
     .nav-item i { font-size: 22px; }
     .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
     .nav-box-img { width: 26px; height: 26px; object-fit: contain; opacity: 0.5; }
-    .nav-item.active .nav-box-img { opacity: 1; }
     .nav-badge { position: absolute; top: -3px; right: -5px; background: var(--red); color: #fff; font-size: 9px; font-weight: 800; border-radius: 10px; padding: 2px 4px; min-width: 14px; text-align: center; }
+
+    /* CONFIRMATION */
+    #conf-screen { display: none; position: fixed; inset: 0; background: var(--dark); flex-direction: column; align-items: center; justify-content: center; padding: 40px 28px; z-index: 300; padding-top: calc(40px + var(--safe-top)); padding-bottom: calc(40px + var(--safe-bottom)); }
+    .conf-check { width: 80px; height: 80px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; margin-bottom: 28px; animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+    .conf-title { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 10px; letter-spacing: -0.8px; text-align: center; }
+    .conf-sub { font-size: 16px; color: #666; line-height: 1.6; margin-bottom: 12px; text-align: center; }
+    .conf-eta { font-size: 36px; font-weight: 800; color: var(--red); margin-bottom: 32px; }
+    .conf-order-num { font-size: 13px; color: #444; margin-bottom: 40px; text-align: center; }
+    .conf-order-num span { color: #888; font-weight: 700; }
+    .conf-done-btn { padding: 16px 40px; border-radius: 14px; border: 1.5px solid #2a2a2a; background: transparent; color: #666; font-size: 15px; cursor: pointer; font-family: inherit; }
   </style>
 </head>
 <body>
@@ -166,8 +121,8 @@
   <!-- PAGE BODY -->
   <div class="page-body">
 
-    <!-- PICKUP/DELIVERY TOGGLE — top of page, same style as index -->
-    <div style="display:flex;justify-content:center;padding:16px 16px 0;">
+    <!-- PICKUP/DELIVERY TOGGLE -->
+    <div style="display:flex;justify-content:center;padding:20px 16px 0;">
       <div class="order-toggle">
         <button class="toggle-btn active" id="btn-pickup" onclick="setType('pickup')">
           <i class="ti ti-building-store"></i> Pickup
@@ -183,8 +138,6 @@
       <div class="section-title">Your Order</div>
     </div>
     <div class="order-card" id="order-summary"></div>
-
-
 
     <!-- YOUR INFO -->
     <div class="section" style="padding-top:20px">
@@ -237,12 +190,12 @@
       </div>
     </div>
 
-    <!-- DELIVERY INSTRUCTIONS — delivery only, controlled options -->
+    <!-- DELIVERY INSTRUCTIONS -->
     <div id="delivery-instructions" style="display:none">
       <div class="section" style="padding-top:20px">
         <div class="section-title">Delivery Instructions (optional)</div>
       </div>
-      <div class="instr-grid" id="instr-grid">
+      <div class="instr-grid">
         <button class="instr-btn" data-val="Leave at door." onclick="toggleInstr(this)">Leave at Door</button>
         <button class="instr-btn" data-val="Go to back door." onclick="toggleInstr(this)">Go to Back Door</button>
         <button class="instr-btn" data-val="Ring doorbell." onclick="toggleInstr(this)">Ring Doorbell</button>
@@ -262,7 +215,20 @@
     </button>
   </div>
 
-  <!-- CONFIRMATION SCREEN -->
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
+    <a href="index.html#menu" class="nav-item"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
+    <a href="pizza-box.html" class="nav-item" style="position:relative">
+      <div style="position:relative;display:inline-flex">
+        <img src="images/Pizza_Box_2-nobg.png" alt="My Box" class="nav-box-img">
+        <span class="nav-badge" id="nav-box-badge" style="display:none">0</span>
+      </div>
+      <span class="nav-label">My Box</span>
+    </a>
+  </nav>
+
+  <!-- CONFIRMATION -->
   <div id="conf-screen">
     <div class="conf-check"><i class="ti ti-check" style="font-size:36px;color:#fff"></i></div>
     <div class="conf-title">Order Received!</div>
@@ -273,10 +239,14 @@
   </div>
 
   <script>
+    // ── CONFIG — update wait times here as needed ──
+    const WAIT_TIME_PICKUP   = 25;  // minutes
+    const WAIT_TIME_DELIVERY = 45;  // minutes
+    const DELIVERY_ZIPS      = ['64085'];
+
     let orderType = 'pickup';
     let selectedTime = null;
 
-    // ── LOAD CART ──
     function loadBox() {
       try { return JSON.parse(localStorage.getItem('htp_box') || '[]'); }
       catch(e) { return []; }
@@ -285,16 +255,13 @@
     function renderSummary() {
       const box = loadBox();
       const container = document.getElementById('order-summary');
-      if (box.length === 0) {
-        window.location.href = 'pizza-box.html';
-        return;
-      }
+      if (box.length === 0) { window.location.href = 'pizza-box.html'; return; }
       let total = 0;
       let html = '';
       box.forEach(item => {
         total += item.price || 0;
         const details = [];
-        if (item.crust) details.push(`${item.crust} crust`);
+        if (item.crust) details.push(item.crust + ' crust');
         if (item.sauce) details.push(item.sauce);
         if (item.cheese) details.push(item.cheese);
         if (item.toppings && item.toppings.length) details.push(item.toppings.join(', '));
@@ -315,7 +282,6 @@
       document.getElementById('place-total').textContent = total.toFixed(2);
     }
 
-    // ── ORDER TYPE ──
     function setType(type) {
       orderType = type;
       document.getElementById('btn-pickup').classList.toggle('active', type === 'pickup');
@@ -323,36 +289,25 @@
       document.getElementById('pickup-section').style.display = type === 'pickup' ? 'block' : 'none';
       document.getElementById('delivery-section').classList.toggle('show', type === 'delivery');
       document.getElementById('delivery-instructions').style.display = type === 'delivery' ? 'block' : 'none';
-      // Save choice to localStorage so it persists from index
       localStorage.setItem('htp_order_type', type);
+      document.getElementById('place-btn').disabled = !validate();
     }
 
-    // ── DELIVERY INSTRUCTIONS ──
-    function toggleInstr(btn) {
-      btn.classList.toggle('active');
-    }
+    function toggleInstr(btn) { btn.classList.toggle('active'); }
 
     function getInstructions() {
-      const active = document.querySelectorAll('.instr-btn.active');
-      return Array.from(active).map(b => b.dataset.val).join(' ');
+      return Array.from(document.querySelectorAll('.instr-btn.active')).map(b => b.dataset.val).join(' ');
     }
 
-    // ── TIME SLOTS ──
     function generateSlots() {
-      const now = new Date();
-      const slots = [];
-      // First slot is always ASAP (~25 min)
-      slots.push({ label: `ASAP (~${WAIT_TIME_PICKUP} min)`, value: 'asap' });
-      // Then every 15 min for next 2 hours
-      let t = new Date(now.getTime() + 30 * 60000); // start 30 min from now
+      const slots = [{ label: `ASAP (~${WAIT_TIME_PICKUP} min)`, value: 'asap' }];
+      let t = new Date(Date.now() + 30 * 60000);
       t.setMinutes(Math.ceil(t.getMinutes() / 15) * 15, 0, 0);
       for (let i = 0; i < 8; i++) {
-        const h = t.getHours();
-        const m = t.getMinutes();
+        const h = t.getHours(), m = t.getMinutes();
         const ampm = h >= 12 ? 'PM' : 'AM';
         const h12 = h % 12 || 12;
-        const mStr = m.toString().padStart(2, '0');
-        slots.push({ label: `${h12}:${mStr} ${ampm}`, value: t.toISOString() });
+        slots.push({ label: `${h12}:${m.toString().padStart(2,'0')} ${ampm}`, value: t.toISOString() });
         t = new Date(t.getTime() + 15 * 60000);
       }
       return slots;
@@ -371,17 +326,12 @@
           selectedTime = s.value;
           wrap.querySelectorAll('.time-slot').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
+          document.getElementById('place-btn').disabled = !validate();
         };
         wrap.appendChild(btn);
       });
     }
 
-    // ── CONFIG — update these as needed ──
-    const WAIT_TIME_PICKUP   = 25;  // minutes
-    const WAIT_TIME_DELIVERY = 45;  // minutes
-    const DELIVERY_ZIPS      = ['64085'];
-
-    // ── VALIDATION ──
     function validate() {
       const name = document.getElementById('field-name').value.trim();
       const phone = document.getElementById('field-phone').value.trim();
@@ -400,7 +350,6 @@
       return true;
     }
 
-    // Live validation — enable/disable button
     ['field-name','field-phone','field-address','field-zip'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.addEventListener('input', () => {
@@ -408,61 +357,36 @@
       });
     });
 
-    // ── PLACE ORDER ──
     function placeOrder() {
       if (!validate()) return;
-      const box = loadBox();
-      const total = box.reduce((s, i) => s + (i.price||0), 0);
       const orderNum = Math.floor(100000 + Math.random() * 900000);
       const eta = `~${orderType === 'delivery' ? WAIT_TIME_DELIVERY : WAIT_TIME_PICKUP} min`;
-
-      // Show confirmation
       document.getElementById('conf-eta').textContent = eta;
       document.getElementById('conf-order-num').innerHTML = `Order <span>#${orderNum}</span>`;
       document.getElementById('conf-screen').style.display = 'flex';
-
-      // Include delivery instructions if any
-      const instrText = getInstructions ? getInstructions() : '';
-
-      // Clear the cart
       localStorage.removeItem('htp_box');
     }
 
-    function orderDone() {
-      window.location.href = 'index.html';
-    }
+    function orderDone() { window.location.href = 'index.html'; }
 
     // ── INIT ──
     renderSummary();
     renderSlots();
     document.getElementById('place-btn').disabled = true;
 
-    // Sync toggle with index.html selection
+    // Sync toggle + badge
     const savedType = localStorage.getItem('htp_order_type') || 'pickup';
     setType(savedType);
+
+    // Box badge
+    (function() {
+      try {
+        const box = JSON.parse(localStorage.getItem('htp_box') || '[]');
+        const badge = document.getElementById('nav-box-badge');
+        if (badge && box.length > 0) { badge.textContent = box.length; badge.style.display = 'block'; }
+      } catch(e) {}
+    })();
   </script>
 
-
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
-    <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
-    <a href="index.html#menu" class="nav-item"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
-    <a href="pizza-box.html" class="nav-item" style="position:relative">
-      <div style="position:relative;display:inline-flex">
-        <img src="images/Pizza_Box_2-nobg.png" alt="My Box" class="nav-box-img">
-        <span class="nav-badge" id="nav-box-badge" style="display:none">0</span>
-      </div>
-      <span class="nav-label">My Box</span>
-    </a>
-
-  </nav>
-
-  (function() {
-    try {
-      const box = JSON.parse(localStorage.getItem('htp_box') || '[]');
-      const badge = document.getElementById('nav-box-badge');
-      if (badge && box.length > 0) { badge.textContent = box.length; badge.style.display = 'block'; }
-    } catch(e) {}
-  })();
 </body>
 </html>
