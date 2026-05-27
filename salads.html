@@ -1,1 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#FDF8F3">
+  <title>Fresh Salads — Hometown Pizza</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root {
+      --red: #C8311A; --red-light: #FAECE7; --red-dark: #7A1D0E;
+      --cream: #FDF8F3; --dark: #1A1410; --border: #E8DDD6; --muted: #9A8E88;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; background: var(--cream); }
+    body { font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 
+    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 16px; padding-top: var(--safe-top); height: calc(56px + var(--safe-top)); display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 10px; }
+    .back-btn { display: flex; align-items: center; gap: 6px; color: var(--dark); font-size: 15px; font-weight: 600; text-decoration: none; }
+    .back-btn i { font-size: 20px; }
+    .header-title { font-size: 17px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
+    .header-spacer { width: 60px; }
+
+    .page-body { padding-top: calc(56px + var(--safe-top)); padding-bottom: calc(100px + var(--safe-bottom)); }
+    .page-eyebrow { font-size: 11px; font-weight: 700; color: var(--red); letter-spacing: 1.8px; text-transform: uppercase; padding: 24px 16px 4px; }
+    .page-title { font-size: 26px; font-weight: 800; color: var(--dark); letter-spacing: -0.6px; padding: 0 16px 4px; }
+    .page-sub { font-size: 12px; color: var(--muted); padding: 0 16px 16px; }
+
+    .section-divider { display: flex; align-items: center; gap: 10px; padding: 8px 16px 10px; }
+    .section-divider-line { flex: 1; height: 1px; background: var(--border); }
+    .section-divider-txt { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; }
+
+    .item-list { display: flex; flex-direction: column; gap: 10px; padding: 0 16px; }
+
+    .item-card { background: #fff; border-radius: 14px; border: 1.5px solid var(--border); overflow: hidden; transition: border-color 0.15s; }
+    .item-card.in-box { border-color: var(--red); background: var(--red-light); }
+
+    .item-face { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; min-height: 70px; }
+    .item-face:active { opacity: 0.85; }
+    .item-info { flex: 1; }
+    .item-name { font-size: 15px; font-weight: 700; color: var(--dark); }
+    .item-card.in-box .item-name { color: var(--red-dark); }
+    .item-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+    .item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+    .item-price { font-size: 16px; font-weight: 800; color: var(--dark); }
+    .item-card.in-box .item-price { color: var(--red); }
+    .add-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: var(--red); color: #fff; }
+    .popular-badge { font-size: 10px; font-weight: 700; background: var(--red); color: #fff; border-radius: 6px; padding: 2px 7px; margin-left: 7px; vertical-align: middle; }
+
+    .item-options { display: none; padding: 0 14px 14px; border-top: 1px solid var(--border); }
+    .item-options.show { display: block; }
+
+    .opt-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; margin: 12px 0 8px; }
+    .opt-note { font-size: 11px; color: var(--muted); margin-top: 6px; font-style: italic; }
+    .opt-divider { height: 1px; background: var(--border); margin: 12px 0; }
+
+    /* INGREDIENT PILLS — tap to remove */
+    .ing-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+    .ing-pill { padding: 7px 13px; border-radius: 20px; border: 1.5px solid var(--border); background: #fff; font-size: 12px; font-weight: 600; color: var(--dark); cursor: pointer; font-family: inherit; transition: all 0.15s; display: flex; align-items: center; gap: 5px; }
+    .ing-pill:active { opacity: 0.8; }
+    .ing-pill.removed { background: var(--cream); color: var(--muted); border-color: var(--border); text-decoration: line-through; }
+    .ing-pill i { font-size: 12px; }
+
+    /* DRESSING GRID */
+    .dressing-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+    .dressing-btn { padding: 7px 13px; border-radius: 20px; border: 1.5px solid var(--border); background: #fff; font-size: 12px; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .dressing-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+    .dressing-btn.side-active { background: var(--red-light); color: var(--red-dark); border-color: var(--red); }
+    .dressing-btn:active { opacity: 0.8; }
+
+    /* EXTRA DRESSING COUNTER */
+    .sauce-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--border); margin-top: 8px; }
+    .sauce-info { flex: 1; }
+    .sauce-name { font-size: 13px; font-weight: 600; color: var(--dark); }
+    .sauce-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .counter { display: flex; align-items: center; gap: 10px; }
+    .counter-btn { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--border); background: #fff; font-size: 18px; font-weight: 700; color: var(--dark); cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; transition: all 0.15s; line-height: 1; }
+    .counter-btn:active { background: var(--border); }
+    .counter-val { font-size: 16px; font-weight: 800; color: var(--dark); min-width: 20px; text-align: center; }
+
+    .val-error { font-size: 12px; font-weight: 700; color: var(--red); margin-top: 8px; display: none; }
+    .val-error.show { display: block; }
+
+    .add-btn { width: 100%; padding: 12px; border-radius: 12px; border: none; background: var(--red); color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.15s; }
+    .add-btn:active { background: var(--red-dark); }
+    .remove-btn { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid var(--red); background: transparent; color: var(--red); font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .remove-btn:active { background: var(--red-light); }
+
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-top: 1px solid var(--border); display: flex; align-items: stretch; height: calc(56px + var(--safe-bottom)); padding-bottom: var(--safe-bottom); }
+    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; border: none; background: transparent; font-family: inherit; transition: all 0.15s; text-decoration: none; color: var(--muted); padding: 6px 0; }
+    .nav-item:active { opacity: 0.7; }
+    .nav-item i { font-size: 22px; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
+    .nav-box-img { width: 26px; height: 26px; object-fit: contain; opacity: 0.5; }
+    .nav-badge { position: absolute; top: -3px; right: -5px; background: var(--red); color: #fff; font-size: 9px; font-weight: 800; border-radius: 10px; padding: 2px 4px; min-width: 14px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="index.html#menu" class="back-btn"><i class="ti ti-arrow-left"></i> Menu</a>
+    <div class="header-title">Fresh Salads</div>
+    <div class="header-spacer"></div>
+  </div>
+
+  <div class="page-body">
+    <div class="page-eyebrow">Fresh & Made to Order</div>
+    <div class="page-title">Fresh Salads</div>
+    <div class="page-sub">Fresh romaine and iceberg &nbsp;·&nbsp; Extra dressings $0.75 each</div>
+    <div id="item-list"></div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
+    <a href="index.html#menu" class="nav-item"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
+    <a href="pizza-box.html" class="nav-item" style="position:relative">
+      <div style="position:relative;display:inline-flex">
+        <img src="images/Pizza_Box_2-nobg.png" alt="My Box" class="nav-box-img">
+        <span class="nav-badge" id="nav-box-badge" style="display:none">0</span>
+      </div>
+      <span class="nav-label">My Box</span>
+    </a>
+  </nav>
+
+  <script>
+    const DRESSINGS = ['Ranch','Blue Cheese','Southwest','Honey Mustard','French','1000 Island','Creamy Italian','Light Italian','Raspberry Vinaigrette'];
+    const EXTRA_PRICE = 0.75;
+
+    const FULL_SALADS = [
+      { id:'southwest-salad',       name:'Southwest Salad',       price:11.99, popular:true,  defaultDressing:'Southwest',           desc:'Grilled chicken, black beans, corn, red onion, black olives, tomatoes, cheddar cheese, tortilla strips.',
+        ingredients:['Chicken','Black Beans','Corn','Red Onion','Black Olives','Tomatoes','Cheddar','Tortilla Strips'] },
+      { id:'bbq-chicken-salad',     name:'BBQ Chicken Salad',     price:11.99, popular:true,  defaultDressing:'Ranch',               desc:'BBQ diced chicken, bacon, corn, French fried onions, pepperjack cheese and ranch.',
+        ingredients:['Chicken','Bacon','Corn','French Fried Onions','Pepperjack'] },
+      { id:'grilled-chicken-salad', name:'Grilled Chicken Salad', price:11.99, popular:true,  defaultDressing:'Ranch',               desc:'Grilled chicken, egg, onion, tomato and cheddar cheese.',
+        ingredients:['Chicken','Egg','Onion','Tomato','Cheddar'] },
+      { id:'buffalo-chicken',       name:'Buffalo Chicken Salad', price:11.99, popular:false, defaultDressing:'Ranch',               desc:'Buffalo chicken, bacon, corn, French fried onions and pepperjack cheese.',
+        ingredients:['Chicken','Bacon','Corn','French Fried Onions','Pepperjack'] },
+      { id:'spinach-salad',         name:'Spinach Salad',         price:11.99, popular:false, defaultDressing:'Ranch',               desc:'Fresh spinach, grilled chicken, egg, bacon, onion, cheddar cheese and croutons.',
+        ingredients:['Chicken','Egg','Bacon','Onion','Cheddar','Croutons'] },
+      { id:'cranberry-crunch',      name:'Cranberry Crunch',      price:10.99, popular:false, defaultDressing:'Raspberry Vinaigrette', desc:'Spinach, fresh blueberries, dried cranberries, candied pecans and feta cheese.',
+        ingredients:['Blueberries','Dried Cranberries','Candied Pecans','Feta'] },
+      { id:'house-salad',           name:'House Salad',           price:9.99,  popular:false, defaultDressing:null,                  desc:'Ham, pepperoni, black olives, pepperoncini and mozzarella.',
+        ingredients:['Ham','Pepperoni','Black Olives','Pepperoncini','Mozzarella'] },
+    ];
+
+    const SIDE_SALADS = [
+      { id:'side-salad',         name:'Side Salad',         price:5.99, popular:false, defaultDressing:null, desc:'Romaine and iceberg, tomatoes, egg, croutons and cheddar cheese.',
+        ingredients:['Tomatoes','Egg','Croutons','Cheddar'] },
+      { id:'spinach-side-salad', name:'Spinach Side Salad', price:6.99, popular:false, defaultDressing:null, desc:'Spinach, bacon, egg, cheddar cheese and croutons.',
+        ingredients:['Bacon','Egg','Cheddar','Croutons'] },
+    ];
+
+    const ALL_ITEMS = [...FULL_SALADS, ...SIDE_SALADS];
+
+    // State: dressing (main), sideDressing (extra dressing type), extraCount, removed ingredients
+    const state = {};
+    ALL_ITEMS.forEach(item => {
+      state[item.id] = {
+        inBox: false,
+        dressing: item.defaultDressing,
+        sideDressing: null,
+        extraCount: 0,
+        removed: []  // ingredient names removed
+      };
+    });
+
+    function itemTotal(item) {
+      const s = state[item.id];
+      let t = item.price;
+      if (s.sideDressing) t += EXTRA_PRICE;
+      t += s.extraCount * EXTRA_PRICE;
+      return t;
+    }
+
+    function buildCartItem(item) {
+      const s = state[item.id];
+      const details = [];
+      if (s.dressing) details.push('Dressing: ' + s.dressing);
+      if (s.sideDressing) details.push('Side of: ' + s.sideDressing);
+      if (s.extraCount > 0) details.push(`+ ${s.extraCount} extra dressing`);
+      if (s.removed.length) details.push('No ' + s.removed.join(', No '));
+      return {
+        id: item.id + '-' + Date.now(),
+        type: 'salad',
+        display: item.name,
+        name: item.name,
+        price: itemTotal(item),
+        details
+      };
+    }
+
+    function addToBox(itemId) {
+      const item = ALL_ITEMS.find(i => i.id === itemId);
+      const s = state[itemId];
+      if (!s.dressing) {
+        document.getElementById('val-' + itemId).classList.add('show');
+        return;
+      }
+      document.getElementById('val-' + itemId).classList.remove('show');
+      let box = [];
+      try { box = JSON.parse(localStorage.getItem('htp_box') || '[]'); } catch(e) {}
+      box.push(buildCartItem(item));
+      localStorage.setItem('htp_box', JSON.stringify(box));
+      s.inBox = true;
+      renderCard(item);
+      updateBadge();
+    }
+
+    function removeFromBox(itemId) {
+      const item = ALL_ITEMS.find(i => i.id === itemId);
+      let box = [];
+      try { box = JSON.parse(localStorage.getItem('htp_box') || '[]'); } catch(e) {}
+      const idx = box.map(b => b.name).lastIndexOf(item.name);
+      if (idx > -1) box.splice(idx, 1);
+      localStorage.setItem('htp_box', JSON.stringify(box));
+      state[itemId] = { inBox:false, dressing:item.defaultDressing, sideDressing:null, extraCount:0, removed:[] };
+      renderCard(item);
+      updateBadge();
+    }
+
+    function setDressing(itemId, dressing) {
+      const s = state[itemId];
+      // If clicking the current main dressing, deselect it
+      if (s.dressing === dressing) { s.dressing = null; }
+      // If clicking side dressing, deselect it
+      else if (s.sideDressing === dressing) { s.sideDressing = null; }
+      // If no main dressing set yet, set as main
+      else if (!s.dressing) { s.dressing = dressing; }
+      // If main already set, set as side dressing
+      else { s.sideDressing = dressing; }
+      document.getElementById('val-' + itemId).classList.remove('show');
+      syncCart(itemId);
+      renderCard(ALL_ITEMS.find(i => i.id === itemId));
+    }
+
+    function adjustExtra(itemId, delta) {
+      state[itemId].extraCount = Math.max(0, state[itemId].extraCount + delta);
+      syncCart(itemId);
+      renderCard(ALL_ITEMS.find(i => i.id === itemId));
+    }
+
+    function toggleIngredient(itemId, ing) {
+      const s = state[itemId];
+      const idx = s.removed.indexOf(ing);
+      if (idx > -1) s.removed.splice(idx, 1);
+      else s.removed.push(ing);
+      syncCart(itemId);
+      renderCard(ALL_ITEMS.find(i => i.id === itemId));
+    }
+
+    function syncCart(itemId) {
+      const item = ALL_ITEMS.find(i => i.id === itemId);
+      if (!state[itemId].inBox) return;
+      let box = [];
+      try { box = JSON.parse(localStorage.getItem('htp_box') || '[]'); } catch(e) {}
+      const idx = box.map(b => b.name).lastIndexOf(item.name);
+      if (idx > -1) {
+        const u = buildCartItem(item);
+        box[idx].price = u.price;
+        box[idx].details = u.details;
+        localStorage.setItem('htp_box', JSON.stringify(box));
+      }
+    }
+
+    function renderCard(item) {
+      const s = state[item.id];
+      const card = document.getElementById('card-' + item.id);
+      if (!card) return;
+      const wasOpen = card.querySelector('.item-options')?.classList.contains('show') || false;
+      const inBox = s.inBox;
+      const total = itemTotal(item);
+      card.className = 'item-card' + (inBox ? ' in-box' : '');
+
+      card.innerHTML = `
+        <div class="item-face" id="face-${item.id}">
+          <div class="item-info">
+            <div class="item-name">${item.name}${item.popular ? '<span class="popular-badge">Popular</span>' : ''}</div>
+            <div class="item-desc">${item.desc}</div>
+          </div>
+          <div class="item-right">
+            <div class="item-price">$${total.toFixed(2)}</div>
+            ${inBox ? '<span class="add-badge">✓ In Box</span>' : ''}
+          </div>
+        </div>
+
+        <div class="item-options${(inBox || wasOpen) ? ' show' : ''}" id="opts-${item.id}">
+
+          <!-- REMOVE INGREDIENTS -->
+          <div class="opt-label">Ingredients <span style="font-weight:500;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)">— tap to remove</span></div>
+          <div class="ing-grid">
+            ${item.ingredients.map(ing => `
+              <button class="ing-pill${s.removed.includes(ing) ? ' removed' : ''}"
+                onclick="toggleIngredient('${item.id}', '${ing}')">
+                ${s.removed.includes(ing)
+                  ? `<i class="ti ti-x"></i> No ${ing}`
+                  : `<i class="ti ti-check"></i> ${ing}`}
+              </button>`).join('')}
+          </div>
+
+          <div class="opt-divider"></div>
+
+          <!-- DRESSING -->
+          <div class="opt-label">
+            Dressing ${!s.dressing ? '<span style="color:var(--red)">*required</span>' : ''}
+            ${s.dressing ? `<span style="font-weight:500;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)">— tap a second for a side dressing (+$${EXTRA_PRICE.toFixed(2)})</span>` : ''}
+          </div>
+          <div class="dressing-grid">
+            ${DRESSINGS.map(d => `
+              <button class="dressing-btn${s.dressing === d ? ' active' : s.sideDressing === d ? ' side-active' : ''}"
+                onclick="setDressing('${item.id}', '${d}')">${d}${s.sideDressing === d ? ' (side)' : ''}</button>
+            `).join('')}
+          </div>
+          ${item.defaultDressing && s.dressing !== item.defaultDressing && s.sideDressing !== item.defaultDressing
+            ? `<div class="opt-note">Default dressing: ${item.defaultDressing}</div>` : ''}
+
+          <!-- EXTRA DRESSING COUNTER -->
+          <div class="sauce-row">
+            <div class="sauce-info">
+              <div class="sauce-name">Extra Dressing</div>
+              <div class="sauce-sub">${s.extraCount === 0 ? '1 included' : `1 included + ${s.extraCount} extra`} · $${EXTRA_PRICE.toFixed(2)} each</div>
+            </div>
+            <div class="counter">
+              <button class="counter-btn" onclick="adjustExtra('${item.id}', -1)">−</button>
+              <span class="counter-val">${1 + s.extraCount}</span>
+              <button class="counter-btn" onclick="adjustExtra('${item.id}', 1)">+</button>
+            </div>
+          </div>
+
+          <div class="val-error" id="val-${item.id}">Please choose a dressing to continue.</div>
+
+          ${inBox
+            ? `<button class="remove-btn" onclick="removeFromBox('${item.id}')">
+                <i class="ti ti-x" style="font-size:12px"></i> Remove from Box
+               </button>`
+            : `<button class="add-btn" onclick="addToBox('${item.id}')">
+                <i class="ti ti-circle-plus" style="font-size:14px"></i> Add to Your Box — $${total.toFixed(2)}
+               </button>`
+          }
+        </div>`;
+
+      document.getElementById('face-' + item.id).onclick = () => {
+        document.getElementById('opts-' + item.id).classList.toggle('show');
+      };
+    }
+
+    function updateBadge() {
+      try {
+        const box = JSON.parse(localStorage.getItem('htp_box') || '[]');
+        const badge = document.getElementById('nav-box-badge');
+        if (badge) { badge.textContent = box.length; badge.style.display = box.length > 0 ? 'block' : 'none'; }
+      } catch(e) {}
+    }
+
+    function init() {
+      const list = document.getElementById('item-list');
+
+      const fullDiv = document.createElement('div');
+      fullDiv.innerHTML = `<div class="section-divider"><div class="section-divider-line"></div><div class="section-divider-txt">Full Salads</div><div class="section-divider-line"></div></div>`;
+      list.appendChild(fullDiv);
+      const fullList = document.createElement('div');
+      fullList.className = 'item-list';
+      list.appendChild(fullList);
+      FULL_SALADS.forEach(item => {
+        const div = document.createElement('div');
+        div.id = 'card-' + item.id;
+        fullList.appendChild(div);
+        renderCard(item);
+      });
+
+      const sideDiv = document.createElement('div');
+      sideDiv.innerHTML = `<div class="section-divider" style="margin-top:12px"><div class="section-divider-line"></div><div class="section-divider-txt">Side Salads</div><div class="section-divider-line"></div></div>`;
+      list.appendChild(sideDiv);
+      const sideList = document.createElement('div');
+      sideList.className = 'item-list';
+      list.appendChild(sideList);
+      SIDE_SALADS.forEach(item => {
+        const div = document.createElement('div');
+        div.id = 'card-' + item.id;
+        sideList.appendChild(div);
+        renderCard(item);
+      });
+
+      updateBadge();
+    }
+
+    init();
+  </script>
+</body>
+</html>
