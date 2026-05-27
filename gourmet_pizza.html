@@ -1,1 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#FDF8F3">
+  <title>Gourmet Pizza — Hometown Pizza</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root {
+      --red: #C8311A; --red-light: #FAECE7; --red-dark: #7A1D0E;
+      --cream: #FDF8F3; --dark: #1A1410; --border: #E8DDD6; --muted: #9A8E88;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; background: var(--cream); }
+    body { font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 
+    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 16px; padding-top: var(--safe-top); height: calc(56px + var(--safe-top)); display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 10px; }
+    .back-btn { display: flex; align-items: center; gap: 6px; color: var(--dark); font-size: 15px; font-weight: 600; text-decoration: none; }
+    .back-btn i { font-size: 20px; }
+    .header-title { font-size: 17px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
+    .header-spacer { width: 60px; }
+
+    .page-body { padding-top: calc(56px + var(--safe-top)); padding-bottom: calc(100px + var(--safe-bottom)); }
+    .page-eyebrow { font-size: 11px; font-weight: 700; color: var(--red); letter-spacing: 1.8px; text-transform: uppercase; padding: 24px 16px 4px; }
+    .page-title { font-size: 26px; font-weight: 800; color: var(--dark); letter-spacing: -0.6px; padding: 0 16px 4px; }
+    .page-sub { font-size: 12px; color: var(--muted); padding: 0 16px 16px; line-height: 1.5; }
+
+    .item-list { display: flex; flex-direction: column; gap: 10px; padding: 0 16px; }
+
+    .pizza-card { background: #fff; border-radius: 14px; border: 1.5px solid var(--border); overflow: hidden; transition: border-color 0.15s; }
+    .pizza-card.in-box { border-color: var(--red); background: var(--red-light); }
+    .pizza-card.open { border-color: var(--dark); }
+    .pizza-card.in-box.open { border-color: var(--red); }
+
+    .pizza-face { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; min-height: 70px; }
+    .pizza-face:active { opacity: 0.85; }
+    .pizza-info { flex: 1; }
+    .pizza-name { font-size: 16px; font-weight: 800; color: var(--dark); letter-spacing: -0.3px; }
+    .pizza-card.in-box .pizza-name { color: var(--red-dark); }
+    .pizza-ingredients { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+    .pizza-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .pizza-price-range { font-size: 13px; font-weight: 700; color: var(--muted); }
+    .pizza-card.in-box .pizza-price-range { color: var(--red); }
+    .add-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: var(--red); color: #fff; }
+    .popular-badge { font-size: 10px; font-weight: 700; background: var(--red); color: #fff; border-radius: 6px; padding: 2px 7px; margin-left: 6px; vertical-align: middle; }
+
+    .pizza-options { display: none; border-top: 1px solid var(--border); }
+    .pizza-options.show { display: block; }
+    .opts-inner { padding: 14px; }
+
+    .opt-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px; }
+    .opt-divider { height: 1px; background: var(--border); margin: 12px 0; }
+
+    .size-row { display: flex; gap: 6px; margin-bottom: 14px; }
+    .size-btn { flex: 1; padding: 8px 6px; border-radius: 10px; border: 1.5px solid var(--border); background: #fff; font-size: 12px; font-weight: 700; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; text-align: center; line-height: 1.3; }
+    .size-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+    .size-btn .size-price { font-size: 11px; font-weight: 600; display: block; margin-top: 2px; opacity: 0.75; }
+
+    .crust-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+    .crust-btn { padding: 7px 14px; border-radius: 20px; border: 1.5px solid var(--border); background: #fff; font-size: 12px; font-weight: 700; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .crust-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+
+    /* INGREDIENT ROW */
+    .ing-wrap { margin-bottom: 6px; border-radius: 10px; border: 1.5px solid var(--border); background: #fff; overflow: hidden; transition: all 0.15s; }
+    .ing-wrap.removed { opacity: 0.4; border-style: dashed; }
+    .ing-wrap.modified { border-color: var(--red); background: var(--red-light); }
+    .ing-face { display: flex; align-items: center; gap: 10px; padding: 9px 12px; cursor: pointer; min-height: 48px; }
+    .ing-face:active { opacity: 0.85; }
+    .ing-img { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
+    .ing-name-wrap { flex: 1; }
+    .ing-name { font-size: 14px; font-weight: 600; color: var(--dark); }
+    .ing-wrap.removed .ing-name { text-decoration: line-through; color: var(--muted); }
+    .ing-wrap.modified .ing-name { color: var(--red-dark); }
+    .ing-status { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .ing-wrap.modified .ing-status { color: var(--red); }
+
+    .ing-controls { display: none; padding: 0 10px 8px; }
+    .ing-controls.show { display: flex; flex-direction: column; gap: 6px; }
+    .ctrl-row { display: flex; gap: 5px; align-items: center; }
+    .ctrl-sep { width: 1px; height: 18px; background: var(--border); flex-shrink: 0; margin: 0 2px; }
+    .cpill { padding: 5px 10px; border-radius: 20px; border: 1.5px solid var(--border); background: #fff; font-size: 11px; font-weight: 700; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.12s; white-space: nowrap; line-height: 1; display: flex; align-items: center; justify-content: center; }
+    .cpill:active { opacity: 0.75; }
+    .cpill.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+    .cpill-place { min-width: 32px; font-size: 14px; padding: 4px 7px; }
+
+    /* NO HALF HALF NOTICE */
+    .no-half-notice { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--cream); border-radius: 10px; border: 1.5px solid var(--border); margin-top: 12px; }
+    .no-half-notice i { font-size: 16px; color: var(--muted); flex-shrink: 0; }
+    .no-half-notice span { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+    .add-btn { width: 100%; padding: 14px; border-radius: 12px; border: none; background: var(--red); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.15s; }
+    .add-btn:active { background: var(--red-dark); }
+    .remove-btn { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid var(--red); background: transparent; color: var(--red); font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .remove-btn:active { background: var(--red-light); }
+
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-top: 1px solid var(--border); display: flex; align-items: stretch; height: calc(56px + var(--safe-bottom)); padding-bottom: var(--safe-bottom); }
+    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; border: none; background: transparent; font-family: inherit; transition: all 0.15s; text-decoration: none; color: var(--muted); padding: 6px 0; }
+    .nav-item:active { opacity: 0.7; }
+    .nav-item i { font-size: 22px; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
+    .nav-box-img { width: 26px; height: 26px; object-fit: contain; opacity: 0.5; }
+    .nav-badge { position: absolute; top: -3px; right: -5px; background: var(--red); color: #fff; font-size: 9px; font-weight: 800; border-radius: 10px; padding: 2px 4px; min-width: 14px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="index.html#menu" class="back-btn"><i class="ti ti-arrow-left"></i> Menu</a>
+    <div class="header-title">Gourmet Pizza</div>
+    <div class="header-spacer"></div>
+  </div>
+
+  <div class="page-body">
+    <div class="page-eyebrow">Premium Recipes</div>
+    <div class="page-title">Gourmet Pizza</div>
+    <div class="page-sub">Large $21.99 &nbsp;·&nbsp; Medium $18.99 &nbsp;·&nbsp; Small $14.99<br>Gourmet pizzas are not available in ½ & ½</div>
+    <div class="item-list" id="item-list"></div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
+    <a href="index.html#menu" class="nav-item"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
+    <a href="pizza-box.html" class="nav-item" style="position:relative">
+      <div style="position:relative;display:inline-flex">
+        <img src="images/Pizza_Box_2-nobg.png" alt="My Box" class="nav-box-img">
+        <span class="nav-badge" id="nav-box-badge" style="display:none">0</span>
+      </div>
+      <span class="nav-label">My Box</span>
+    </a>
+  </nav>
+
+  <script>
+    const SYM = {
+      whole: `<svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor"/></svg>`,
+      left:  `<svg width="14" height="14" viewBox="0 0 16 16"><path d="M8 1a7 7 0 0 0 0 14V1z" fill="currentColor"/><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`,
+      right: `<svg width="14" height="14" viewBox="0 0 16 16"><path d="M8 1a7 7 0 0 1 0 14V1z" fill="currentColor"/><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`
+    };
+
+    const SIZES = [
+      { name:'Large',  price:21.99, topPrice:1.99 },
+      { name:'Medium', price:18.99, topPrice:1.59 },
+      { name:'Small',  price:14.99, topPrice:0.99 }
+    ];
+
+    const CRUSTS = ['Original','Thin & Crispy'];
+
+    const PIZZAS = [
+      { id:'cbr',      name:'Chicken Bacon Ranch', popular:true,
+        ingredients:[
+          { n:'Ranch Sauce',   img:'' },
+          { n:'Chicken',       img:'images/Grilled_Chicken-nobg.png' },
+          { n:'Bacon',         img:'images/Bacon-nobg.png' },
+          { n:'Mozzarella',    img:'images/Mozzarella-nobg.png' }
+        ]
+      },
+      { id:'alfredo',  name:'Alfredo',             popular:true,
+        ingredients:[
+          { n:'Alfredo Sauce', img:'' },
+          { n:'Garlic Butter', img:'images/Garlic_Butter-nobg.png' },
+          { n:'Spinach',       img:'images/Spinach-nobg.png' },
+          { n:'Chicken',       img:'images/Grilled_Chicken-nobg.png' }
+        ]
+      },
+      { id:'mac-pie',  name:'Macaroni Pie',        popular:true,
+        ingredients:[
+          { n:'White Cheddar Mac', img:'' },
+          { n:'Bacon',             img:'images/Bacon-nobg.png' }
+        ]
+      },
+      { id:'taco',     name:'Taco',                popular:false,
+        ingredients:[
+          { n:'Refried Beans',  img:'' },
+          { n:'Beef',           img:'images/Beef-nobg.png' },
+          { n:'Onion',          img:'images/Onion-nobg.png' },
+          { n:'Lettuce',        img:'' },
+          { n:'Tomatoes',       img:'images/Tomato-nobg.png' },
+          { n:'Cheddar',        img:'images/Cheddar-nobg.png' },
+          { n:'Tortilla Strips',img:'' }
+        ]
+      },
+      { id:'greek',    name:'Greek',               popular:false,
+        ingredients:[
+          { n:'Spinach',         img:'images/Spinach-nobg.png' },
+          { n:'Tomatoes',        img:'images/Tomato-nobg.png' },
+          { n:'Kalamata Olives', img:'images/Black_Olive-nobg.png' },
+          { n:'Feta',            img:'' }
+        ]
+      }
+    ];
+
+    const defaultMod = () => ({ placement:'whole', amount:'normal' });
+
+    const state = {};
+    PIZZAS.forEach(p => {
+      state[p.id] = { open:false, inBox:false, size:0, crust:0, mods:{} };
+    });
+
+    function placementLabel(p) { return p==='left'?'Left Half':p==='right'?'Right Half':'Whole'; }
+    function modNote(mod) {
+      if (!mod || mod === 'removed') return '';
+      const parts = [];
+      if (mod.placement !== 'whole') parts.push(placementLabel(mod.placement));
+      if (mod.amount !== 'normal') parts.push(mod.amount === 'extra' ? 'Extra' : 'Light');
+      return parts.length ? ` (${parts.join(', ')})` : '';
+    }
+    function isModified(mod) {
+      return mod && mod !== 'removed' && (mod.placement !== 'whole' || mod.amount !== 'normal');
+    }
+
+    function calcTotal(pizzaId) {
+      const s = state[pizzaId];
+      const sz = SIZES[s.size];
+      let t = sz.price;
+      const pizza = PIZZAS.find(p => p.id === pizzaId);
+      pizza.ingredients.forEach(ing => {
+        const mod = s.mods[ing.n];
+        if (mod === 'removed') return;
+        if (mod && mod.amount === 'extra') {
+          const factor = mod.placement !== 'whole' ? 0.5 : 1;
+          t += sz.topPrice * 1.5 * factor;
+        }
+      });
+      return t;
+    }
+
+    function setSize(pizzaId, idx) {
+      state[pizzaId].size = idx;
+      renderCard(PIZZAS.find(p => p.id === pizzaId));
+    }
+
+    function setCrust(pizzaId, idx) {
+      state[pizzaId].crust = idx;
+      renderCard(PIZZAS.find(p => p.id === pizzaId));
+    }
+
+    function toggleIng(pizzaId, ingName) {
+      const s = state[pizzaId];
+      const ctrlId = `ctrl-${pizzaId}-${ingName.replace(/\s/g,'_')}`;
+      const ctrl = document.getElementById(ctrlId);
+      const isRemoved = s.mods[ingName] === 'removed';
+      if (isRemoved) {
+        delete s.mods[ingName];
+      } else if (ctrl && ctrl.classList.contains('show')) {
+        s.mods[ingName] = 'removed';
+      } else {
+        if (!s.mods[ingName]) s.mods[ingName] = defaultMod();
+      }
+      renderCard(PIZZAS.find(p => p.id === pizzaId));
+    }
+
+    function setPlacement(pizzaId, ingName, placement) {
+      const s = state[pizzaId];
+      if (!s.mods[ingName] || s.mods[ingName] === 'removed') s.mods[ingName] = defaultMod();
+      s.mods[ingName].placement = placement;
+      renderCard(PIZZAS.find(p => p.id === pizzaId));
+    }
+
+    function setAmount(pizzaId, ingName, amount) {
+      const s = state[pizzaId];
+      if (!s.mods[ingName] || s.mods[ingName] === 'removed') s.mods[ingName] = defaultMod();
+      s.mods[ingName].amount = amount;
+      renderCard(PIZZAS.find(p => p.id === pizzaId));
+    }
+
+    function addToBox(pizzaId) {
+      const pizza = PIZZAS.find(p => p.id === pizzaId);
+      const s = state[pizzaId];
+      const sz = SIZES[s.size];
+      const total = calcTotal(pizzaId);
+      const ings = pizza.ingredients
+        .filter(i => s.mods[i.n] !== 'removed')
+        .map(i => i.n + modNote(s.mods[i.n]));
+      let box = [];
+      try { box = JSON.parse(localStorage.getItem('htp_box') || '[]'); } catch(e) {}
+      box.push({
+        id: pizzaId + '-' + Date.now(),
+        type: 'gourmet',
+        display: `${sz.name} ${pizza.name}`,
+        name: pizza.name,
+        price: total,
+        details: [
+          `${sz.name} · ${CRUSTS[s.crust]}`,
+          'Ingredients: ' + (ings.join(', ') || 'Plain')
+        ]
+      });
+      localStorage.setItem('htp_box', JSON.stringify(box));
+      s.inBox = true;
+      renderCard(pizza);
+      updateBadge();
+    }
+
+    function removeFromBox(pizzaId) {
+      const pizza = PIZZAS.find(p => p.id === pizzaId);
+      let box = [];
+      try { box = JSON.parse(localStorage.getItem('htp_box') || '[]'); } catch(e) {}
+      const idx = box.map(b => b.name).lastIndexOf(pizza.name);
+      if (idx > -1) box.splice(idx, 1);
+      localStorage.setItem('htp_box', JSON.stringify(box));
+      state[pizzaId] = { open:true, inBox:false, size:0, crust:0, mods:{} };
+      renderCard(pizza);
+      updateBadge();
+    }
+
+    function renderCard(pizza) {
+      const s = state[pizza.id];
+      const card = document.getElementById('card-' + pizza.id);
+      if (!card) return;
+      const inBox = s.inBox;
+      const total = calcTotal(pizza.id);
+      card.className = 'pizza-card' + (inBox ? ' in-box' : '') + (s.open ? ' open' : '');
+
+      const ingList = pizza.ingredients.map(ing => {
+        const mod = s.mods[ing.n];
+        const removed = mod === 'removed';
+        const modified = isModified(mod);
+        const wrapClass = removed ? ' removed' : modified ? ' modified' : '';
+        const statusTxt = removed ? 'Tap to restore' : (modified ? modNote(mod).replace(/[()]/g,'').trim() : 'Tap to modify · tap again to remove');
+        const ctrlId = `ctrl-${pizza.id}-${ing.n.replace(/\s/g,'_')}`;
+
+        let ctrlHtml = '';
+        if (!removed) {
+          const curMod = mod || defaultMod();
+          const plBtns = ['whole','left','right'].map(p => `
+            <button class="cpill cpill-place${curMod.placement===p?' active':''}"
+              onclick="setPlacement('${pizza.id}','${ing.n}','${p}')"
+              title="${placementLabel(p)}">${SYM[p]}</button>`).join('');
+          const amBtns = ['Light','Normal','Extra'].map(a => `
+            <button class="cpill${curMod.amount===a.toLowerCase()?' active':''}"
+              onclick="setAmount('${pizza.id}','${ing.n}','${a.toLowerCase()}')">${a}</button>`).join('');
+          ctrlHtml = `
+            <div class="ing-controls show" id="${ctrlId}">
+              <div class="ctrl-row">${plBtns}<div class="ctrl-sep"></div>${amBtns}</div>
+            </div>`;
+        }
+
+        return `
+          <div class="ing-wrap${wrapClass}">
+            <div class="ing-face" onclick="toggleIng('${pizza.id}','${ing.n}')">
+              ${ing.img ? `<img src="${ing.img}" alt="${ing.n}" class="ing-img">` : `<div style="width:36px;height:36px;flex-shrink:0"></div>`}
+              <div class="ing-name-wrap">
+                <div class="ing-name">${ing.n}</div>
+                <div class="ing-status">${statusTxt}</div>
+              </div>
+            </div>
+            ${ctrlHtml}
+          </div>`;
+      }).join('');
+
+      card.innerHTML = `
+        <div class="pizza-face" id="face-${pizza.id}">
+          <div class="pizza-info">
+            <div class="pizza-name">${pizza.name}${pizza.popular?'<span class="popular-badge">Popular</span>':''}</div>
+            <div class="pizza-ingredients">${pizza.ingredients.map(i=>i.n).join(', ')}</div>
+          </div>
+          <div class="pizza-right">
+            <div class="pizza-price-range">${inBox ? '$'+total.toFixed(2) : '$14.99–$21.99'}</div>
+            ${inBox ? '<span class="add-badge">✓ In Box</span>' : ''}
+          </div>
+        </div>
+
+        <div class="pizza-options${s.open?' show':''}" id="opts-${pizza.id}">
+          <div class="opts-inner">
+
+            <div class="opt-label">Size</div>
+            <div class="size-row">
+              ${SIZES.map((sz,i) => `
+                <button class="size-btn${s.size===i?' active':''}" onclick="setSize('${pizza.id}',${i})">
+                  ${sz.name}<span class="size-price">$${sz.price.toFixed(2)}</span>
+                </button>`).join('')}
+            </div>
+
+            <div class="opt-label">Crust</div>
+            <div class="crust-row">
+              ${CRUSTS.map((c,i) => `
+                <button class="crust-btn${s.crust===i?' active':''}" onclick="setCrust('${pizza.id}',${i})">${c}</button>
+              `).join('')}
+            </div>
+
+            <div class="opt-divider"></div>
+
+            <div class="opt-label">Ingredients <span style="font-weight:500;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)"> — tap to modify or remove</span></div>
+            ${ingList}
+
+            <div class="no-half-notice">
+              <i class="ti ti-info-circle"></i>
+              <span>Gourmet pizzas are not available in ½ & ½.</span>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
+              <span style="font-size:14px;font-weight:700;color:var(--muted)">Total</span>
+              <span style="font-size:22px;font-weight:800;color:var(--dark)">$${total.toFixed(2)}</span>
+            </div>
+
+            ${inBox
+              ? `<button class="remove-btn" onclick="removeFromBox('${pizza.id}')">
+                  <i class="ti ti-x" style="font-size:12px"></i> Remove from Box
+                 </button>`
+              : `<button class="add-btn" onclick="addToBox('${pizza.id}')">
+                  <i class="ti ti-circle-plus" style="font-size:15px"></i> Add to Your Box — $${total.toFixed(2)}
+                 </button>`
+            }
+          </div>
+        </div>`;
+
+      document.getElementById('face-' + pizza.id).onclick = () => {
+        state[pizza.id].open = !state[pizza.id].open;
+        renderCard(pizza);
+      };
+    }
+
+    function updateBadge() {
+      try {
+        const box = JSON.parse(localStorage.getItem('htp_box') || '[]');
+        const badge = document.getElementById('nav-box-badge');
+        if (badge) { badge.textContent = box.length; badge.style.display = box.length > 0 ? 'block' : 'none'; }
+      } catch(e) {}
+    }
+
+    function init() {
+      const list = document.getElementById('item-list');
+      PIZZAS.forEach(pizza => {
+        const div = document.createElement('div');
+        div.id = 'card-' + pizza.id;
+        div.className = 'pizza-card';
+        list.appendChild(div);
+        renderCard(pizza);
+      });
+      updateBadge();
+    }
+
+    init();
+  </script>
+</body>
+</html>
