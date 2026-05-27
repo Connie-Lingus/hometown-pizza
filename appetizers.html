@@ -1,1 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#FDF8F3">
+  <title>Appetizers — Hometown Pizza</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root {
+      --red: #C8311A; --red-light: #FAECE7; --red-dark: #7A1D0E;
+      --cream: #FDF8F3; --dark: #1A1410; --border: #E8DDD6; --muted: #9A8E88;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; background: var(--cream); }
+    body { font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 
+    /* HEADER */
+    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 16px; padding-top: var(--safe-top); height: calc(56px + var(--safe-top)); display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 10px; }
+    .back-btn { display: flex; align-items: center; gap: 6px; color: var(--dark); font-size: 15px; font-weight: 600; text-decoration: none; }
+    .back-btn i { font-size: 20px; }
+    .header-title { font-size: 17px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
+    .header-spacer { width: 60px; }
+
+    /* PAGE */
+    .page-body { padding-top: calc(56px + var(--safe-top)); padding-bottom: calc(100px + var(--safe-bottom)); }
+
+    /* SECTION LABEL */
+    .page-eyebrow { font-size: 11px; font-weight: 700; color: var(--red); letter-spacing: 1.8px; text-transform: uppercase; padding: 24px 16px 4px; }
+    .page-title { font-size: 26px; font-weight: 800; color: var(--dark); letter-spacing: -0.6px; padding: 0 16px 16px; }
+
+    /* ITEM CARD */
+    .item-list { display: flex; flex-direction: column; gap: 10px; padding: 0 16px; }
+    .item-card { background: #fff; border-radius: 14px; border: 1.5px solid var(--border); overflow: hidden; transition: border-color 0.15s; }
+    .item-card.in-box { border-color: var(--red); background: var(--red-light); }
+
+    /* CARD FACE */
+    .item-face { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; min-height: 70px; }
+    .item-face:active { opacity: 0.85; }
+    .item-info { flex: 1; }
+    .item-name { font-size: 15px; font-weight: 700; color: var(--dark); }
+    .item-card.in-box .item-name { color: var(--red-dark); }
+    .item-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+    .item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+    .item-price { font-size: 16px; font-weight: 800; color: var(--dark); }
+    .item-card.in-box .item-price { color: var(--red); }
+    .add-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: var(--red); color: #fff; white-space: nowrap; }
+
+    /* OPTIONS PANEL */
+    .item-options { display: none; padding: 0 14px 14px; border-top: 1px solid var(--border); }
+    .item-options.show { display: block; }
+
+    /* SAUCE CHOICE (wings) */
+    .opt-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; margin: 12px 0 8px; }
+    .choice-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .choice-btn { padding: 7px 16px; border-radius: 20px; border: 1.5px solid var(--border); background: #fff; font-size: 13px; font-weight: 700; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .choice-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+    .choice-btn:active { opacity: 0.8; }
+
+    /* MEAT ADDON (shirkey) */
+    .addon-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--border); margin-top: 8px; }
+    .addon-name { font-size: 13px; font-weight: 600; color: var(--dark); }
+    .addon-price { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .addon-toggle { display: flex; gap: 8px; }
+    .addon-btn { padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--border); background: #fff; font-size: 12px; font-weight: 700; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .addon-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+
+    /* SAUCE COUNTER */
+    .sauce-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--border); margin-top: 4px; }
+    .sauce-info { flex: 1; }
+    .sauce-name { font-size: 13px; font-weight: 600; color: var(--dark); }
+    .sauce-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .counter { display: flex; align-items: center; gap: 10px; }
+    .counter-btn { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--border); background: #fff; font-size: 18px; font-weight: 700; color: var(--dark); cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; transition: all 0.15s; line-height: 1; }
+    .counter-btn:active { background: var(--border); }
+    .counter-btn.minus { color: var(--muted); }
+    .counter-val { font-size: 16px; font-weight: 800; color: var(--dark); min-width: 20px; text-align: center; }
+
+    /* BOTTOM NAV */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-top: 1px solid var(--border); display: flex; align-items: stretch; height: calc(56px + var(--safe-bottom)); padding-bottom: var(--safe-bottom); }
+    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; border: none; background: transparent; font-family: inherit; transition: all 0.15s; text-decoration: none; color: var(--muted); padding: 6px 0; }
+    .nav-item:active { opacity: 0.7; }
+    .nav-item.active { color: var(--red); }
+    .nav-item i { font-size: 22px; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
+    .nav-box-img { width: 26px; height: 26px; object-fit: contain; opacity: 0.5; }
+    .nav-item.active .nav-box-img { opacity: 1; }
+    .nav-badge { position: absolute; top: -3px; right: -5px; background: var(--red); color: #fff; font-size: 9px; font-weight: 800; border-radius: 10px; padding: 2px 4px; min-width: 14px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <a href="index.html#menu" class="back-btn"><i class="ti ti-arrow-left"></i> Menu</a>
+    <div class="header-title">Appetizers</div>
+    <div class="header-spacer"></div>
+  </div>
+
+  <!-- PAGE -->
+  <div class="page-body">
+    <div class="page-eyebrow">Starters</div>
+    <div class="page-title">Appetizers</div>
+    <div class="item-list" id="item-list"></div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
+    <a href="index.html#menu" class="nav-item"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
+    <a href="pizza-box.html" class="nav-item" style="position:relative">
+      <div style="position:relative;display:inline-flex">
+        <img src="images/Pizza_Box_2-nobg.png" alt="My Box" class="nav-box-img">
+        <span class="nav-badge" id="nav-box-badge" style="display:none">0</span>
+      </div>
+      <span class="nav-label">My Box</span>
+    </a>
+  </nav>
+
+  <script>
+    // ── MENU DATA ──
+    const ITEMS = [
+      {
+        id: 'cheese-sticks',
+        name: 'Cheese Sticks',
+        desc: 'House made pizza dough topped with mozzarella cheese.',
+        price: 10.99,
+        sauce: 'Marinara',
+        popular: true
+      },
+      {
+        id: 'hot-wings',
+        name: 'Hot Wings',
+        desc: 'Eight baked hot wings with your choice of ranch or blue cheese.',
+        price: 11.99,
+        sauceChoice: ['Ranch', 'Blue Cheese'],
+        popular: true
+      },
+      {
+        id: 'shirkey-bread',
+        name: 'Shirkey Bread',
+        desc: 'Four slices of toasted garlic bread topped with mozzarella and served with marinara sauce.',
+        price: 9.99,
+        sauce: 'Marinara',
+        meatAddon: true,
+        popular: true
+      },
+      {
+        id: 'sampler',
+        name: 'Sampler',
+        desc: 'Four each hot wings, beef raviolis, nacho cheese raviolis.',
+        price: 11.99,
+        sauce: 'Ranch'
+      },
+      {
+        id: 'cheddar-fries',
+        name: 'Cheddar Fries',
+        desc: 'Crispy baked fries topped with melted cheddar cheese and bacon, served with ranch.',
+        price: 9.99,
+        sauce: 'Ranch'
+      },
+      {
+        id: 'baked-ravioli',
+        name: 'Baked Ravioli',
+        desc: 'Ten raviolis of your choice either beef or nacho cheese, served with marinara sauce.',
+        price: 7.99,
+        sauce: 'Marinara'
+      },
+      {
+        id: 'bread-sticks',
+        name: 'Bread Sticks',
+        desc: 'House made pizza dough brushed with garlic butter then sprinkled with parmesan cheese.',
+        price: 8.99,
+        sauce: 'Marinara'
+      },
+      {
+        id: 'bosco-sticks',
+        name: 'Bosco Sticks',
+        desc: 'Golden baked breadsticks filled with mozzarella cheese.',
+        price: 5.99,
+        sauce: 'Marinara'
+      }
+    ];
+
+    const EXTRA_SAUCE_PRICE = 0.75;
+    const MEAT_ADDON_PRICE  = 2.00;
+
+    // State per item: { inBox, sauceChoice, extraSauces, meatAddon }
+    const state = {};
+    ITEMS.forEach(item => {
+      state[item.id] = {
+        inBox: false,
+        sauceChoice: item.sauceChoice ? null : (item.sauce || null),
+        extraSauces: 0,
+        meatAddon: null  // 'sausage' | 'beef' | null
+      };
+    });
+
+    function itemTotal(item) {
+      const s = state[item.id];
+      let t = item.price;
+      t += s.extraSauces * EXTRA_SAUCE_PRICE;
+      if (s.meatAddon) t += MEAT_ADDON_PRICE;
+      return t;
+    }
+
+    function buildCartItem(item) {
+      const s = state[item.id];
+      const details = [];
+      if (s.sauceChoice) details.push('Sauce: ' + s.sauceChoice + (s.extraSauces > 0 ? ` + ${s.extraSauces} extra` : ' (included)'));
+      if (s.meatAddon) details.push('Add ' + s.meatAddon.charAt(0).toUpperCase() + s.meatAddon.slice(1));
+      return {
+        id: item.id + '-' + Date.now(),
+        type: 'appetizer',
+        display: item.name,
+        name: item.name,
+        price: itemTotal(item),
+        details
+      };
+    }
+
+    function addToBox(item) {
+      const s = state[item.id];
+      // Validate wings choice
+      if (item.sauceChoice && !s.sauceChoice) {
+        // Highlight the choice row
+        const card = document.getElementById('card-' + item.id);
+        const choices = card.querySelectorAll('.choice-btn');
+        choices.forEach(b => b.style.borderColor = 'var(--red)');
+        return;
+      }
+      let box = [];
+      try { box = JSON.parse(localStorage.getItem('htp_box') || '[]'); } catch(e) {}
+      box.push(buildCartItem(item));
+      localStorage.setItem('htp_box', JSON.stringify(box));
+      s.inBox = true;
+      renderCard(item);
+      updateBadge();
+    }
+
+    function removeFromBox(item) {
+      let box = [];
+      try { box = JSON.parse(localStorage.getItem('htp_box') || '[]'); } catch(e) {}
+      // Remove last matching item
+      const idx = box.map(b => b.name).lastIndexOf(item.name);
+      if (idx > -1) box.splice(idx, 1);
+      localStorage.setItem('htp_box', JSON.stringify(box));
+      state[item.id].inBox = false;
+      state[item.id].extraSauces = 0;
+      state[item.id].meatAddon = null;
+      if (item.sauceChoice) state[item.id].sauceChoice = null;
+      renderCard(item);
+      updateBadge();
+    }
+
+    function renderCard(item) {
+      const s = state[item.id];
+      const card = document.getElementById('card-' + item.id);
+      if (!card) return;
+
+      // Preserve open state before re-render
+      const wasOpen = card.querySelector('.item-options')?.classList.contains('show') || false;
+
+      const total = itemTotal(item);
+      const inBox = s.inBox;
+
+      card.className = 'item-card' + (inBox ? ' in-box' : '');
+
+      card.innerHTML = `
+        <!-- FACE -->
+        <div class="item-face" id="face-${item.id}">
+          <div class="item-info">
+            <div class="item-name">${item.name}${item.popular ? '<span style="font-size:10px;font-weight:700;background:var(--red);color:#fff;border-radius:6px;padding:2px 7px;margin-left:7px;vertical-align:middle">Popular</span>' : ''}</div>
+            <div class="item-desc">${item.desc}</div>
+          </div>
+          <div class="item-right">
+            <div class="item-price">$${total.toFixed(2)}</div>
+            ${inBox ? '<span class="add-badge">✓ In Box</span>' : ''}
+          </div>
+        </div>
+
+        <!-- OPTIONS -->
+        <div class="item-options${(inBox || wasOpen) ? ' show' : ''}" id="opts-${item.id}">
+
+          ${item.sauceChoice ? `
+            <div class="opt-label">Choose Your Sauce</div>
+            <div class="choice-row">
+              ${item.sauceChoice.map(sc => `
+                <button class="choice-btn${s.sauceChoice === sc ? ' active' : ''}"
+                  onclick="setSauceChoice('${item.id}', '${sc}')">${sc}</button>
+              `).join('')}
+            </div>
+          ` : ''}
+
+          ${item.sauce || item.sauceChoice ? `
+            <div class="sauce-row">
+              <div class="sauce-info">
+                <div class="sauce-name">${s.sauceChoice || item.sauce}</div>
+                <div class="sauce-sub">${s.extraSauces === 0 ? 'Included' : `1 included + ${s.extraSauces} extra`} · Extra $${EXTRA_SAUCE_PRICE.toFixed(2)} each</div>
+              </div>
+              <div class="counter">
+                <button class="counter-btn minus" onclick="adjustSauce('${item.id}', -1)">−</button>
+                <span class="counter-val">${1 + s.extraSauces}</span>
+                <button class="counter-btn" onclick="adjustSauce('${item.id}', 1)">+</button>
+              </div>
+            </div>
+          ` : ''}
+
+          ${item.meatAddon ? `
+            <div class="addon-row">
+              <div>
+                <div class="addon-name">Add Meat</div>
+                <div class="addon-price">+$${MEAT_ADDON_PRICE.toFixed(2)}</div>
+              </div>
+              <div class="addon-toggle">
+                <button class="addon-btn${s.meatAddon === 'sausage' ? ' active' : ''}"
+                  onclick="setMeat('${item.id}', 'sausage')">Sausage</button>
+                <button class="addon-btn${s.meatAddon === 'beef' ? ' active' : ''}"
+                  onclick="setMeat('${item.id}', 'beef')">Beef</button>
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- ADD / REMOVE BUTTON -->
+          <div style="margin-top:12px;">
+            ${inBox
+              ? `<button style="width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--red);background:transparent;color:var(--red);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;" onclick="removeFromBox(ITEMS.find(i=>i.id==='${item.id}'))">
+                  <i class="ti ti-x" style="font-size:12px"></i> Remove from Box
+                </button>`
+              : `<button style="width:100%;padding:12px;border-radius:12px;border:none;background:var(--red);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;" onclick="addToBox(ITEMS.find(i=>i.id==='${item.id}'))">
+                  <i class="ti ti-circle-plus" style="font-size:14px"></i> Add to Your Box — $${total.toFixed(2)}
+                </button>`
+            }
+          </div>
+        </div>`;
+
+      // Re-attach face click to toggle options
+      document.getElementById('face-' + item.id).onclick = () => {
+        const opts = document.getElementById('opts-' + item.id);
+        opts.classList.toggle('show');
+      };
+    }
+
+    function setSauceChoice(id, choice) {
+      state[id].sauceChoice = choice;
+      renderCard(ITEMS.find(i => i.id === id));
+    }
+
+    function adjustSauce(id, delta) {
+      const s = state[id];
+      s.extraSauces = Math.max(0, s.extraSauces + delta);
+      // Update cart item price if already in box
+      if (s.inBox) syncCartPrice(id);
+      renderCard(ITEMS.find(i => i.id === id));
+    }
+
+    function setMeat(id, choice) {
+      const s = state[id];
+      // Toggle off if same
+      s.meatAddon = s.meatAddon === choice ? null : choice;
+      if (s.inBox) syncCartPrice(id);
+      renderCard(ITEMS.find(i => i.id === id));
+    }
+
+    function syncCartPrice(id) {
+      const item = ITEMS.find(i => i.id === id);
+      let box = [];
+      try { box = JSON.parse(localStorage.getItem('htp_box') || '[]'); } catch(e) {}
+      const idx = box.map(b => b.name).lastIndexOf(item.name);
+      if (idx > -1) {
+        box[idx].price = itemTotal(item);
+        box[idx].details = buildCartItem(item).details;
+        localStorage.setItem('htp_box', JSON.stringify(box));
+      }
+    }
+
+    function updateBadge() {
+      try {
+        const box = JSON.parse(localStorage.getItem('htp_box') || '[]');
+        const badge = document.getElementById('nav-box-badge');
+        if (badge) {
+          badge.textContent = box.length;
+          badge.style.display = box.length > 0 ? 'block' : 'none';
+        }
+      } catch(e) {}
+    }
+
+    // ── INIT ──
+    function init() {
+      const list = document.getElementById('item-list');
+      ITEMS.forEach(item => {
+        const div = document.createElement('div');
+        div.id = 'card-' + item.id;
+        div.className = 'item-card';
+        list.appendChild(div);
+        renderCard(item);
+      });
+      updateBadge();
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
