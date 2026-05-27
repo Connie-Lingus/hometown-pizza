@@ -1,1 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#FDF8F3">
+  <title>Beverages — Hometown Pizza</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root {
+      --red: #C8311A; --red-light: #FAECE7; --red-dark: #7A1D0E;
+      --cream: #FDF8F3; --dark: #1A1410; --border: #E8DDD6; --muted: #9A8E88;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; background: var(--cream); }
+    body { font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 
+    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 16px; padding-top: var(--safe-top); height: calc(56px + var(--safe-top)); display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 10px; }
+    .back-btn { display: flex; align-items: center; gap: 6px; color: var(--dark); font-size: 15px; font-weight: 600; text-decoration: none; }
+    .back-btn i { font-size: 20px; }
+    .header-title { font-size: 17px; font-weight: 800; color: var(--dark); letter-spacing: -0.4px; }
+    .header-spacer { width: 60px; }
+
+    .page-body { padding-top: calc(56px + var(--safe-top)); padding-bottom: calc(100px + var(--safe-bottom)); }
+    .page-eyebrow { font-size: 11px; font-weight: 700; color: var(--red); letter-spacing: 1.8px; text-transform: uppercase; padding: 24px 16px 4px; }
+    .page-title { font-size: 26px; font-weight: 800; color: var(--dark); letter-spacing: -0.6px; padding: 0 16px 16px; }
+
+    .section-divider { display: flex; align-items: center; gap: 10px; padding: 4px 16px 12px; }
+    .section-divider-line { flex: 1; height: 1px; background: var(--border); }
+    .section-divider-txt { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; }
+
+    /* DRINK CARD — compact, counter built in */
+    .drink-list { display: flex; flex-direction: column; gap: 10px; padding: 0 16px; }
+    .drink-card { background: #fff; border-radius: 14px; border: 1.5px solid var(--border); padding: 14px 16px; display: flex; align-items: center; gap: 12px; transition: border-color 0.15s; }
+    .drink-card.has-items { border-color: var(--red); background: var(--red-light); }
+    .drink-info { flex: 1; }
+    .drink-name { font-size: 15px; font-weight: 700; color: var(--dark); }
+    .drink-card.has-items .drink-name { color: var(--red-dark); }
+    .drink-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+    .drink-price { font-size: 15px; font-weight: 800; color: var(--dark); flex-shrink: 0; margin-right: 4px; }
+    .drink-card.has-items .drink-price { color: var(--red); }
+
+    /* COUNTER */
+    .counter { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .counter-btn { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--border); background: #fff; font-size: 20px; font-weight: 700; color: var(--dark); cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; transition: all 0.15s; line-height: 1; flex-shrink: 0; }
+    .counter-btn.plus { background: var(--dark); color: #fff; border-color: var(--dark); }
+    .counter-btn.plus:active { background: var(--red); border-color: var(--red); }
+    .counter-btn.minus:active { background: var(--border); }
+    .counter-val { font-size: 17px; font-weight: 800; color: var(--dark); min-width: 22px; text-align: center; }
+    .drink-card.has-items .counter-val { color: var(--red-dark); }
+
+    /* FLAVOR PICKER for soft drinks */
+    .flavor-section { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+    .flavor-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+    .flavor-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .flavor-btn { padding: 6px 12px; border-radius: 20px; border: 1.5px solid var(--border); background: #fff; font-size: 12px; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .flavor-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: var(--cream); border-top: 1px solid var(--border); display: flex; align-items: stretch; height: calc(56px + var(--safe-bottom)); padding-bottom: var(--safe-bottom); }
+    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; border: none; background: transparent; font-family: inherit; transition: all 0.15s; text-decoration: none; color: var(--muted); padding: 6px 0; }
+    .nav-item:active { opacity: 0.7; }
+    .nav-item i { font-size: 22px; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
+    .nav-box-img { width: 26px; height: 26px; object-fit: contain; opacity: 0.5; }
+    .nav-badge { position: absolute; top: -3px; right: -5px; background: var(--red); color: #fff; font-size: 9px; font-weight: 800; border-radius: 10px; padding: 2px 4px; min-width: 14px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="index.html#menu" class="back-btn"><i class="ti ti-arrow-left"></i> Menu</a>
+    <div class="header-title">Beverages</div>
+    <div class="header-spacer"></div>
+  </div>
+
+  <div class="page-body">
+    <div class="page-eyebrow">Cold & Hot</div>
+    <div class="page-title">Beverages</div>
+    <div id="bev-list"></div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item"><i class="ti ti-home"></i><span class="nav-label">Home</span></a>
+    <a href="index.html#menu" class="nav-item"><i class="ti ti-menu-2"></i><span class="nav-label">Menu</span></a>
+    <a href="pizza-box.html" class="nav-item" style="position:relative">
+      <div style="position:relative;display:inline-flex">
+        <img src="images/Pizza_Box_2-nobg.png" alt="My Box" class="nav-box-img">
+        <span class="nav-badge" id="nav-box-badge" style="display:none">0</span>
+      </div>
+      <span class="nav-label">My Box</span>
+    </a>
+  </nav>
+
+  <script>
+    const SOFT_DRINK_FLAVORS = [
+      'Coke','Diet Coke','Cherry Coke','Dr. Pepper',
+      'Sprite','Mellow Yellow','Root Beer','Lemonade','Unsweet Tea'
+    ];
+
+    const SECTIONS = [
+      {
+        label: 'Fountain Drinks',
+        items: [
+          {
+            id: 'soft-drink',
+            name: 'Soft Drink',
+            desc: 'Coke, Diet Coke, Cherry Coke, Dr. Pepper, Sprite, Mellow Yellow, Root Beer, Lemonade, Unsweet Tea.',
+            price: 2.99,
+            hasFlavors: true
+          }
+        ]
+      },
+      {
+        label: 'Hot Drinks',
+        items: [
+          {
+            id: 'coffee',
+            name: 'Coffee',
+            desc: 'Hot brewed coffee.',
+            price: 1.89,
+            hasFlavors: false
+          }
+        ]
+      }
+    ];
+
+    const ALL_ITEMS = SECTIONS.flatMap(s => s.items);
+
+    // State: qty per item, selected flavor (for soft drinks)
+    const state = {};
+    ALL_ITEMS.forEach(item => {
+      state[item.id] = { qty: 0, flavor: null };
+    });
+
+    function adjust(itemId, delta) {
+      const s = state[itemId];
+      s.qty = Math.max(0, s.qty + delta);
+      if (s.qty === 0) s.flavor = null;
+      syncCart(itemId);
+      renderCard(itemId);
+      updateBadge();
+    }
+
+    function setFlavor(itemId, flavor) {
+      state[itemId].flavor = state[itemId].flavor === flavor ? null : flavor;
+      syncCart(itemId);
+      renderCard(itemId);
+    }
+
+    function syncCart(itemId) {
+      const item = ALL_ITEMS.find(i => i.id === itemId);
+      const s = state[itemId];
+      let box = [];
+      try { box = JSON.parse(localStorage.getItem('htp_box') || '[]'); } catch(e) {}
+
+      // Remove all existing entries for this item
+      box = box.filter(b => b.cartItemId !== itemId);
+
+      // Add back if qty > 0
+      if (s.qty > 0) {
+        const details = [];
+        if (s.flavor) details.push(s.flavor);
+        if (s.qty > 1) details.push(`Qty: ${s.qty}`);
+        box.push({
+          cartItemId: itemId,
+          id: itemId + '-' + Date.now(),
+          type: 'beverage',
+          display: s.flavor ? `${s.flavor}` : item.name,
+          name: item.name,
+          price: item.price * s.qty,
+          details
+        });
+      }
+
+      localStorage.setItem('htp_box', JSON.stringify(box));
+    }
+
+    function renderCard(itemId) {
+      const item = ALL_ITEMS.find(i => i.id === itemId);
+      const s = state[itemId];
+      const card = document.getElementById('card-' + itemId);
+      if (!card) return;
+
+      const hasItems = s.qty > 0;
+      card.className = 'drink-card' + (hasItems ? ' has-items' : '');
+
+      const total = (item.price * s.qty).toFixed(2);
+
+      card.innerHTML = `
+        <div class="drink-info">
+          <div class="drink-name">${item.name}</div>
+          <div class="drink-desc">${item.desc}</div>
+          ${hasItems && item.hasFlavors ? `
+            <div class="flavor-section">
+              <div class="flavor-label">Choose Your Flavor</div>
+              <div class="flavor-grid">
+                ${SOFT_DRINK_FLAVORS.map(f => `
+                  <button class="flavor-btn${s.flavor === f ? ' active' : ''}"
+                    onclick="setFlavor('${itemId}', '${f}')">${f}</button>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+          ${hasItems ? `<div class="drink-price">$${total}</div>` : `<div class="drink-price">$${item.price.toFixed(2)}</div>`}
+          <div class="counter">
+            <button class="counter-btn minus" onclick="adjust('${itemId}', -1)">−</button>
+            <span class="counter-val">${s.qty}</span>
+            <button class="counter-btn plus" onclick="adjust('${itemId}', 1)">+</button>
+          </div>
+        </div>`;
+    }
+
+    function updateBadge() {
+      try {
+        const box = JSON.parse(localStorage.getItem('htp_box') || '[]');
+        const badge = document.getElementById('nav-box-badge');
+        if (badge) { badge.textContent = box.length; badge.style.display = box.length > 0 ? 'block' : 'none'; }
+      } catch(e) {}
+    }
+
+    function init() {
+      const list = document.getElementById('bev-list');
+      SECTIONS.forEach(section => {
+        const divWrap = document.createElement('div');
+        divWrap.innerHTML = `<div class="section-divider"><div class="section-divider-line"></div><div class="section-divider-txt">${section.label}</div><div class="section-divider-line"></div></div>`;
+        list.appendChild(divWrap);
+        const drinkList = document.createElement('div');
+        drinkList.className = 'drink-list';
+        section.items.forEach(item => {
+          const div = document.createElement('div');
+          div.id = 'card-' + item.id;
+          div.className = 'drink-card';
+          drinkList.appendChild(div);
+          renderCard(item.id);
+        });
+        list.appendChild(drinkList);
+      });
+      updateBadge();
+    }
+
+    init();
+  </script>
+</body>
+</html>
