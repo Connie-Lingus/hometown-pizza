@@ -157,7 +157,8 @@
     .card-right { flex-shrink: 0; }
     .card-arrow { font-size: 18px; color: var(--muted); }
     .menu-card.live .card-arrow { color: var(--red); }
-    .soon-badge { font-size: 10px; font-weight: 700; background: var(--border); color: var(--muted); border-radius: 20px; padding: 3px 10px; letter-spacing: 0.5px; }
+    .soon-badge { font-size: 10px; font-weight: 700; background: var(--border); color: var(--muted); border-radius: 20px; padding: 3px 10px; letter-spacing: 0.5px; white-space: nowrap; }
+    .drawer-item .soon-badge { margin-left: auto; flex-shrink: 0; }
 
     /* DIVIDER */
     .sec-divider { display: flex; align-items: center; gap: 12px; margin: 32px auto 20px; max-width: 420px; }
@@ -171,7 +172,8 @@
     .deal-body { flex: 1; }
     .deal-title { font-size: 15px; font-weight: 700; color: #fff; }
     .deal-desc { font-size: 12px; color: #666; margin-top: 3px; line-height: 1.4; }
-    .deal-pill { background: var(--red); color: #fff; font-size: 10px; font-weight: 700; border-radius: 8px; padding: 4px 10px; flex-shrink: 0; letter-spacing: 0.5px; }
+    .deal-pill { background: var(--red); color: #fff; font-size: 10px; font-weight: 700; border-radius: 8px; padding: 4px 10px; flex-shrink: 0; letter-spacing: 0.5px; white-space: nowrap; }
+    .deal-pill.soon { background: transparent; border: 1px solid #444; color: #888; }
 
     /* FOOTER */
     footer { background: var(--dark); padding: 36px 24px; text-align: center; }
@@ -267,8 +269,8 @@
       <a href="#" class="drawer-item"><i class="ti ti-credit-card"></i><div><div class="drawer-item-text">Payment Methods</div><div class="drawer-item-sub">Cards & Saved Payments</div></div></a>
       <a href="#" class="drawer-item"><i class="ti ti-settings"></i><div><div class="drawer-item-text">Preferences</div><div class="drawer-item-sub">Notifications, Saved Addresses</div></div></a>
       <div class="drawer-divider"></div>
-      <a href="#" class="drawer-item"><i class="ti ti-gift"></i><div><div class="drawer-item-text">Rewards</div><div class="drawer-item-sub">Points & Offers</div></div></a>
-      <a href="#" class="drawer-item"><i class="ti ti-users"></i><div><div class="drawer-item-text">Group Order</div><div class="drawer-item-sub">Order Together, Pay Separately</div></div></a>
+      <a href="#" class="drawer-item"><i class="ti ti-gift"></i><div><div class="drawer-item-text">Rewards</div><div class="drawer-item-sub">Points & Offers</div></div><span class="soon-badge">Coming Soon</span></a>
+      <a href="#" class="drawer-item"><i class="ti ti-users"></i><div><div class="drawer-item-text">Group Order</div><div class="drawer-item-sub">Order Together, Pay Separately</div></div><span class="soon-badge">Coming Soon</span></a>
     </div>
     <div class="drawer-footer">
       <button class="drawer-sign-in">Sign In / Create Account</button>
@@ -378,7 +380,7 @@
     <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-txt">This Month</div><div class="sec-divider-line"></div></div>
     <div class="deals-wrap">
       <div class="deal-card"><div class="deal-em">🍕</div><div class="deal-body"><div class="deal-title">Pizza of the Month</div><div class="deal-desc">Large Jalapeño Popper Pizza</div></div><div class="deal-pill">Deal</div></div>
-      <div class="deal-card"><div class="deal-em">🎉</div><div class="deal-body"><div class="deal-title">Cater Your Party</div><div class="deal-desc">Two Large Pizzas & Two 2 Liters.</div></div><div class="deal-pill">New</div></div>
+      <div class="deal-card"><div class="deal-em">🎉</div><div class="deal-body"><div class="deal-title">Cater Your Party</div><div class="deal-desc">Two Large Pizzas & Two 2 Liters.</div></div><div class="deal-pill soon">Coming Soon</div></div>
     </div>
   </section>
 
