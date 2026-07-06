@@ -72,7 +72,6 @@
     .ing-wrap.modified { border-color: var(--red); background: var(--red-light); }
     .ing-face { display: flex; align-items: center; gap: 10px; padding: 9px 12px; cursor: pointer; min-height: 48px; }
     .ing-face:active { opacity: 0.85; }
-    .ing-img { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
     .ing-name-wrap { flex: 1; }
     .ing-name { font-size: 14px; font-weight: 600; color: var(--dark); }
     .ing-wrap.removed .ing-name { text-decoration: line-through; color: var(--muted); }
@@ -153,43 +152,43 @@
     const PIZZAS = [
       { id:'cbr',      name:'Chicken Bacon Ranch', popular:true,
         ingredients:[
-          { n:'Ranch Sauce',   img:'' },
-          { n:'Chicken',       img:'images/Grilled_Chicken-nobg.png' },
-          { n:'Bacon',         img:'images/Bacon-nobg.png' },
-          { n:'Mozzarella',    img:'images/Mozzarella-nobg.png' }
+          { n:'Ranch Sauce' },
+          { n:'Chicken' },
+          { n:'Bacon' },
+          { n:'Mozzarella' }
         ]
       },
       { id:'alfredo',  name:'Alfredo',             popular:true,
         ingredients:[
-          { n:'Alfredo Sauce', img:'' },
-          { n:'Garlic Butter', img:'images/Garlic_Butter-nobg.png' },
-          { n:'Spinach',       img:'images/Spinach-nobg.png' },
-          { n:'Chicken',       img:'images/Grilled_Chicken-nobg.png' }
+          { n:'Alfredo Sauce' },
+          { n:'Garlic Butter' },
+          { n:'Spinach' },
+          { n:'Chicken' }
         ]
       },
       { id:'mac-pie',  name:'Macaroni Pie',        popular:true,
         ingredients:[
-          { n:'White Cheddar Mac', img:'' },
-          { n:'Bacon',             img:'images/Bacon-nobg.png' }
+          { n:'White Cheddar Mac' },
+          { n:'Bacon' }
         ]
       },
       { id:'taco',     name:'Taco',                popular:false,
         ingredients:[
-          { n:'Refried Beans',  img:'' },
-          { n:'Beef',           img:'images/Beef-nobg.png' },
-          { n:'Onion',          img:'images/Onion-nobg.png' },
-          { n:'Lettuce',        img:'' },
-          { n:'Tomatoes',       img:'images/Tomato-nobg.png' },
-          { n:'Cheddar',        img:'images/Cheddar-nobg.png' },
-          { n:'Tortilla Strips',img:'' }
+          { n:'Refried Beans' },
+          { n:'Beef' },
+          { n:'Onion' },
+          { n:'Lettuce' },
+          { n:'Tomatoes' },
+          { n:'Cheddar' },
+          { n:'Tortilla Strips' }
         ]
       },
       { id:'greek',    name:'Greek',               popular:false,
         ingredients:[
-          { n:'Spinach',         img:'images/Spinach-nobg.png' },
-          { n:'Tomatoes',        img:'images/Tomato-nobg.png' },
-          { n:'Kalamata Olives', img:'images/Black_Olive-nobg.png' },
-          { n:'Feta',            img:'' }
+          { n:'Spinach' },
+          { n:'Tomatoes' },
+          { n:'Kalamata Olives' },
+          { n:'Feta' }
         ]
       }
     ];
@@ -342,7 +341,6 @@
         return `
           <div class="ing-wrap${wrapClass}">
             <div class="ing-face" onclick="toggleIng('${pizza.id}','${ing.n}')">
-              ${ing.img ? `<img src="${ing.img}" alt="${ing.n}" class="ing-img">` : `<div style="width:36px;height:36px;flex-shrink:0"></div>`}
               <div class="ing-name-wrap">
                 <div class="ing-name">${ing.n}</div>
                 <div class="ing-status">${statusTxt}</div>

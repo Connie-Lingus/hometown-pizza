@@ -77,7 +77,6 @@
     .ing-wrap.modified { border-color: var(--red); background: var(--red-light); }
     .ing-face { display: flex; align-items: center; gap: 10px; padding: 9px 12px; cursor: pointer; min-height: 48px; }
     .ing-face:active { opacity: 0.85; }
-    .ing-img { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
     .ing-name-wrap { flex: 1; }
     .ing-name { font-size: 14px; font-weight: 600; color: var(--dark); }
     .ing-wrap.removed .ing-name { text-decoration: line-through; color: var(--muted); }
@@ -176,66 +175,66 @@
     const PIZZAS = [
       { id:'works',       name:'The Works',      popular:true,
         ingredients:[
-          { n:'Pepperoni',     img:'images/Pepperoni-nobg.png'      },
-          { n:'Beef',          img:'images/Beef-nobg.png'           },
-          { n:'Pork Sausage',  img:'images/Pork_Sausage_2-nobg.png' },
-          { n:'Mushrooms',     img:'images/Mushroom-nobg.png'       },
-          { n:'Black Olives',  img:'images/Black_Olive-nobg.png'    },
-          { n:'Onions',        img:'images/Onion-nobg.png'          },
-          { n:'Green Peppers', img:'images/Green_Pepper-nobg.png'   }
+          { n:'Pepperoni' },
+          { n:'Beef' },
+          { n:'Pork Sausage' },
+          { n:'Mushrooms' },
+          { n:'Black Olives' },
+          { n:'Onions' },
+          { n:'Green Peppers' }
         ]
       },
       { id:'all-meat',    name:'All Meat',        popular:true,
         ingredients:[
-          { n:'Pepperoni',      img:'images/Pepperoni-nobg.png'       },
-          { n:'Beef',           img:'images/Beef-nobg.png'            },
-          { n:'Pork Sausage',   img:'images/Pork_Sausage_2-nobg.png'  },
-          { n:'Italian Sausage',img:'images/Italian_Sausage-nobg.png' },
-          { n:'Diced Ham',      img:'images/Ham-nobg.png'             }
+          { n:'Pepperoni' },
+          { n:'Beef' },
+          { n:'Pork Sausage' },
+          { n:'Italian Sausage' },
+          { n:'Diced Ham' }
         ]
       },
       { id:'hawaiian',    name:'Hawaiian',        popular:true,
         ingredients:[
-          { n:'Ham',       img:'images/Ham-nobg.png'       },
-          { n:'Pineapple', img:'images/Pineapple-nobg.png' }
+          { n:'Ham' },
+          { n:'Pineapple' }
         ]
       },
       { id:'bbq',         name:'BBQ',             popular:false,
         ingredients:[
-          { n:'Chicken', img:'images/Grilled_Chicken-nobg.png' },
-          { n:'Onion',   img:'images/Onion-nobg.png'           },
-          { n:'BBQ Sauce', img:''                              }
+          { n:'Chicken' },
+          { n:'Onion' },
+          { n:'BBQ Sauce' }
         ]
       },
       { id:'hot-wing',    name:'Hot Wing',        popular:false,
         ingredients:[
-          { n:'Chicken',      img:'images/Grilled_Chicken-nobg.png' },
-          { n:'Buffalo Sauce',img:''                                 },
-          { n:'Ranch',        img:''                                 }
+          { n:'Chicken' },
+          { n:'Buffalo Sauce' },
+          { n:'Ranch' }
         ]
       },
       { id:'southwest',   name:'Southwest',       popular:false,
         ingredients:[
-          { n:'Chicken',        img:'images/Grilled_Chicken-nobg.png' },
-          { n:'Southwest Sauce',img:''                                 },
-          { n:'Jalapeños',      img:'images/Jalepeno-nobg.png'        }
+          { n:'Chicken' },
+          { n:'Southwest Sauce' },
+          { n:'Jalapeños' }
         ]
       },
       { id:'cheeseburger',name:'Cheeseburger',    popular:false,
         ingredients:[
-          { n:'Beef',              img:'images/Beef-nobg.png'         },
-          { n:'Onion',             img:'images/Onion-nobg.png'        },
-          { n:'Dill Pickles',      img:'images/Pickles-nobg.png'      },
-          { n:'Cheddar',           img:'images/Cheddar-nobg.png'      },
-          { n:'Cheeseburger Sauce',img:''                             }
+          { n:'Beef' },
+          { n:'Onion' },
+          { n:'Dill Pickles' },
+          { n:'Cheddar' },
+          { n:'Cheeseburger Sauce' }
         ]
       },
       { id:'veggie',      name:'Veggie',          popular:false,
         ingredients:[
-          { n:'Mushrooms',    img:'images/Mushroom-nobg.png'     },
-          { n:'Black Olives', img:'images/Black_Olive-nobg.png'  },
-          { n:'Green Peppers',img:'images/Green_Pepper-nobg.png' },
-          { n:'Onions',       img:'images/Onion-nobg.png'        }
+          { n:'Mushrooms' },
+          { n:'Black Olives' },
+          { n:'Green Peppers' },
+          { n:'Onions' }
         ]
       }
     ];
@@ -455,7 +454,6 @@
       return `
         <div class="ing-wrap${wrapClass?' '+wrapClass:''}" id="wrap-${pizzaId}-${ing.n.replace(/\s/g,'_')}">
           <div class="ing-face" onclick="toggleIng('${pizzaId}','${ing.n}',${isHalf})">
-            ${ing.img ? `<img src="${ing.img}" alt="${ing.n}" class="ing-img">` : `<div style="width:36px;height:36px;flex-shrink:0"></div>`}
             <div class="ing-name-wrap">
               <div class="ing-name">${ing.n}</div>
               <div class="ing-status">${statusTxt}</div>
