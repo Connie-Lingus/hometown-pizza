@@ -104,7 +104,6 @@
       padding: 11px 14px; cursor: pointer; min-height: 62px;
     }
     .ing-face:active { opacity: 0.85; }
-    .ing-img { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
     .ing-info { flex: 1; }
     .ing-name { font-size: 15px; font-weight: 600; color: var(--text); }
     .ing-wrap.sel .ing-name { color: var(--red-dark); }
@@ -229,7 +228,6 @@
         <div id="sauces"></div>
         <div class="gb-card" id="gb-card">
           <div class="gb-inner">
-            <img src="images/Garlic_Butter-nobg.png" alt="Garlic Butter" style="width:44px;height:44px;object-fit:contain;flex-shrink:0">
             <div class="gb-text">
               <div class="gb-name">Garlic Butter Crust</div>
               <div class="gb-desc">Brush the entire crust with golden garlic butter — rich, savory flavor baked into every layer.</div>
@@ -312,39 +310,39 @@
   ];
 
   const SAUCES = [
-    { name:"Marinara", desc:"Classic tomato", img:"images/Marinara_Basil_2-nobg.png" }
+    { name:"Marinara", desc:"Classic tomato" }
   ];
 
   const CHEESE_ADDONS = [
-    { name:"Cheddar",     desc:"Sharp — blends great with mozz", img:"images/Cheddar-nobg.png"     },
-    { name:"Pepper Jack", desc:"Spicy kick — great with meats",  img:"images/Pepper_Jack-nobg.png" }
+    { name:"Cheddar",     desc:"Sharp — blends great with mozz" },
+    { name:"Pepper Jack", desc:"Spicy kick — great with meats"  }
   ];
 
   const TOP_GROUPS = [
     { label:"Meats", items:[
-      { n:"Pepperoni",       img:"images/Pepperoni-nobg.png"        },
-      { n:"Beef",            img:"images/Beef-nobg.png"             },
-      { n:"Pork Sausage",    img:"images/Pork_Sausage_2-nobg.png"   },
-      { n:"Italian Sausage", img:"images/Italian_Sausage-nobg.png"  },
-      { n:"Ham",             img:"images/Ham-nobg.png"              },
-      { n:"Bacon",           img:"images/Bacon-nobg.png"            },
-      { n:"Chicken",         img:"images/Grilled_Chicken-nobg.png"  },
-      { n:"Diced Ham",       img:"images/Ham-nobg.png"              }
+      { n:"Pepperoni"       },
+      { n:"Beef"            },
+      { n:"Pork Sausage"    },
+      { n:"Italian Sausage" },
+      { n:"Ham"             },
+      { n:"Bacon"           },
+      { n:"Chicken"         },
+      { n:"Diced Ham"       }
     ]},
     { label:"Vegetables & More", items:[
-      { n:"Onions",          img:"images/Onion-nobg.png"               },
-      { n:"Green Peppers",   img:"images/Green_Pepper-nobg.png"        },
-      { n:"Mushrooms",       img:"images/Mushroom-nobg.png"            },
-      { n:"Black Olives",    img:"images/Black_Olive-nobg.png"         },
-      { n:"Jalapeños",       img:"images/Jalepeno-nobg.png"            },
-      { n:"Tomatoes",        img:"images/Tomato-nobg.png"              },
-      { n:"Green Olives",    img:"images/Green_Olive-nobg.png"         },
-      { n:"Peperoncini",     img:"images/Peperoncini_Peppers-nobg.png" },
-      { n:"Spinach",         img:"images/Spinach-nobg.png"             },
-      { n:"Pineapple",       img:"images/Pineapple-nobg.png"           },
-      { n:"Kalamata Olives", img:"images/Black_Olive-nobg.png"         },
-      { n:"Sauerkraut",      img:"images/Kraut-nobg.png"                },
-      { n:"Dill Pickles",    img:"images/Pickles-nobg.png"              }
+      { n:"Onions"          },
+      { n:"Green Peppers"   },
+      { n:"Mushrooms"       },
+      { n:"Black Olives"    },
+      { n:"Jalapeños"       },
+      { n:"Tomatoes"        },
+      { n:"Green Olives"    },
+      { n:"Peperoncini"     },
+      { n:"Spinach"         },
+      { n:"Pineapple"       },
+      { n:"Kalamata Olives" },
+      { n:"Sauerkraut"      },
+      { n:"Dill Pickles"    }
     ]}
   ];
 
@@ -481,7 +479,6 @@
         : '';
 
       face.innerHTML = `
-        ${s.img?`<img src="${s.img}" alt="${s.name}" class="ing-img">`:''}
         <div class="ing-info"><div class="ing-name">${s.name}</div><div class="ing-sub">${s.desc}</div></div>
         <div class="ing-right">${badgeHtml}</div>`;
 
@@ -529,7 +526,6 @@
     const face = document.createElement('div');
     face.className = 'ing-face';
     face.innerHTML = `
-      <img src="images/Mozzarella-nobg.png" alt="Mozzarella" class="ing-img">
       <div class="ing-info"><div class="ing-name">Mozzarella</div><div class="ing-sub">Always included</div></div>
       <div class="ing-right">${badgeHtml}</div>`;
 
@@ -566,7 +562,6 @@
       const face = document.createElement('div');
       face.className = 'ing-face';
       face.innerHTML = `
-        ${ch.img?`<img src="${ch.img}" alt="${ch.name}" class="ing-img">`:''}
         <div class="ing-info"><div class="ing-name">${ch.name}</div><div class="ing-sub">${ch.desc}</div></div>
         <div class="ing-right">${badgeHtml}</div>`;
 
@@ -631,7 +626,6 @@
         face.className = 'ing-face';
         face.innerHTML = `
           <div style="display:flex;align-items:center;gap:10px;flex:1">
-            ${t.img?`<img src="${t.img}" alt="${t.n}" class="ing-img">`:'<div style="width:42px;height:42px;flex-shrink:0"></div>'}
             <div><div class="ing-name">${t.n}</div>${priceLabel}</div>
           </div>
           <div class="ing-right">${badgeHtml}</div>`;

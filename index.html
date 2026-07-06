@@ -144,15 +144,12 @@
     .menu-card:active { transform: scale(0.98); }
     .menu-card.live { border-color: var(--red); background: var(--red-light); }
     .menu-card.soon { opacity: 1; cursor: default; }
-    .menu-card.soon .card-icon:has(img) { background: transparent; }
-    .menu-card.soon .card-icon:not(:has(img)) { opacity: 0.45; }
+    .menu-card.soon .card-icon { opacity: 0.45; }
     .menu-card.soon .card-body { opacity: 0.45; }
     .menu-card.soon .card-right { opacity: 0.45; }
     .card-icon { width: 48px; height: 48px; border-radius: 10px; background: var(--dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .menu-card.live .card-icon { background: var(--red); }
-    .menu-card.live .card-icon:has(img) { background: transparent; }
     .card-icon i { font-size: 24px; color: #fff; }
-    .card-icon img { width: 52px; height: 52px; object-fit: contain; }
     .card-body { flex: 1; }
     .card-name { font-size: 16px; font-weight: 700; color: var(--dark); letter-spacing: -0.2px; }
     .menu-card.live .card-name { color: var(--red-dark); }
@@ -330,19 +327,19 @@
     <div class="menu-grid">
 
       <a href="gourmet-pizza.html" class="menu-card live">
-        <div class="card-icon"><img src="images/Alfredo_Pizza-nobg.png" alt="Gourmet Pizza"></div>
+        <div class="card-icon"><i class="ti ti-chef-hat"></i></div>
         <div class="card-body"><div class="card-name">Gourmet Pizza</div><div class="card-desc">Premium Ingredients</div></div>
         <div class="card-right"><i class="ti ti-chevron-right card-arrow"></i></div>
       </a>
 
       <a href="specialty-pizza.html" class="menu-card live">
-        <div class="card-icon"><img src="images/The_Works-nobg.png" alt="Specialty Pizza"></div>
+        <div class="card-icon"><i class="ti ti-pizza"></i></div>
         <div class="card-body"><div class="card-name">Specialty Pizza</div><div class="card-desc">Loaded Combinations</div></div>
         <div class="card-right"><i class="ti ti-chevron-right card-arrow"></i></div>
       </a>
 
       <a href="pizza-app.html" class="menu-card live">
-        <div class="card-icon"><img src="images/Pizza_Box_2-nobg.png" alt="Build a Pizza"></div>
+        <div class="card-icon"><i class="ti ti-tools-kitchen-2"></i></div>
         <div class="card-body"><div class="card-name">Build a Pizza</div><div class="card-desc">Your Favorite Size, Crust, Sauce & Toppings</div></div>
         <div class="card-right"><i class="ti ti-chevron-right card-arrow"></i></div>
       </a>
@@ -354,7 +351,7 @@
       </a>
 
       <a href="sandwiches.html" class="menu-card live">
-        <div class="card-icon"><img src="images/Meatball_Sandwhich-nobg.png" alt="Sandwiches"></div>
+        <div class="card-icon"><i class="ti ti-baguette"></i></div>
         <div class="card-body"><div class="card-name">Sandwiches</div><div class="card-desc">Hot & Toasty</div></div>
         <div class="card-right"><i class="ti ti-chevron-right card-arrow"></i></div>
       </a>
