@@ -72,7 +72,7 @@
   </div>
 
   <div class="page-body">
-    <div class="page-eyebrow">Fountain Drinks & Coffee</div>
+    <div class="page-eyebrow">Fountain Drinks & 2 Liters</div>
     <div class="page-title">Beverages</div>
     <div id="bev-list"></div>
   </div>
@@ -94,21 +94,29 @@
       {
         label: 'Fountain Drinks',
         items: [
-          { id: 'pepsi',            name: 'Pepsi',             price: 2.99 },
-          { id: 'diet-pepsi',       name: 'Diet Pepsi',        price: 2.99 },
-          { id: 'cherry-pepsi',     name: 'Wild Cherry Pepsi', price: 2.99 },
-          { id: 'dr-pepper',        name: 'Dr. Pepper',        price: 2.99 },
-          { id: 'starry',           name: 'Starry',            price: 2.99 },
-          { id: 'mountain-dew',     name: 'Mountain Dew',      price: 2.99 },
-          { id: 'mug-root-beer',    name: 'Mug Root Beer',     price: 2.99 },
-          { id: 'lemonade',         name: 'Lemonade',          price: 2.99 },
-          { id: 'unsweet-tea',      name: 'Unsweet Tea',       price: 2.99 }
+          { id: 'pepsi',              name: 'Pepsi',                 price: 2.99 },
+          { id: 'pepsi-zero',         name: 'Pepsi Zero',            price: 2.99 },
+          { id: 'dr-pepper',          name: 'Dr. Pepper',            price: 2.99 },
+          { id: 'diet-dr-pepper',     name: 'Diet Dr. Pepper',       price: 2.99 },
+          { id: 'starry',             name: 'Starry',                price: 2.99 },
+          { id: 'mountain-dew',       name: 'Mountain Dew',          price: 2.99 },
+          { id: 'aw-root-beer',       name: 'A&W Root Beer',         price: 2.99 },
+          { id: 'ct-lemonade',        name: 'Country Time Lemonade', price: 2.99 },
+          { id: 'gatorade-fp',        name: 'Gatorade Fruit Punch',  price: 2.99 },
+          { id: 'brewed-tea',         name: 'Brewed Tea',            price: 2.99 },
+          { id: 'brewed-sweet-tea',   name: 'Brewed Sweet Tea',      price: 2.99 }
         ]
       },
       {
-        label: 'Coffee',
+        label: '2 Liters',
         items: [
-          { id: 'coffee', name: 'Coffee', desc: 'Fresh brewed.', price: 1.89 }
+          { id: '2l-pepsi',          name: 'Pepsi',           cartName: 'Pepsi (2 Liter)',           price: 3.99 },
+          { id: '2l-pepsi-zero',     name: 'Pepsi Zero',      cartName: 'Pepsi Zero (2 Liter)',      price: 3.99 },
+          { id: '2l-dr-pepper',      name: 'Dr. Pepper',      cartName: 'Dr. Pepper (2 Liter)',      price: 3.99 },
+          { id: '2l-diet-dr-pepper', name: 'Diet Dr. Pepper', cartName: 'Diet Dr. Pepper (2 Liter)', price: 3.99 },
+          { id: '2l-mountain-dew',   name: 'Mountain Dew',    cartName: 'Mountain Dew (2 Liter)',    price: 3.99 },
+          { id: '2l-starry',         name: 'Starry',          cartName: 'Starry (2 Liter)',          price: 3.99 },
+          { id: '2l-orange-fanta',   name: 'Orange Fanta',    cartName: 'Orange Fanta (2 Liter)',    price: 3.99 }
         ]
       }
     ];
@@ -146,8 +154,8 @@
           cartItemId: itemId,
           id: itemId + '-' + Date.now(),
           type: 'beverage',
-          display: item.name,
-          name: item.name,
+          display: item.cartName || item.name,
+          name: item.cartName || item.name,
           price: item.price * s.qty,
           details
         });
